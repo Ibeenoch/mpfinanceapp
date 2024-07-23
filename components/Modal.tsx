@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Modal, View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
-import Spinner from '../app/spinner';
+import Spinner from '../assets/tube-spinner.svg';
 import { useAppSelector } from '../features/hooks';
 interface ModalProps {
     modalOn: boolean;
@@ -13,7 +13,6 @@ const AppModal = ({ modalOn } : ModalProps) => {
   console.log('modal is ', modalOn);
 
   return (
-    <View style={ styles.container}>
     <View style={styles.container}>
       <StatusBar style="auto" />
       <Modal
@@ -23,11 +22,10 @@ const AppModal = ({ modalOn } : ModalProps) => {
         animationType="slide"
       >
         <View >
-          <Spinner  />
+          <Spinner width={150} height={150} />
         </View>
       </Modal>
      
-    </View>
     </View>
   );
 };
@@ -38,7 +36,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#343631',
+    backgroundColor: 'rgba(255, 0, 0, 0.2)',
     opacity: 0.8,
     
   },

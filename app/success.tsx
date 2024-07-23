@@ -10,12 +10,13 @@ const Success = () => {
         router.push('biometrics')
     }
   return (
-    <View style={className`${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} h-screen flex-1 `}>
+    <View style={className`${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} h-screen flex-1  `}>
 
-      <View style={className`flex-row justify-center items-center`}>
-        <View style={className`flex-row w-70 rounded-full bg-[#093f28] justify-center items-center`}>
-        <View style={className`flex-row w-65 rounded-full bg-[#1eb12d] justify-center items-center`}>
-        <View style={className`flex-row w-60 rounded-full bg-[#14802b] justify-center items-center`}>
+      
+      <View style={className`flex-1 flex-row justify-center items-center`}>
+        <View style={className`flex-row w-40 h-40 rounded-full bg-[#093f28] justify-center items-center`}>
+        <View style={className`flex-row w-35 h-35 rounded-full bg-[#1eb12d] justify-center items-center`}>
+        <View style={className`flex-row w-30 h-30 rounded-full bg-[#14802b] justify-center items-center`}>
             <CheckMark width={50} height={50} fill={'white'} />
 
 
@@ -30,6 +31,8 @@ const Success = () => {
         <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} font-bold text-2xl text-left pt-5 pb-1`}>Profile Created</Text>
         <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} text-xs text-left pb-7`}>Congrats! Your profile has been created</Text>
     </View>
+
+     
 
     <View style={className`p-4 absolute bottom-0 w-full`}>
       

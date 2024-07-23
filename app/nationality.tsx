@@ -19,7 +19,7 @@ import ArrowLeft from '../assets/arrow-back-svgrepo-com.svg'
 import ArrowRight from '../assets/arrow-forward-svgrepo-com.svg'
 import { router } from 'expo-router';
 import { Picker } from '@react-native-picker/picker';
-import StatusSpinner from '../components/statusCircle.js';
+// import StatusSpinner from '../components/statusCircle.js';
 
 
 
@@ -33,9 +33,9 @@ const Nationality = () => {
         <View style={className`my-4 flex-row justify-between px-5 `}>
             <Text></Text>
             <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} font-semibold`}>Upgrade To Level 1</Text>
-            <View>
+            {/* <View>
                 <StatusSpinner lower={7} upper={1} num={0.25} />
-            </View>
+            </View> */}
         </View>
 
         <View style={className`text-center font-bold pb-6`}>

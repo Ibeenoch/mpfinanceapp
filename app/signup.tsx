@@ -220,6 +220,8 @@ const signup = () => {
 
           </View>
 
+          
+
           <View style={className`max-w-sm mx-4 rounded-xl my-8 ${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#343631]'} py-1 px-6`}>
         <View style={className`p-2 max-w-sm flex-row  items-center  ${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#343631]'}`}>
           <View style={className`p-1 w-full flex-row  ${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#343631]'}  rounded-xl `}>
@@ -246,15 +248,15 @@ const signup = () => {
         ( <View style={className`p-3`}>
           {
             colorScheme === 'light' ? (
-              <TextInput onPress={HandlehideFooter}  onChangeText={handleReferralChange} onBlur={handleReferralBlur} value={referral} placeholder='Referral Code (Optional)' placeholderTextColor='#b9c1ce'  style={className`px-4 py-6 text-sm rounded-lg bg-white text-gray-200`} />
+              <TextInput onPress={HandlehideFooter}  onChangeText={handleReferralChange}  value={referral} placeholder='Referral Code (Optional)' placeholderTextColor='#b9c1ce'  style={className`px-4 py-2 text-sm rounded-lg bg-white text-gray-200`} />
             ) : (
-              <TextInput  onPress={HandlehideFooter} onChangeText={handleReferralChange} value={referral} placeholder='Referral Code (Optional)' placeholderTextColor='#b9c1ce' style={className`px-4 py-6 text-sm rounded-lg  bg-[#000e28] text-gray-200 `}  />
+              <TextInput  onPress={HandlehideFooter} onChangeText={handleReferralChange} value={referral} placeholder='Referral Code (Optional)' placeholderTextColor='#b9c1ce' style={className`px-4 py-2 text-sm rounded-lg  bg-[#1a263e] text-gray-200 `}  />
             )
           }
          </View>)
       }
       
-      <AppModal modalOn={showModal} />
+      {/* <AppModal modalOn={showModal} /> */}
 
          </View>
     </View>
@@ -278,7 +280,7 @@ const signup = () => {
               {/* disabled={!btnActive} */}
       
               <View style={className`max-w-sm`}>
-                <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${colorScheme === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black'}`  :  'bg-[#e6edfd]'} py-6 px-4 flex-row items-center justify-center`}  >
+                <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${colorScheme === 'light' ? 'bg-[#e5e5e5] text-white' : 'bg-[#e5e5e5] text-black'}`  :  'bg-[#e6edfd]'} py-6 px-4 flex-row items-center justify-center`}  >
                   <Text style={className`${btnActive && colorScheme === 'dark' ? 'text-white' : 'text-black'} text-sm font-semibold`}>Next</Text>
                 </TouchableOpacity>
               </View>

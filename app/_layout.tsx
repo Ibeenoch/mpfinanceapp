@@ -68,8 +68,8 @@ console.log('moooo ', showmodal);
             headerTitleStyle: {
                 fontSize: 15,
             },
-            headerRight: () => <View style={className` ${colorScheme === 'light' ? '#0261ef' : '#ffd75b'} `}>
-                                    <Phone width={5} height={5} fill={'white'} />
+            headerRight: () => <View style={className` ${colorScheme === 'light' ? '#0261ef' : '#ffd75b'} flex-row items-center gap-1 `}>
+                                    <Phone width={10} height={10} fill={`${colorScheme === 'light' ? '#0261ef' : 'white'}`} />
                                     <Text style={{ color: colorScheme === 'dark' ? '#ffd75b' : '#0261ef'  }}>***5566</Text>
                                 </View> ,
             

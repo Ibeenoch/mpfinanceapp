@@ -56,7 +56,7 @@ const App = () => {
     <SafeAreaView style={className`flex-1 justify-center items-center  ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'}`}>
 
         <View style={className`text-center text-2xl font-bold -mt-38 pb-6`}>
-          <Text style={className`text-center text-2xl font-bold text-white`}>MoniePoint</Text>
+          <Text style={className`text-center text-2xl font-bold  ${currentMode === 'light' ? 'text-black' : 'text-white'}`}>MoniePoint</Text>
         </View>
     
       <View style={styles.scrollContainer}>
@@ -78,8 +78,8 @@ const App = () => {
             return (
               <View style={{width: windowWidth, height: 400}} key={imageIndex}>
                 <Image source={image} style={styles.card} />
-                 <Text style={className`text-white text-center w-xs font-bold text-3xl mt-4`}>{textBig[imageIndex]}</Text>
-                 <Text style={className`text-white text-center mx-auto w-[230px] font-bold text-xs py-4`}>{textSmall[imageIndex]}</Text>
+                 <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} text-center w-xs font-bold text-3xl mt-4`}>{textBig[imageIndex]}</Text>
+                 <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} text-center mx-auto w-[230px] font-bold text-xs py-4`}>{textSmall[imageIndex]}</Text>
               </View>
             );
           })}
