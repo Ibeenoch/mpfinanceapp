@@ -29,7 +29,7 @@ const Nationality = () => {
 
 
   return (
-    <SafeAreaView style={className`flex-1 justify-center items-center ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} `}>
+    <SafeAreaView style={className`flex-1 py-6 px-5 items-center ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} `}>
         <View style={className`my-4 flex-row justify-between px-5 `}>
             <Text></Text>
             <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} font-semibold`}>Upgrade To Level 1</Text>
@@ -62,10 +62,11 @@ const Nationality = () => {
 
         
         <View style={className`flex-row gap-4 justify-center absolute bottom-7`}>
-          <TouchableOpacity onPress={() => router.push('nationality')} style={className`px-2 py-4 w-full bg-[#19212c] rounded-lg flex-row justify-center items-center`}>
-            <Text style={className`text-xs font-bold text-[#ffd75b]`}>Proceed</Text>
+          <TouchableOpacity onPress={() => router.push('nationality')} style={className`px-2 py-4 w-full ${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'} rounded-lg flex-row justify-center items-center`}>
+            <Text style={className`text-xs font-bold ${currentMode === 'light' ? 'text-white' : 'text-[#ffd75b]'} `}>Proceed</Text>
           </TouchableOpacity>
         </View>
+        
 
     </SafeAreaView>
   );

@@ -80,7 +80,9 @@ console.log('moooo ', showmodal);
             <Stack.Screen name='success'  options={{ headerShown: false }} />
             <Stack.Screen name='biometrics'  options={{ headerShown: false }} />
             <Stack.Screen name='cbninfo'  options={{ headerShown: false }} />
+            <Stack.Screen name='cbnlast'  options={{ headerShown: false }} />
             <Stack.Screen name='verification'  options={{ headerShown: false }} />
+            <Stack.Screen name='nationality'  options={{ headerShown: false }} />
         </Stack>
   )
 }

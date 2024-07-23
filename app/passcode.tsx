@@ -8,6 +8,7 @@ import DeleteIcon from '../assets/backspace-svgrepo-com.svg';
 const passcode = () => {
     const currentMode = useColorScheme();
     const [isFocus, setISfocus] = useState<boolean>(false);
+    const [currentIndex, setCurrentIndex] = useState<number>();
     const [arrNum, setArrNum] = useState<string[]>(Array(6).fill(''));
   
     // Create refs for each TextInput
@@ -23,6 +24,7 @@ const passcode = () => {
   
         // Focus the next TextInput
         if (inputRefs.current[nextIndex + 1]) {
+          setCurrentIndex(nextIndex + 1)
           inputRefs.current[nextIndex + 1].focus();
         }
       }
@@ -67,9 +69,10 @@ const passcode = () => {
               }
             }}
             cursorColor={`${currentMode === 'light' ? '#0261ef' : 'white'}`}
-            editable={false}
-            onFocus={() => handleFocus(index)}
-            style={className`p-2 rounded-md font-bold text-lg text-center ${ isFocus ? 'border border-[#0261ef]' : ''}  ${currentMode === 'light' ? 'text-black bg-white' : 'text-white bg-[#1a263e]'}`}
+            // editable={false}
+            showSoftInputOnFocus={false}
+            // onFocus={() => handleFocus(index)}
+            style={className`p-2 rounded-md font-bold text-lg text-center ${ currentIndex === index ? 'border border-[#0261ef]' : ''}  ${currentMode === 'light' ? 'text-black bg-white' : 'text-white bg-[#1a263e]'}`}
             maxLength={1} // Ensure only one character
           />
         ))}

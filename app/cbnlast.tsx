@@ -76,7 +76,7 @@ const CbnLast = () => {
             return (
               <View style={{width: windowWidth, height: 400}} key={imageIndex}>
                 <Image source={image} style={styles.card} />
-                 <Text style={className` ${currentMode === 'light' ? 'text-black' : 'text-white'} text-center w-xs font-bold text-3xl mt-4`}>{textBig[imageIndex]}</Text>
+                 <Text style={className` ${currentMode === 'light' ? 'text-black' : 'text-white'} text-center w-xs font-bold text-xs px-5 mt-4`}>{textBig[imageIndex]}</Text>
               </View>
             );
           })}
@@ -89,9 +89,9 @@ const CbnLast = () => {
 
 
         
-        <View style={className`flex-row gap-4 justify-center absolute bottom-7`}>
-          <TouchableOpacity onPress={() => router.push('nationality')} style={className`px-2 py-4 w-full bg-[#19212c] rounded-lg flex-row justify-center items-center`}>
-            <Text style={className`text-xs font-bold text-[#ffd75b]`}>Proceed</Text>
+        <View style={className`flex-row gap-4 px-4 justify-center absolute bottom-7`}>
+          <TouchableOpacity onPress={() => router.push('nationality')} style={className`px-2 py-4 w-full  ${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'} rounded-lg flex-row justify-center items-center`}>
+            <Text style={className`text-xs font-bold  ${currentMode === 'light' ? 'text-white' : 'text-white'}`}>Proceed</Text>
           </TouchableOpacity>
         </View>
 
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginVertical: 0,
     marginHorizontal: 19,
-    borderRadius: 5,
+    borderRadius: 15,
     overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',

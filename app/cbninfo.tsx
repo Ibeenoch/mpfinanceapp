@@ -15,8 +15,8 @@ import {
   useColorScheme,
 } from 'react-native';
 import image from '../assets/img.js';
-import ArrowLeft from '../assets/arrow-back-svgrepo-com.svg'
-import ArrowRight from '../assets/arrow-forward-svgrepo-com.svg'
+import ArrowLeft from '../assets/arrow-ios-back-svgrepo-com.svg'
+import ArrowRight from '../assets/arrow-ios-forward.svg'
 import { router } from 'expo-router';
 
 let s1 = image.s6, s2= image.s7;
@@ -53,10 +53,10 @@ const CbnInfo = () => {
   const currentMode = useColorScheme();
 
   return (
-    <SafeAreaView style={className`flex-1 justify-center items-center  ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'}`}>
+    <SafeAreaView style={className`flex-1 h-screen justify-center items-center  ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'}`}>
 
-        <View style={className`text-center text-2xl font-bold -mt-38 pb-6`}>
-          <Text style={className`text-center text-2xl font-bold text-white`}>MoniePoint</Text>
+        <View style={className`text-center text-2xl font-bold mt-8 pb-6`}>
+          <Text style={className`text-center text-2xl font-bold  ${currentMode === 'light' ? 'text-black' : 'text-white'}`}>MoniePoint</Text>
         </View>
     
       <View style={styles.scrollContainer}>
@@ -78,7 +78,7 @@ const CbnInfo = () => {
             return (
               <View style={{width: windowWidth, height: 400}} key={imageIndex}>
                 <Image source={image} style={styles.card} />
-                 <Text style={className`text-white text-center w-xs font-bold text-3xl mt-4`}>{textBig[imageIndex]}</Text>
+                 <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} text-center w-xs font-bold text-xs px-5 mt-4`}>{textBig[imageIndex]}</Text>
               </View>
             );
           })}
@@ -88,6 +88,7 @@ const CbnInfo = () => {
        
       </View>
 
+      
        <View style={styles.indicatorContainer}>
           {images.map((image, imageIndex) => {
             const width = scrollX.interpolate({
@@ -100,25 +101,25 @@ const CbnInfo = () => {
               extrapolate: 'clamp',
             });
             return (
-                <View style={className`flex-row items-center justify-between px-4`}>
-
                     <Animated.View
                       key={imageIndex}
                       style={[styles.normalDot, {width}]}
                     />
-
-                    <View style={className`flex-row items-center justify-between px-4`}>
-                        <View style={className`p-3 rounded-full ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#19253d]'}`} >
-                            <ArrowLeft fill={`${ currentMode === 'light' ? 'black' : 'white'}`} />
-                        </View>
-                        <View style={className`p-3 rounded-full ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#ffd75b]'}`} >
-                            <ArrowRight fill={`${ currentMode === 'light' ? 'black' : 'white'}`} />
-                        </View>
-                    </View>
-                </View>
             );
           })}
           
+           <View style={className`flex-row items-center gap-2 justify-between pl-19`}>
+            <TouchableOpacity onPress={() => router.back()}>
+              <View  style={className`p-3 rounded-full ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#19253d]'}`} >
+                  <ArrowLeft  width={35} height={35} fill={`${ currentMode === 'light' ? 'blue' : 'white'}`} />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => router.push('cbnlast')}>
+              <View style={className`p-3 rounded-full ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#ffd75b]'}`} >
+                  <ArrowRight  width={35} height={35} fill={`${ currentMode === 'light' ? 'blue' : 'white'}`} />
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
 
 
@@ -167,8 +168,10 @@ const styles = StyleSheet.create({
   indicatorContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 9,
+    justifyContent: 'space-between',
+    marginTop: 12,
+    gap: 2,
+    paddingTop: 16,
   },
 });
 

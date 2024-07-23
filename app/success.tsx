@@ -14,23 +14,28 @@ const Success = () => {
 
       
       <View style={className`flex-1 flex-row justify-center items-center`}>
-        <View style={className`flex-row w-40 h-40 rounded-full bg-[#093f28] justify-center items-center`}>
-        <View style={className`flex-row w-35 h-35 rounded-full bg-[#1eb12d] justify-center items-center`}>
-        <View style={className`flex-row w-30 h-30 rounded-full bg-[#14802b] justify-center items-center`}>
-            <CheckMark width={50} height={50} fill={'white'} />
+        <View style={className`flex-col items-center justify-center`}>
+          <View style={className`flex-row w-40 h-40 rounded-full bg-[#093f28] justify-center items-center`}>
+          <View style={className`flex-row w-35 h-35 rounded-full bg-[#1eb12d] justify-center items-center`}>
+          <View style={className`flex-row w-30 h-30 rounded-full bg-[#14802b] justify-center items-center`}>
+              <CheckMark width={50} height={50} fill={'white'} />
 
 
+          </View>
+
+          </View>
+
+          </View>
+
+          <View style={className``}>
+          <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} text-center font-bold text-2xl pt-5 pb-1`}>Profile Created</Text>
+          <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} text-center text-xs pb-7`}>Congrats! Your profile has been created</Text>
+          </View>
         </View>
 
-        </View>
-
-        </View>
       </View>
 
-      <View style={className``}>
-        <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} font-bold text-2xl text-left pt-5 pb-1`}>Profile Created</Text>
-        <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} text-xs text-left pb-7`}>Congrats! Your profile has been created</Text>
-    </View>
+      
 
      
 
