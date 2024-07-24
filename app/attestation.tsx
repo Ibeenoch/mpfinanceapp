@@ -18,7 +18,7 @@ const attestation = () => {
             </View>
 
             <Text style={className`text-gray-500 text-xs text-left`}>Nationality</Text>
-            <View style={className`w-full flex-col rounded-xl p-2  ${ getmode.secondLayerBgColor}  `}>
+            <View style={className`w-full flex-col rounded-xl p-2  ${ getmode.secondLayerBgColorblue}  `}>
                     <View style={className`flex-row rounded-tl-xl rounded-bl-xl border-r border-gray-300 border-opacity-50 items-center p-2 `}>
                         <Image source={require('../assets/flag.png')} style={className`w-8 h-8`} />
                         <Text style={className` px-1 ${getmode.textColorTwo}`}>Nigeria</Text>
@@ -32,13 +32,13 @@ const attestation = () => {
                     </View>
             </View>
 
-            <View style={className`w-full flex-row justify-between px-6 my-4 py-4 rounded-xl   ${ getmode.secondLayerBgColor}  `}>
+            <View style={className`w-full flex-row justify-between px-6 my-4 py-4 rounded-xl   ${ getmode.secondLayerBgColorblue}  `}>
                 <Text style={className`${ getmode.textColorTwo} text-sm`}>Face Verification</Text>
                 <Text style={className`text-[#1fb02f] py-1 px-2 bg-[#062f27] rounded-xl text-sm`}>Successful</Text>
             </View>
 
             <Text style={className`text-gray-500 text-xs mt-4 text-left`}>Residential Address</Text>
-            <View style={className`w-full rounded-xl p-2  ${ getmode.secondLayerBgColor}  `}>
+            <View style={className`w-full rounded-xl p-2  ${ getmode.secondLayerBgColorblue}  `}>
                     
                     <View style={className`p-2 `}>
                         <Text style={className` px-1 text-left text-[11px] text-gray-500`}>Address</Text>
@@ -71,7 +71,7 @@ const attestation = () => {
             </View>
 
             <Text style={className`text-gray-500 pt-4 text-xs text-left`}>Pep Status</Text>
-            <View style={className`w-full flex-col rounded-xl p-2  ${ getmode.secondLayerBgColor}  `}>
+            <View style={className`w-full flex-col rounded-xl p-2  ${ getmode.secondLayerBgColorblue}  `}>
                     <View style={className`p-2 `}>
                         <Text style={className` px-1 text-left text-[11px] max-w-xs text-gray-300`}>Are you a politically exposed person or are you related to one</Text>
                         <Text style={className` px-1 text-left text-[12px] ${getmode.textColor}`}>No, i'm not</Text>
@@ -86,7 +86,7 @@ const attestation = () => {
             </View>
 
             <Text style={className`text-gray-500 text-xs pt-4 text-left`}>Source of income</Text>
-            <View style={className`w-full rounded-xl p-2  ${ getmode.secondLayerBgColor}  `}>
+            <View style={className`w-full rounded-xl p-2  ${ getmode.secondLayerBgColorblue}  `}>
                     <View style={className`p-2 `}>
                     <Text style={className` px-1 text-left text-[11px] max-w-xs text-gray-500`}>What is your occupation?</Text>
                         <Text style={className` px-1 text-left text-[12px] ${getmode.textColorTwo}`}>Software Developer</Text>

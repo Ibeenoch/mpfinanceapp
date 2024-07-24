@@ -18,6 +18,7 @@ const useThemeStyles = () => {
     lighterBackGroundColor: currentMode === 'light' ? 'bg-white' : 'bg-[#0e1a32]',
     firstLayerBgColor: currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#0e1a32]',
     secondLayerBgColor: currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#1a263e]',
+    secondLayerBgColorblue: currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]',
     thirdLayerBgColor: currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#36454f]',
   };
 };
