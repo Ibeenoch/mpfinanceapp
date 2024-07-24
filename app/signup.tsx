@@ -139,7 +139,7 @@ const signup = () => {
 
     const handleNext = () => {
       setShowModal(true);
-      dispatch(shouldShowModal(true))
+      // dispatch(shouldShowModal(true))
       router.push('verifyphone')
     }
 
@@ -275,13 +275,13 @@ const signup = () => {
             <View style={className`p-4 absolute bottom-0 w-full`}>
       
               <View style={className`flex-row max-w-sm text-left text-xs py-4`}>
-              <Text style={className` ${ colorScheme === 'light' ? 'text-black' : 'text-white' } `}>By Clicking on "Create Profile", you agree to Moniepoint's <Text style={className`text-[#0261ef] dark:text-[#343631]`}>Terms and Conditions </Text>and <Text>Privacy Policy</Text> </Text>
+              <Text style={className` ${ colorScheme === 'light' ? 'text-black' : 'text-white' } font-bold text-[12px] `}>By Clicking on "Create Profile", you agree to Moniepoint's <Text style={className`text-[#0261ef] text-[11px] font-bold dark:text-[#343631]`}>Terms and Conditions </Text>and <Text>Privacy Policy</Text> </Text>
               </View>
               {/* disabled={!btnActive} */}
       
               <View style={className`max-w-sm`}>
-                <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${colorScheme === 'light' ? 'bg-[#e5e5e5] text-white' : 'bg-[#e5e5e5] text-black'}`  :  'bg-[#e6edfd]'} py-6 px-4 flex-row items-center justify-center`}  >
-                  <Text style={className`${btnActive && colorScheme === 'dark' ? 'text-white' : 'text-black'} text-sm font-semibold`}>Next</Text>
+                <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${colorScheme === 'light' ? 'bg-[#e5e5e5] text-white' : 'bg-[#343631] text-black'}`  :  'bg-[#343631]'} py-6 px-4 flex-row items-center justify-center`}  >
+                  <Text style={className`${btnActive && colorScheme === 'dark' ? 'text-white' : 'text-white'} text-sm font-semibold`}>Next</Text>
                 </TouchableOpacity>
               </View>
             </View>

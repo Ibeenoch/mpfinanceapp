@@ -31,7 +31,7 @@ const Nationality = () => {
   return (
     <SafeAreaView style={className`flex-1 py-6 px-5 items-center ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} `}>
         <View style={className`my-4 flex-row justify-between px-5 `}>
-            <Text></Text>
+            <View></View>
             <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} font-semibold`}>Upgrade To Level 1</Text>
             {/* <View>
                 <StatusSpinner lower={7} upper={1} num={0.25} />
@@ -43,13 +43,14 @@ const Nationality = () => {
           <Text style={className`text-center text-xs font-bold ${currentMode === 'light' ? 'text-black' : 'text-white'} py-3`}>Select the country you are from</Text>
         </View>
     
-        <View style={className`w-full flex-row rounded-xl    ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}  `}>
+        <View style={className`w-full flex-row rounded-xl  justify-between  ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}  `}>
                   <View style={className`flex-row rounded-tl-xl rounded-bl-xl border-r border-gray-300 border-opacity-50 items-center p-2    ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}`}>
                       <Image source={require('../assets/flag.png')} style={className`w-8 h-8`} />
                       <Text style={className` px-1 ${currentMode === 'light' ? 'text-black' : 'text-white'}`}>Nigeria</Text>
                   </View>
+                  <View>
                   <Text style={className`${currentMode === 'light' ? 'text-[#0261ef]' : 'text-[#19212c]'}`} >Change</Text>
-                    <Picker
+                    {/* <Picker
                         selectedValue={selectedValue}
                         onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                     >
@@ -57,13 +58,14 @@ const Nationality = () => {
                         <Picker.Item label="JavaScript" value="js" />
                         <Picker.Item label="Python" value="python" />
                         <Picker.Item label="C++" value="cpp" />
-                    </Picker>
+                    </Picker> */}
+                  </View>
          </View>
 
         
         <View style={className`flex-row gap-4 justify-center absolute bottom-7`}>
-          <TouchableOpacity onPress={() => router.push('nationality')} style={className`px-2 py-4 w-full ${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'} rounded-lg flex-row justify-center items-center`}>
-            <Text style={className`text-xs font-bold ${currentMode === 'light' ? 'text-white' : 'text-[#ffd75b]'} `}>Proceed</Text>
+          <TouchableOpacity onPress={() => router.push('verification')} style={className`px-2 py-4 w-full ${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'} rounded-lg flex-row justify-center items-center`}>
+            <Text style={className`text-xs font-bold ${currentMode === 'light' ? 'text-white' : 'text-white'} `}>Proceed</Text>
           </TouchableOpacity>
         </View>
         

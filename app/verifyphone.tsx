@@ -12,9 +12,7 @@ const verifyphone = () => {
     const { showmodal } = useAppSelector((state) => state.auth )
     const colorScheme = useColorScheme();
 
-    useEffect(() => {
-        dispatch(shouldShowModal(false))
-    }, [])
+   
 
     const handleNext = () => {
         router.push('signupemail')
@@ -25,8 +23,8 @@ const verifyphone = () => {
          </View>
 
         <View style={className`px-6`}>
-        <Text style={className` ${ colorScheme === 'light' ? 'text-black' : 'text-white'} font-bold text-xl text-left pt-5 pb-1`}>Verify Your Phone Number</Text>
-        <Text style={className` ${ colorScheme === 'light' ? 'text-black' : 'text-white'} text-xs text-left pb-7`}>we've just sent you a digit code. Check your messages and enter here</Text>
+          <Text style={className` ${ colorScheme === 'light' ? 'text-black' : 'text-white'} font-bold text-xl text-left pt-5 pb-1`}>Verify Your Phone Number</Text>
+          <Text style={className` ${ colorScheme === 'light' ? 'text-black' : 'text-white'} text-xs text-left pb-7`}>we've just sent you a digit code. Check your messages and enter here</Text>
         </View>
 
         <View style={className`mx-4 p-4 rounded-xl ${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#343631]'}`}>

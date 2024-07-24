@@ -13,7 +13,6 @@ import className from 'twrnc'
 const App = () => {
     let colorScheme = useColorScheme();
     const { showmodal } = useAppSelector((state) => state.auth );
-console.log('moooo ', showmodal);
 
   return (
         <Stack>
@@ -31,6 +30,36 @@ console.log('moooo ', showmodal);
             headerRight: () => <Text style={{ color: colorScheme === 'dark' ? `${showmodal ? '#000612' : '#ffd75b'}` : `${showmodal ? '#7f7f7f' : '#0261ef'}`  }}>Needs help</Text>,
             
             }} />
+            <Stack.Screen name='verification'  
+            options={{ 
+            headerShown: true, 
+            headerTitle: 'Upgrade To Level 1', 
+            headerTitleAlign: 'center',
+            headerStyle: {
+                backgroundColor:  colorScheme === 'dark' ? `${showmodal ? '' : '#0e1a32' }` : `${showmodal ? '' : '#f7f7f7'} `,
+            }, 
+            headerTintColor: colorScheme === 'dark' ? `${showmodal ? '' : '#ffd75b'}` : `${showmodal ? '' : '#0261ef'}`, 
+            headerTitleStyle: {
+                fontSize: 15,
+            },
+            headerRight: () => <Text style={{ color: colorScheme === 'dark' ? `${showmodal ? '' : '#ffd75b'}` : `${showmodal ? '' : '#0261ef'}`  }}>Needs help</Text>,
+            
+            }} />
+            <Stack.Screen name='attestation'  
+            options={{ 
+            headerShown: true, 
+            headerTitle: 'Upgrade To Level 1', 
+            headerTitleAlign: 'center',
+            headerStyle: {
+                backgroundColor:  colorScheme === 'dark' ? `${showmodal ? '' : '#0e1a32' }` : `${showmodal ? '' : '#f7f7f7'} `,
+            }, 
+            headerTintColor: colorScheme === 'dark' ? `${showmodal ? '' : '#ffd75b'}` : `${showmodal ? '' : '#0261ef'}`, 
+            headerTitleStyle: {
+                fontSize: 15,
+            },
+            headerRight: () => <Text style={{ color: colorScheme === 'dark' ? `${showmodal ? '' : '#ffd75b'}` : `${showmodal ? '' : '#0261ef'}`  }}>Needs help</Text>,
+            
+            }} />
             <Stack.Screen name='verifyphone'  options={{ 
             headerShown: true, 
             headerTitle: '', 
@@ -44,9 +73,24 @@ console.log('moooo ', showmodal);
             headerRight: () => <Text style={{ color: colorScheme === 'dark' ? '#ffd75b' : '#0261ef'  }}>Needs help</Text>,
             
             }} />
-                <Stack.Screen name='signupemail'  options={{ 
+            <Stack.Screen name='signupemail'  options={{ 
             headerShown: true, 
             headerTitle: '', 
+            headerStyle: {
+                backgroundColor:  colorScheme === 'dark' ? '#0e1a32' : '#f7f7f7',
+            }, 
+            headerTintColor: colorScheme === 'dark' ? '#ffd75b' : '#0261ef', 
+            headerTitleStyle: {
+                fontSize: 15,
+            },
+            headerRight: () =>  <Text style={{ color: colorScheme === 'dark' ? '#ffd75b' : '#0261ef'  }}>Need help?</Text>
+            ,
+            
+            }} />
+            <Stack.Screen name='address'  options={{ 
+            headerShown: true, 
+            headerTitle: 'Upgrade To Level 1', 
+            headerTitleAlign: 'center',
             headerStyle: {
                 backgroundColor:  colorScheme === 'dark' ? '#0e1a32' : '#f7f7f7',
             }, 
@@ -81,8 +125,15 @@ console.log('moooo ', showmodal);
             <Stack.Screen name='biometrics'  options={{ headerShown: false }} />
             <Stack.Screen name='cbninfo'  options={{ headerShown: false }} />
             <Stack.Screen name='cbnlast'  options={{ headerShown: false }} />
-            <Stack.Screen name='verification'  options={{ headerShown: false }} />
             <Stack.Screen name='nationality'  options={{ headerShown: false }} />
+            <Stack.Screen name='photocapture'  options={{ headerShown: false }} />
+            <Stack.Screen name='selfietake'  options={{ headerShown: false }} />
+            <Stack.Screen name='processimg'  options={{ headerShown: false }} />
+            <Stack.Screen name='selfiecapture'  options={{ headerShown: false }} />
+            <Stack.Screen name='idverified'  options={{ headerShown: false }} />
+            <Stack.Screen name='pepstatus'  options={{ headerShown: false }} />
+            <Stack.Screen name='income'  options={{ headerShown: false }} />
+            <Stack.Screen name='congrat'  options={{ headerShown: false }} />
         </Stack>
   )
 }

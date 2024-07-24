@@ -15,6 +15,8 @@ import {
 } from 'react-native';
 import image from '../assets/image';
 import { router } from 'expo-router';
+import Spinner from '../assets/tube-spinner.svg'
+import useThemeStyles from '../utils/dynamic';
 
 let s1 = image.s1, s2= image.s2, s3 = image.s3, s4 = image.s4, s5 = image.s5;
 const images = [s1, s2, s3, s4, s5];
@@ -48,6 +50,7 @@ const textSmall = [
 
 const App = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
+  const getmode = useThemeStyles();
 
   const {width: windowWidth} = useWindowDimensions();
   const currentMode = useColorScheme();
@@ -112,11 +115,11 @@ const App = () => {
 
         
         <View style={className`flex-row gap-4 justify-center absolute bottom-7`}>
-          <Pressable style={className`px-2 py-4 w-[45%] bg-[#19212c] rounded-lg flex-row justify-center items-center`}>
-            <Text style={className`text-xs font-bold text-[#ffd75b]`}>Login</Text>
+          <Pressable style={className`px-2 py-4 w-[45%] ${getmode.backGroundColor} rounded-lg flex-row justify-center items-center`}>
+            <Text style={className`text-xs font-bold ${getmode.textColor}`}>Login</Text>
           </Pressable>
-          <Pressable onPress={() => router.push('signup')} style={className`px-2 py-4 w-[45%] bg-[#ffd75b] rounded-lg flex-row justify-center items-center`}>
-            <Text style={className`text-xs font-bold text-black`}>Sign Up</Text>
+          <Pressable onPress={() => router.push('signup')} style={className`px-2 py-4 w-[45%] ${getmode.backGroundColor} rounded-lg flex-row justify-center items-center`}>
+            <Text style={className`text-xs font-bold  ${getmode.textColor}`}>Sign Up</Text>
           </Pressable>
         </View>
 
@@ -139,7 +142,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginVertical: 0,
     marginHorizontal: 19,
-    borderRadius: 5,
+    borderRadius: 9,
     overflow: 'hidden',
     alignItems: 'center',
     justifyContent: 'center',

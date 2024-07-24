@@ -4,10 +4,10 @@ import CheckMark from '../assets/check-mark-10126.svg';
 import className from 'twrnc'
 import { router } from 'expo-router';
 
-const Success = () => {
+const IdVerified = () => {
     const currentMode = useColorScheme();
     const handleNext = () => {
-        router.push('biometrics')
+        router.push('address')
     }
   return (
     <View style={className`${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} h-screen flex-1  `}>
@@ -26,8 +26,7 @@ const Success = () => {
           </View>
 
           <View style={className``}>
-          <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} text-center font-bold text-2xl pt-5 pb-1`}>Profile Created</Text>
-          <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} text-center text-xs pb-7`}>Congrats! Your profile has been created</Text>
+          <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} text-center font-bold text-2xl pt-5 pb-1`}>Identity Verified</Text>
           </View>
         </View>
 
@@ -53,4 +52,4 @@ const Success = () => {
   )
 }
 
-export default Success
+export default IdVerified
