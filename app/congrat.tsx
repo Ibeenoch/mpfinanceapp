@@ -10,7 +10,7 @@ import useThemeStyles from '../utils/dynamic';
 const Congrats = () => {
     const getmode = useThemeStyles();
   return (
-    <View style={className`${getmode.backGroundColor} flex-1 p-4`}>
+    <View style={className`${getmode.backGroundColorTwo} flex-1 p-4`}>
     
 
         <View style={className``}>

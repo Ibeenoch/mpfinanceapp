@@ -33,7 +33,7 @@ const SignUpEmail = () => {
     
       <View style={className`max-w-sm`}>
         <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${colorScheme === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black'}  py-6 px-4 flex-row items-center justify-center`}  >
-          <Text style={className`${ colorScheme === 'dark' ? 'text-black' : 'text-white'} text-sm font-semibold`}>Next</Text>
+          <Text style={className`${ colorScheme === 'dark' ? 'text-white' : 'text-white'} text-sm font-semibold`}>Next</Text>
         </TouchableOpacity>
       </View>
 

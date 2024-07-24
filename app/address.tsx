@@ -9,44 +9,46 @@ import { router } from 'expo-router'
 const address = () => {
     const getmode = useThemeStyles();
   return (
-    <View style={className`p-4`}>
+    <View style={className`flex-1 p-4 ${getmode.backGroundColorTwo}`}>
       
       <View style={className`px-4`}>
-        <Text style={className` ${ getmode.textColor} font-bold text-xl text-left pt-5 pb-1`}>Residential Address</Text>
-        <Text style={className` ${ getmode.textColor} text-xs text-left pb-7`}>Provide deatils of where you live</Text>
+        <Text style={className` ${ getmode.textColorTwo} font-bold text-xl text-left pt-5 pb-1`}>Residential Address</Text>
+        <Text style={className` ${ getmode.textColorTwo} text-xs text-left pb-7`}>Provide deatils of where you live</Text>
     </View>
 
-    <View style={className`${getmode.firstLayerBgColor} rounded-xl p-4`}>
+    <View style={className`${getmode.firstLayerBgColor} rounded-xl mb-3 p-4`}>
         
-        <View style={className`${getmode.secondLayerBgColor} rounded-lg p-4`}>
-            <Text style={className`${getmode.textColor} `}>House Number</Text>
+        <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
+            <Text style={className`${getmode.textColorTwo} `}>House Number</Text>
         </View>
 
-        <View style={className`${getmode.secondLayerBgColor} rounded-lg p-4`}>
-            <Text style={className`${getmode.textColor} `}>Street Name</Text>
+        <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
+            <Text style={className`${getmode.textColorTwo} `}>Street Name</Text>
         </View>
 
-        <View style={className`${getmode.secondLayerBgColor} rounded-lg p-4`}>
-            <View style={className`${getmode.secondLayerBgColor} flex justify-between px-4`}>
-                <Text style={className`${getmode.textColor} `}>State</Text>
-                <ArrowDown width={8} height={8} style={className`${getmode.fillColor}`} />
+        <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
+            <View style={className`${getmode.secondLayerBgColor} flex-row items-center justify-between px-4`}>
+                <Text style={className`${getmode.textColorTwo} `}>State</Text>
+                <ArrowDown width={8} height={8} fill={`${getmode.fillColor}`} />
             </View>
         </View>
 
-        <View style={className`${getmode.secondLayerBgColor} rounded-lg p-4`}>
-            <View style={className`${getmode.secondLayerBgColor} flex justify-between px-4`}> 
-                <Text style={className`${getmode.textColor} `}>LGA</Text>
-                <ArrowDown width={8} height={8} style={className`${getmode.fillColor}`} />
+        <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
+            <View style={className`${getmode.secondLayerBgColor} flex-row items-center justify-between px-4`}> 
+                <Text style={className`${getmode.textColorTwo} `}>LGA</Text>
+                <ArrowDown width={8} height={8} fill={`${getmode.fillColor}`} />
             </View>
         </View>
+    </View>
 
-        <View style={className`max-w-sm`}>
-        <TouchableOpacity onPress={() => router.push('pepstatus')}  style={className`rounded-xl w-full ${getmode.textColor}  py-6 px-4 flex-row items-center justify-center`}  >
+
+    <View style={className`w-[full] absolute bottom-4 left-4 right-4`}>
+        <TouchableOpacity onPress={() => router.push('pepstatus')}  style={className`rounded-xl w-full ${getmode.backGroundColor}  py-6 px-4 flex-row items-center justify-center`}  >
           <Text style={className`${ getmode.textColor} text-sm font-semibold`}>Next</Text>
         </TouchableOpacity>
-      </View>
-      
     </View>
+      
+    
 
     </View>
   )

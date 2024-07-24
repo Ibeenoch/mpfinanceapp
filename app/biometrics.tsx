@@ -3,12 +3,14 @@ import React from 'react'
 import FingerPrint from '../assets/fingerprint-5.svg';
 import className from 'twrnc'
 import { router } from 'expo-router';
+import useThemeStyles from '../utils/dynamic';
 
 const Biometrics = () => {
     const currentMode = useColorScheme();
     const handleEnableBioMetrics = () => {
         router.push('cbninfo')
     }
+    const getmode = useThemeStyles();
   return (
     <View style={className`${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} h-screen flex-1 `}>
 
@@ -38,12 +40,12 @@ const Biometrics = () => {
       
     
       <View style={className`max-w-sm flex-row px-2 gap-1`}>
-             <TouchableOpacity style={className`px-2 py-4 w-[50%] bg-[#19212c] rounded-lg flex-row justify-center items-center`}>
-            <Text style={className`text-xs font-bold  ${currentMode === 'light' ? 'text-white' : 'text-[#ffd75b]'} `}>Not Now</Text>
+             <TouchableOpacity onPress={() => router.back()} style={className`px-2 py-4 w-[50%] ${getmode.backGroundColor} rounded-lg flex-row justify-center items-center`}>
+            <Text style={className`text-xs font-bold  ${getmode.textColor} `}>Not Now</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity  onPress={handleEnableBioMetrics} style={className`px-2 py-4 w-[50%] bg-[#ffd75b] rounded-lg flex-row justify-center items-center`}>
-            <Text style={className`text-xs font-bold ${currentMode === 'light' ? 'text-white' : 'text-black'} `}>Enable</Text>
+          <TouchableOpacity  onPress={handleEnableBioMetrics} style={className`px-2 py-4 w-[50%]  ${getmode.backGroundColor} rounded-lg flex-row justify-center items-center`}>
+            <Text style={className`text-xs font-bold ${getmode.textColor} `}>Enable</Text>
           </TouchableOpacity>      
       </View>
 

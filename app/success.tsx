@@ -37,16 +37,12 @@ const Success = () => {
 
      
 
-    <View style={className`p-4 absolute bottom-0 w-full`}>
-      
-    
+    <View style={className`p-4 absolute bottom-0 w-full`}>    
       <View style={className`max-w-sm`}>
         <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${currentMode === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black'}  py-6 px-4 flex-row items-center justify-center`}  >
           <Text style={className`${ currentMode === 'dark' ? 'text-white' : 'text-black'} text-sm font-semibold`}>Proceed</Text>
         </TouchableOpacity>
       </View>
-
-
     </View>
       
     </View>

@@ -14,34 +14,36 @@ const Income = () => {
 
 
   return (
-    <View style={className`p-4`}>
+    <View style={className`flex-1 ${getmode.backGroundColorTwo} p-4`}>
       
       <View style={className`px-4`}>
-        <Text style={className` ${ getmode.textColor} font-bold text-xl text-left pt-5 pb-1`}>Source Of Income</Text>
-        <Text style={className` ${ getmode.textColor} text-xs text-left pb-7`}>Provide deatils of your source of income</Text>
+        <Text style={className` ${ getmode.textColorTwo} font-bold text-xl text-left pt-5 pb-1`}>Source Of Income</Text>
+        <Text style={className` ${ getmode.textColorTwo} text-xs text-left pb-7`}>Provide deatils of your source of income</Text>
     </View>
 
-    <View style={className`${getmode.firstLayerBgColor} rounded-xl p-4`}>
-        <Text style={className`${getmode.textColor} `}>What is your occupation</Text>
-        <View style={className`${getmode.secondLayerBgColor} flex-row justify-between rounded-lg py-2 px-4`}>
-        <Text style={className`${getmode.textColor} `}>Select your occupation</Text>
-          <ArrowDown width={15} height={15} fill={getmode.fillColor} />  
+    <View style={className`${getmode.firstLayerBgColor} rounded-xl p-2`}>
+        <Text style={className`text-gray-500 py-2 `}>What is your occupation</Text>
+        <View style={className`${getmode.thirdLayerBgColor} flex-row justify-between items-center rounded-lg py-2 px-4`}>
+        <Text style={className`text-gray-500 p-2 `}>Select your occupation</Text>
+          <ArrowDown width={15} height={15} fill={'gray'} />  
         </View>
     </View>
 
-    <View style={className`${getmode.firstLayerBgColor} rounded-xl p-4`}>
-        <Text style={className`${getmode.textColor} `}>What is your annual income</Text>
-        <View style={className`${getmode.secondLayerBgColor} flex-row justify-between rounded-lg py-2 px-4`}>
-        <Text style={className`${getmode.textColor} `}>Select your annual income</Text>
-          <ArrowDown width={15} height={15} fill={getmode.fillColor} />  
+    <View style={className`${getmode.firstLayerBgColor} my-2 rounded-xl p-2`}>
+        <Text style={className`text-gray-500 py-2 `}>What is your annual income</Text>
+        <View style={className`${getmode.thirdLayerBgColor} flex-row justify-between items-center rounded-lg py-2 px-4`}>
+        <Text style={className`text-gray-500 p-2 `}>Select your annual income</Text>
+          <ArrowDown width={15} height={15} fill={'gray'} />  
         </View>
     </View>
 
+   
+
     <View style={className`${getmode.firstLayerBgColor} rounded-xl p-4`}>
-        <Text style={className`${getmode.textColor} `}>Do you have other sources of income different from your occupation?</Text>
-        <View style={className`${getmode.secondLayerBgColor} flex-row rounded-lg py-2 px-4`}>
+        <Text style={className`${getmode.secondLayerBgColor} text-gray-500 py-2 px-2`}>Do you have other sources of income different from your occupation?</Text>
+        <View style={className`${getmode.thirdLayerBgColor} flex-row rounded-lg py-2 px-4`}>
             
-            <View style={className`flex-row gap-2`}>
+            <View style={className`flex-row items-center gap-1`}>
                 <TouchableOpacity  >
                         {
                         currentMode === 'light' ? (
@@ -64,10 +66,10 @@ const Income = () => {
                         }
                             
                 </TouchableOpacity>
-                <Text style={className`${getmode.textColor} text-sm font-semibold`}>Yes</Text>
+                <Text style={className`${getmode.textColorTwo} text-sm font-semibold`}>Yes</Text>
             </View> 
             
-            <View style={className`flex-row gap-2`}>
+            <View style={className`flex-row items-center gap-1`}>
                 <TouchableOpacity  >
                     
                         {
@@ -91,7 +93,7 @@ const Income = () => {
                         }
                             
                 </TouchableOpacity>
-                <Text style={className`${getmode.textColor} text-sm font-semibold`}>No</Text>
+                <Text style={className`${getmode.textColorTwo} text-sm font-semibold`}>No</Text>
             </View> 
         </View>
     </View>
@@ -100,8 +102,8 @@ const Income = () => {
 
 
 
-        <View style={className`max-w-sm`}>
-        <TouchableOpacity onPress={() => router.push('attestation')}  style={className`rounded-xl w-full ${getmode.textColor}  py-6 px-4 flex-row items-center justify-center`}  >
+        <View style={className`absolute bottom-4 right-4 left-4`}>
+        <TouchableOpacity onPress={() => router.push('attestation')}  style={className`rounded-xl w-full ${getmode.backGroundColor}  py-6 px-4 flex-row items-center justify-center`}  >
           <Text style={className`${ getmode.textColor} text-sm font-semibold`}>Next</Text>
         </TouchableOpacity>
       </View>

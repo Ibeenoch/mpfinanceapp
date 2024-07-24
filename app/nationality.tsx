@@ -43,12 +43,12 @@ const Nationality = () => {
           <Text style={className`text-center text-xs font-bold ${currentMode === 'light' ? 'text-black' : 'text-white'} py-3`}>Select the country you are from</Text>
         </View>
     
-        <View style={className`w-full flex-row rounded-xl  justify-between  ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}  `}>
+        <View style={className`w-full flex-row rounded-xl items-center p-2 justify-between  ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}  `}>
                   <View style={className`flex-row rounded-tl-xl rounded-bl-xl border-r border-gray-300 border-opacity-50 items-center p-2    ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}`}>
                       <Image source={require('../assets/flag.png')} style={className`w-8 h-8`} />
                       <Text style={className` px-1 ${currentMode === 'light' ? 'text-black' : 'text-white'}`}>Nigeria</Text>
                   </View>
-                  <View>
+                  <View style={className``}>
                   <Text style={className`${currentMode === 'light' ? 'text-[#0261ef]' : 'text-[#19212c]'}`} >Change</Text>
                     {/* <Picker
                         selectedValue={selectedValue}

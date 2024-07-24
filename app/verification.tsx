@@ -14,10 +14,10 @@ const verification = () => {
   const getmode = useThemeStyles()
 
   return (
-    <View style={className`${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'} px-6 py-2 h-screen flex-1`}>
+    <View style={className`${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'} px-5 py-2 h-screen flex-1`}>
       
-        <View style={className`px-4`}>
-          <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} font-bold text-xl text-left pt-5 pb-1`}>Select an Options</Text>
+        <View style={className``}>
+          <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} font-bold text-2xl text-left pt-5 pb-1`}>Select an Options</Text>
           <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} text-xs text-left pb-7`}>select the type of ID to validate</Text>
         </View>
 
@@ -93,20 +93,26 @@ const verification = () => {
             </View>
         </View>
 
-        <View style={className`flex-row gap-1 rounded-lg my-3 p-4  ${currentMode === 'light' ? 'bg-[#ffffff]' : 'bg-[#343631]'}`}>
-            <View style={className` ${getmode.backGroundColor }  rounded-full p-1`}>
-              <Exclaimation width={11} height={11} strokeWidth={4}   fill={`${getmode.fillColor}`} />
+        <View style={className`flex-row items-center gap-1 rounded-lg my-3 p-4  ${currentMode === 'light' ? 'bg-[#ffffff]' : 'bg-[#343631]'}`}>
+            <View style={className`flex-col items-center justify-between`}>
+              <View style={className` ${getmode.backGroundColor }  rounded-full p-1`}>
+                <Exclaimation width={11} height={11} strokeWidth={4}   fill={`${currentMode === 'light' ? 'white' : 'black'}`} />
+              </View>
+              <View></View>
             </View>
           <View style={className`w-70 p-2`}>
             <Text style={className` ${currentMode === 'light' ? 'text-black' : 'text-white' } text-[12px] font-semibold max-w-lg `}>You can proceed with either one now, but you will be required to provide the other for a level 2 account upgrade</Text>
           </View>
         </View>
 
-        <View style={className`max-w-sm`}>
-        <TouchableOpacity onPress={() => router.push('photocapture')} style={className`rounded-xl w-full ${ currentMode === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black'}  py-6 px-4 flex-row items-center justify-center`}  >
-          <Text style={className`${ currentMode === 'dark' ? 'text-black' : 'text-white'} text-sm font-semibold`}>Next</Text>
+
+      <View style={className`p-4 absolute bottom-0 w-full left-4 right-4`}>    
+      <View style={className`w-full`}>
+        <TouchableOpacity onPress={() => router.push('photocapture')}  style={className`rounded-xl w-full ${currentMode === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black'}  py-6 px-4 flex-row items-center justify-center`}  >
+          <Text style={className`${ currentMode === 'dark' ? 'text-white' : 'text-white'} text-sm font-semibold`}>Proceed</Text>
         </TouchableOpacity>
       </View>
+    </View>
 
 
     </View>
