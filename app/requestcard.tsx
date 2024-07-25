@@ -1,8 +1,8 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import className from 'twrnc';
-import useThemeStyles from '../../utils/dynamic';
 import { Image } from 'expo-image';
+import useThemeStyles from '../utils/dynamic';
 
 const requestcard = () => {
     const getmode = useThemeStyles();
@@ -25,7 +25,7 @@ const requestcard = () => {
             </View>
 
             <View>
-                <Image source={require('../../assets/s15.png')} style={className`w-full rounded-xl`} />
+                <Image source={require('../assets/s15.png')} style={className`w-full rounded-xl`} />
             </View>
         </View>
 

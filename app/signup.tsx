@@ -181,7 +181,7 @@ const signup = () => {
     
   return (
     <TouchableWithoutFeedback onPress={handleOutsideClick}>
-    <View style={className`${ colorScheme === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} h-screen flex-1 `}>
+    <View style={className`${ colorScheme === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} h-full flex-1 `}>
      
     
 

@@ -24,11 +24,12 @@ const processimg = () => {
             <Text style={className`max-w-sm text-center pb-4 text-xs font-bold ${getmode.textColorTwo}`}>Just a few more seconds</Text>
        </View>
 
-       <View style={className`rounded-xl bg-blue-500`}>
-            <TouchableOpacity onPress={() => router.push('selfiecapture')}>
-                <Text style={className`text-center text-sm text-bold py-2 px-6 rounded-xl ${getmode.textColor}`}>Continue</Text>
-            </TouchableOpacity>
-       </View>
+       <View style={className`rounded-xl mx-4 w-full bg-[#0261ef]`}>
+                <TouchableOpacity onPress={() => router.push('selfiecapture')}>
+                    <Text style={className`text-center text-sm font-bold py-2 px-8  rounded-xl ${getmode.textColor}`}>Continue</Text>
+                </TouchableOpacity>
+        </View>
+
 
 
     </View>

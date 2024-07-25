@@ -12,14 +12,14 @@ import { router } from 'expo-router';
 const cards = () => {
   const getmode = useThemeStyles();
   const handleNext = () => {
-    router.push('(tabs)/requestcard')
+    router.push('requestcard')
   }
 
   return (
     <View style={className`p-4 flex-1 ${getmode.backGroundColorTwo}`}>
       <View style={className`p-2 flex-1 rounded-xl ${getmode.firstLayerBgColor}`}>
-        <View style={className`px-[25%] ${getmode.backGroundColor} rounded-xl ${getmode.firstLayerBgColor}`}>
-            <Image source={require('../../assets/s14.png')} />
+        <View style={className`rounded-xl ${getmode.firstLayerBgColor}`}>
+            <Image source={require('../../assets/s14.png')} style={className`w-full h-20 rounded-xl`} />
         </View>
 
         <Text style={className`text-xl font-bold my-4 ${getmode.textColorTwo} `}>A Card That Works...</Text>
@@ -28,7 +28,7 @@ const cards = () => {
           <Text style={className`text-xs text-gray-500 pb-4 `}>What you get</Text>
 
           <View style={className`flex-row gap-1`}>
-            <View style={className`flex-row justify-center items-center rounded-lg ${getmode.backGroundBlueColor}`}>
+            <View style={className`flex-row justify-center items-center rounded-lg ${getmode.backGroundlightYellowColor}`}>
               <Shield width={11} height={11} fill={`${getmode.fillColor}`} />
             </View>
 
@@ -39,7 +39,7 @@ const cards = () => {
           </View>
 
           <View style={className`flex-row gap-1`}>
-            <View style={className`flex-row justify-center items-center rounded-lg ${getmode.backGroundBlueColor}`}>
+            <View style={className`flex-row justify-center items-center rounded-lg ${getmode.backGroundlightYellowColor}`}>
               <CustomerService width={11} height={11} fill={`${getmode.fillColor}`} />
             </View>
 
@@ -50,7 +50,7 @@ const cards = () => {
           </View>
 
           <View style={className`flex-row gap-1`}>
-            <View style={className`flex-row justify-center items-center rounded-lg ${getmode.backGroundBlueColor}`}>
+            <View style={className`flex-row justify-center items-center rounded-lg ${getmode.backGroundlightYellowColor}`}>
               <Delivery width={11} height={11} fill={`${getmode.fillColor}`} />
             </View>
 
@@ -61,7 +61,7 @@ const cards = () => {
           </View>
 
           <View style={className`flex-row gap-1`}>
-            <View style={className`flex-row justify-center items-center rounded-lg ${getmode.backGroundBlueColor}`}>
+            <View style={className`flex-row justify-center items-center rounded-lg ${getmode.backGroundlightYellowColor}`}>
               <Globe width={11} height={11} fill={`${getmode.fillColor}`} />
             </View>
 

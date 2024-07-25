@@ -7,7 +7,11 @@ import Plus from '../../assets/up-arrow-svgrepo-com (1).svg';
 import SafeBox from '../../assets/safebox-svgrepo-com.svg';
 import Income from '../../assets/noun-income-834265.svg';
 import useThemeStyles from '../../utils/dynamic';
-import className from 'twrnc'
+import className from 'twrnc';
+import Bell from '../../assets/bell-svgrepo-com.svg'
+import Signal from '../../assets/signal-02-svgrepo-com.svg'
+import { Image } from 'expo-image';
+
 
 const getmode = useThemeStyles();
 const currentMode = useColorScheme();
@@ -15,6 +19,18 @@ const currentMode = useColorScheme();
 const  Tablayout = () => {
   return (
     <Tabs screenOptions={{
+      headerRight: () => {
+        return <View style={className`flex-row gap-3`}>
+            <Bell width={13}  height={13} fill={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`}  />
+            <Signal width={13}  height={13} fill={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`}  />
+        </View>
+      },
+      headerLeft: () => {
+        return <View style={className`flex-row gap-3`}>
+            <Image source={require('../../assets/s14.png')} />
+            <Text style={className`text-sm font-semibold py-1 px-2 rounded-md ${`${currentMode === 'light' ? `bg-[#fdf3e9] text-[#f3a352]` : `bg-[#312726] text-[#de8d3c]`}`} `}>Level 1</Text>
+        </View>
+      },
       tabBarStyle: {
         borderRadius: 50,
         marginBottom: 15,
@@ -101,14 +117,14 @@ const  Tablayout = () => {
             }
         }}/>
 
-        <Tabs.Screen name='requestcard' options={{
+        {/* <Tabs.Screen name='requestcard' options={{
             headerTitle: 'Card Request',
           headerStyle: {
             backgroundColor: `${getmode.backGroundColorTwo}`
           },
           headerTintColor: currentMode === 'light' ? 'blue' : 'white',
           headerTitleAlign: 'center'
-        }}/>
+        }}/> */}
     </Tabs>
   )
 }
