@@ -8,7 +8,7 @@ import { router } from 'expo-router';
 
 
 
-const photocapture = () => {
+const Photocapture = () => {
     const getmode = useThemeStyles()
   return (
     <View style={className`${getmode.backGroundColorTwo} flex-1 p-4`}>
@@ -60,4 +60,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default photocapture
+export default Photocapture

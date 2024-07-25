@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../features/hooks';
 import Exclaimation from '../assets/exclamation-mark-sign-alert-warning-important-svgrepo-com.svg'
 import { router } from 'expo-router';
 
-const verifyphone = () => {
+const Verifyphone = () => {
     const dispatch = useAppDispatch();
     const { showmodal } = useAppSelector((state) => state.auth )
     const colorScheme = useColorScheme();
@@ -65,4 +65,4 @@ const verifyphone = () => {
   )
 }
 
-export default verifyphone
+export default Verifyphone

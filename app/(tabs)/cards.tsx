@@ -9,7 +9,7 @@ import Delivery from '../../assets/delivery-svgrepo-com.svg';
 import Globe from '../../assets/globe-svgrepo-com.svg';
 import { router } from 'expo-router';
 
-const cards = () => {
+const Cards = () => {
   const getmode = useThemeStyles();
   const handleNext = () => {
     router.push('requestcard')
@@ -116,4 +116,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default cards
+export default Cards

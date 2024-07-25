@@ -4,7 +4,7 @@ import className from 'twrnc';
 import useThemeStyles from '../../utils/dynamic';
 import { Image } from 'expo-image';
 
-const saving = () => {
+const Saving = () => {
   const getmode = useThemeStyles();
   const currentMode = useColorScheme();
   // currentMode === 'light' ? 'bg-[#e6eefd] text-[#0361f0]' : 'bg-[#001231] text-[#4f89f3]'
@@ -78,4 +78,4 @@ const saving = () => {
   )
 }
 
-export default saving
+export default Saving

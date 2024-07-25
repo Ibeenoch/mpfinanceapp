@@ -6,7 +6,7 @@ import { Image } from 'expo-image';
 import { router } from 'expo-router';
 
 
-const selfietake = () => {
+const Selfietake = () => {
     const getmode = useThemeStyles();
 
     
@@ -37,4 +37,4 @@ const selfietake = () => {
   )
 }
 
-export default selfietake
+export default Selfietake

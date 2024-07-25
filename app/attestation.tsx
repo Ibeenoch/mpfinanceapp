@@ -6,7 +6,7 @@ import { Image } from 'expo-image';
 import EditLogo from '../assets/edit-box-svgrepo-com.svg'
 import { router } from 'expo-router';
 
-const attestation = () => {
+const Attestation = () => {
     const getmode = useThemeStyles();
   return (
     <ScrollView style={className`flex-1`}>
@@ -19,7 +19,7 @@ const attestation = () => {
 
             <Text style={className`text-gray-500 text-xs text-left`}>Nationality</Text>
             <View style={className`w-full flex-col rounded-xl p-2  ${ getmode.secondLayerBgColorblue}  `}>
-                    <View style={className`flex-row rounded-tl-xl rounded-bl-xl border-r border-gray-300 border-opacity-50 items-center p-2 `}>
+                    <View style={className`flex-row rounded-tl-xl rounded-bl-xl items-center p-2 `}>
                         <Image source={require('../assets/flag.png')} style={className`w-8 h-8`} />
                         <Text style={className` px-1 ${getmode.textColorTwo}`}>Nigeria</Text>
                     </View>
@@ -126,4 +126,4 @@ const attestation = () => {
   )
 }
 
-export default attestation
+export default Attestation

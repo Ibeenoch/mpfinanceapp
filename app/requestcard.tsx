@@ -4,7 +4,7 @@ import className from 'twrnc';
 import { Image } from 'expo-image';
 import useThemeStyles from '../utils/dynamic';
 
-const requestcard = () => {
+const Requestcard = () => {
     const getmode = useThemeStyles();
   return (
     <View style={className`flex-1 p-4`}>
@@ -48,4 +48,4 @@ const requestcard = () => {
   )
 }
 
-export default requestcard
+export default Requestcard

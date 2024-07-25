@@ -16,7 +16,7 @@ import { useAppDispatch, useAppSelector } from '../features/hooks';
 
 
 
-const signup = () => {
+const  Signup = () => {
     let colorScheme = useColorScheme();
     const dispatch = useAppDispatch();
     const navigation = useNavigation();
@@ -369,4 +369,4 @@ const styles = StyleSheet.create({
   });
   
 
-export default signup
+export default Signup

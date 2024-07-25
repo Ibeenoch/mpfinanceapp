@@ -22,13 +22,13 @@ const App = () => {
             headerShown: true, 
             headerTitle: '', 
             headerStyle: {
-                backgroundColor:  colorScheme === 'dark' ? `${showmodal ? '#000612' : '#0e1a32' }` : `${showmodal ? '#7f7f7f' : '#f7f7f7'} `,
+                backgroundColor:  colorScheme === 'dark' ?  '#0e1a32' : '#f7f7f7',
             }, 
-            headerTintColor: colorScheme === 'dark' ? `${showmodal ? '#000612' : '#ffd75b'}` : `${showmodal ? '#7f7f7f' : '#0261ef'}`, 
+            headerTintColor: colorScheme === 'dark' ?  '#ffd75b' : '#0261ef', 
             headerTitleStyle: {
                 fontSize: 15,
             },
-            headerRight: () => <Text style={{ color: colorScheme === 'dark' ? `${showmodal ? '#000612' : '#ffd75b'}` : `${showmodal ? '#7f7f7f' : '#0261ef'}`  }}>Needs help</Text>,
+            headerRight: () => <Text style={{ color: colorScheme === 'dark' ?  '#ffd75b' : '#0261ef'  }}>Needs help</Text>,
             
             }} />
             <Stack.Screen name='verification'  
@@ -37,13 +37,13 @@ const App = () => {
             headerTitle: 'Upgrade To Level 1', 
             headerTitleAlign: 'center',
             headerStyle: {
-                backgroundColor:  colorScheme === 'dark' ? `${showmodal ? '' : '#0e1a32' }` : `${showmodal ? '' : '#f7f7f7'} `,
+                backgroundColor:   colorScheme === 'dark' ?  '#0e1a32' : '#f7f7f7',
             }, 
-            headerTintColor: colorScheme === 'dark' ? `${showmodal ? '' : '#ffd75b'}` : `${showmodal ? '' : '#0261ef'}`, 
+            headerTintColor: colorScheme === 'dark' ?  '#ffd75b' : '#0261ef', 
             headerTitleStyle: {
                 fontSize: 15,
             },
-            headerRight: () => <Text style={{ color: colorScheme === 'dark' ? `${showmodal ? '' : '#ffd75b'}` : `${showmodal ? '' : '#0261ef'}`  }}>Needs help</Text>,
+            headerRight: () => <Text style={{ color: colorScheme === 'dark' ?  '#ffd75b' : '#0261ef'  }}>Needs help</Text>,
             
             }} />
             <Stack.Screen name='attestation'  
@@ -52,13 +52,13 @@ const App = () => {
             headerTitle: 'Upgrade To Level 1', 
             headerTitleAlign: 'center',
             headerStyle: {
-                backgroundColor:  colorScheme === 'dark' ? `${showmodal ? '' : '#0e1a32' }` : `${showmodal ? '' : '#f7f7f7'} `,
+                backgroundColor:   colorScheme === 'dark' ?  '#0e1a32' : '#f7f7f7',
             }, 
-            headerTintColor: colorScheme === 'dark' ? `${showmodal ? '' : '#ffd75b'}` : `${showmodal ? '' : '#0261ef'}`, 
+            headerTintColor: colorScheme === 'dark' ?  '#ffd75b' : '#0261ef',  
             headerTitleStyle: {
                 fontSize: 15,
             },
-            headerRight: () => <Text style={{ color: colorScheme === 'dark' ? `${showmodal ? '' : '#ffd75b'}` : `${showmodal ? '' : '#0261ef'}`  }}>Needs help</Text>,
+            headerRight: () => <Text style={{ color: colorScheme === 'dark' ?  '#ffd75b' : '#0261ef'  }}>Needs help</Text>,
             
             }} />
             <Stack.Screen name='verifyphone'  options={{ 

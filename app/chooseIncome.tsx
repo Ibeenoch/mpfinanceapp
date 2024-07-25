@@ -6,7 +6,7 @@ import ArrowForward from '../assets/arrow-forward-svgrepo-com.svg';
 import useThemeStyles from '../utils/dynamic';
 import { TextInput } from 'react-native-paper';
 
-const chooseIncome = () => {
+const ChooseIncome = () => {
     const getmode = useThemeStyles();
     const currentMode = useColorScheme();
   
@@ -34,4 +34,4 @@ const chooseIncome = () => {
   )
 }
 
-export default chooseIncome
+export default ChooseIncome

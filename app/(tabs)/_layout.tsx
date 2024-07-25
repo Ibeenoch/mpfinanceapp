@@ -1,8 +1,12 @@
 import { View, Text, useColorScheme } from 'react-native'
 import React from 'react'
 import { Tabs } from 'expo-router'
-import HomeIcon from '../../assets/home-1-svgrepo-com.svg'
-import Card from '../../assets/credit-card-01-svgrepo-com.svg';
+import HomeIcon from '../../assets/home-inactive.svg'
+import HomeIconOrange from '../../assets/home-orange.svg'
+import HomeIconBlue from '../../assets/home-blue.svg'
+import CardBlue from '../../assets/credit-card-01-blue.svg';
+import CardOrange from '../../assets/credit-card-01-orange.svg';
+import CardInactive from '../../assets/credit-card-inactive.svg';
 import Plus from '../../assets/up-arrow-svgrepo-com (1).svg';
 import SafeBox from '../../assets/safebox-svgrepo-com.svg';
 import Income from '../../assets/noun-income-834265.svg';
@@ -21,16 +25,17 @@ const  Tablayout = () => {
     <Tabs screenOptions={{
       headerRight: () => {
         return <View style={className`flex-row gap-3`}>
-            <Bell width={13}  height={13} fill={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`}  />
-            <Signal width={13}  height={13} fill={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`}  />
+            <Bell width={25}  height={25} fill={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`}  />
+            <Signal width={25}  height={25} fill={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`} stroke={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`}  />
         </View>
       },
       headerLeft: () => {
-        return <View style={className`flex-row gap-3`}>
+        return <View style={className`flex-row gap-2`}>
             <Image source={require('../../assets/s14.png')} />
             <Text style={className`text-sm font-semibold py-1 px-2 rounded-md ${`${currentMode === 'light' ? `bg-[#fdf3e9] text-[#f3a352]` : `bg-[#312726] text-[#de8d3c]`}`} `}>Level 1</Text>
         </View>
       },
+      headerTitle: '',
       tabBarStyle: {
         borderRadius: 50,
         marginBottom: 15,
@@ -38,12 +43,14 @@ const  Tablayout = () => {
         paddingHorizontal: 10,
         paddingVertical: 10,
         height: 75,
-        backgroundColor: currentMode === 'light' ? '#f7f7f7' : '#000e28',
+        backgroundColor:  currentMode === 'dark' ?  '#0e1a32' : '#f7f7f7',
         display: 'flex',
         alignItems: 'center'
       },
       
-
+      headerStyle: {
+        backgroundColor: currentMode === 'dark' ?  '#0e1a32' : '#f7f7f7',
+      }
       
     }}>
         <Tabs.Screen name='home' options={{
@@ -56,7 +63,13 @@ const  Tablayout = () => {
             tabBarActiveTintColor: currentMode === 'light' ? `#0261ef` : `#ffd75b`,
             tabBarInactiveTintColor: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
             tabBarIcon: () => {
-              return <HomeIcon width={25} height={25} stroke={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`} fill={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`} />
+              return currentMode === 'light' ? (
+                <HomeIconBlue width={25} height={25}   />
+
+              ) : (
+                <HomeIconOrange width={25} height={25}  />
+
+              )
             }
         }}/>
         <Tabs.Screen name='cards' options={{
@@ -69,7 +82,11 @@ const  Tablayout = () => {
             tabBarActiveTintColor: currentMode === 'light' ? `#0261ef` : `#ffd75b`,
             tabBarInactiveTintColor: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
             tabBarIcon: () => {
-              return <Card width={25} height={25} stroke={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`} fill={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`} />
+              return  currentMode === 'light' ? (
+                            <CardBlue width={25} height={25}  />
+                      ) : (
+                        <CardOrange width={25} height={25}  />
+                      )
             }
         }}/>
         <Tabs.Screen name='main' options={{

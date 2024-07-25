@@ -6,7 +6,7 @@ import UserImage from '../assets/user.svg';
 import Focus from '../assets/focus-8.svg';
 import { router } from 'expo-router';
 
-const processimg = () => {
+const Processimg = () => {
     const getmode = useThemeStyles();
   return (
     <View style={className`flex-1 py-[60%] px-[3%] bg-black`}>
@@ -37,4 +37,4 @@ const processimg = () => {
   )
 }
 
-export default processimg
+export default Processimg

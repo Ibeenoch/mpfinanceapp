@@ -9,7 +9,7 @@ const useThemeStyles = () => {
     textColorTwo: currentMode === 'light' ? 'text-black' : 'text-white',
     textColorTwoInverse: currentMode === 'light' ? 'text-white' : 'text-black',
     fillColor: currentMode === 'light' ? '#0261ef' : '#ffd75b', // black/white
-    fillColorInverse: currentMode === 'light' ? '#ffd75b' : '#0261ef', // white/black
+    fillColorInverse: currentMode === 'light' ? 'white' : 'black', // white/black
     fillPhotoColor: currentMode === 'light' ? '#0261ef' : '#ffffff',
     strokeColor: currentMode === 'light' ? '#0261ef' : '#ffd75b',
     borderColor: currentMode === 'light' ? 'border-[#ffd75b]' : 'border-[#0261ef]',
@@ -27,7 +27,7 @@ const useThemeStyles = () => {
 
     dasboardBackgroundFirstLayerColor: currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]', //dark white/dark black
     dasboardBackgroundSecondLayerColor: currentMode === 'light' ? 'bg-[#ffffff]' : 'bg-[#0e1a32]', // light white/light black
-    dasboardBackgroundButtonColor: currentMode === 'light' ? 'bg-[#ffffff]' : 'bg-[#0e1a32]', // light white/light black
+    dasboardBackgroundButtonColor: currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]', // light white/light black
     dasboardSvgButton: currentMode === 'light' ? '#0261ef' : '#ffd75b', // blue/orange
     dasboardTextButton: currentMode === 'light' ? 'text-[#0261ef]' : 'text-[#ffd75b]', // blue/orange
   };

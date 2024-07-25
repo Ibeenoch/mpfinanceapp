@@ -9,7 +9,7 @@ import PayBill from '../../assets/bookmark-multiple-svgrepo-com.svg';
 import ArrowForward from '../../assets/arrow-forward-svgrepo-com.svg';
 
 
-const main = () => {
+const Main = () => {
   const getmode = useThemeStyles();
   const currentMode = useColorScheme();
 
@@ -74,4 +74,4 @@ const main = () => {
   )
 }
 
-export default main
+export default Main

@@ -8,7 +8,7 @@ import { RadioButton } from 'react-native-paper';
 import { router } from 'expo-router';
 import useThemeStyles from '../utils/dynamic';
 
-const verification = () => {
+const Verification = () => {
   const currentMode = useColorScheme();
   const [selectedValue, setSelectedValue] = useState('option1'); 
   const getmode = useThemeStyles()
@@ -106,7 +106,7 @@ const verification = () => {
         </View>
 
 
-      <View style={className`p-4 absolute bottom-0 w-full left-4 right-4`}>    
+      <View style={className`p-4 absolute bottom-0 w-full left-2 right-2`}>    
       <View style={className`w-full`}>
         <TouchableOpacity onPress={() => router.push('photocapture')}  style={className`rounded-xl w-full ${currentMode === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black'}  py-6 px-4 flex-row items-center justify-center`}  >
           <Text style={className`${ currentMode === 'dark' ? 'text-white' : 'text-white'} text-sm font-semibold`}>Proceed</Text>
@@ -175,4 +175,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default verification
+export default Verification

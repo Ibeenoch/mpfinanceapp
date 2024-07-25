@@ -5,7 +5,7 @@ import useThemeStyles from '../../utils/dynamic';
 import { Image } from 'expo-image';
 import CheckMark from '../../assets/check-mark-10126.svg'
 
-const salary = () => {
+const Salary = () => {
   const getmode = useThemeStyles();
   const handleNext = () => {
   }
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default salary
+export default Salary

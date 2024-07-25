@@ -6,7 +6,7 @@ import ArrowUp from '../assets/up-arrow-svgrepo-com.svg'
 import ArrowDown from '../assets/arrow-down-3101.svg'
 import { router } from 'expo-router'
 
-const address = () => {
+const Address = () => {
     const getmode = useThemeStyles();
   return (
     <View style={className`flex-1 p-4 ${getmode.backGroundColorTwo}`}>
@@ -54,4 +54,4 @@ const address = () => {
   )
 }
 
-export default address
+export default Address

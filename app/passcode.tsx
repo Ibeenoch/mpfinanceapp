@@ -6,7 +6,7 @@ import ArrowForward from '../assets/arrow-forward-svgrepo-com.svg';
 import DeleteIcon from '../assets/backspace-svgrepo-com.svg';
 import useThemeStyles from '../utils/dynamic';
 
-const passcode = () => {
+const Passcode = () => {
     const currentMode = useColorScheme();
     const [isFocus, setISfocus] = useState<boolean>(false);
     const [currentIndex, setCurrentIndex] = useState<number>();
@@ -109,7 +109,7 @@ const passcode = () => {
                 </TouchableOpacity>              
                </View>
 
-            <View   style={className`rounded-full p-6 w-[25%]  ${ currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b'}` }>
+            <View   style={className`rounded-full p-6 w-[25%]  ${ currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#1a263e]' }` }>
                 <TouchableOpacity onPress={() => router.push('success')}>
                   <ArrowForward  width={30} height={30} fill={currentMode === 'light' ? 'white' : 'white'} stroke={'white'} />
                 </TouchableOpacity> 
@@ -126,4 +126,4 @@ const passcode = () => {
   )
 }
 
-export default passcode
+export default Passcode
