@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const dashboard = () => {
+const main = () => {
   return (
     <View>
-      <Text>dashboard</Text>
+      <Text>main</Text>
     </View>
   )
 }
 
-export default dashboard
+export default main

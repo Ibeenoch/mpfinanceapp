@@ -20,6 +20,7 @@ const useThemeStyles = () => {
     secondLayerBgColor: currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#1a263e]',
     secondLayerBgColorblue: currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]',
     thirdLayerBgColor: currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#36454f]',
+    buttonBgColor: currentMode === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black',
   };
 };
 

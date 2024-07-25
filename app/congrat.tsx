@@ -50,7 +50,7 @@ const Congrats = () => {
         </View>
 
         <View style={className`absolute bottom-5 right-4 left-4`}>
-            <TouchableOpacity onPress={() => router.push('(tabs)/dashboard')} style={className`rounded-xl w-full px-6 py-4 flex-row justify-center items-center ${getmode.backGroundColor}`}>
+            <TouchableOpacity onPress={() => router.push('(tabs)/home')} style={className`rounded-xl w-full px-6 py-4 flex-row justify-center items-center ${getmode.backGroundColor}`}>
                 <Text style={className`${getmode.textColor} `}>Proceed To Dashboard</Text>
             </TouchableOpacity>
 
