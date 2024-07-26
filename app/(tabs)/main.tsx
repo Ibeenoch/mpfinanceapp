@@ -3,7 +3,8 @@ import React from 'react'
 import className from 'twrnc';
 import useThemeStyles from '../../utils/dynamic';
 import Plus from '../../assets/plus-large-svgrepo-com.svg'
-import Send from '../../assets/telegram-communication-chat-interaction-network-connection-svgrepo-com.svg'
+import SendLight from '../../assets/telegram-blue.svg'
+import SendDark from '../../assets/telegram-yellow.svg'
 import Phone from '../../assets/call-answer-svgrepo-com.svg'
 import PayBill from '../../assets/bookmark-multiple-svgrepo-com.svg';
 import ArrowForward from '../../assets/arrow-forward-svgrepo-com.svg';
@@ -34,7 +35,14 @@ const Main = () => {
         <View style={className`flex-row justify-between p-2`}>
             <View style={className`flex-row gap-2`}>
                 <View style={className`p-2 rounded-md ${getmode.backGroundlightYellowColor} `}>
-                  <Send width={8} height={8} fill={getmode.buttonBgColor} />
+                  {
+                    currentMode === 'light' ? (
+                      <SendLight width={18} height={18} fill={getmode.buttonBgColor} />
+                    ) : (
+                      <SendDark width={18} height={18} fill={getmode.buttonBgColor} />
+                    )
+                  }
+                  
                 </View>
                 <Text style={className`text-sm ${currentMode === 'light' ? `text-[#9eacc7]` : `text-[#b9c1ce]`}`}>Send Money</Text>
             </View>

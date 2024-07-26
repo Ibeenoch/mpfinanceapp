@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Modal, View, Text, Button, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Modal, View, Text, Button, StyleSheet, TouchableOpacity, ActivityIndicator, useColorScheme } from 'react-native';
 import Spinner from '../assets/tube-spinner.svg';
 import className from 'twrnc'
 import { useAppSelector } from '../features/hooks';
@@ -12,6 +12,7 @@ interface ModalProps {
 const AppModal = ({ modalOn } : ModalProps) => {
   const { showmodal } = useAppSelector((state) => state.auth );
   const getmode = useThemeStyles();
+  const currentMode = useColorScheme();
   console.log('modal is ', modalOn);
 
   return (
@@ -23,9 +24,9 @@ const AppModal = ({ modalOn } : ModalProps) => {
         transparent={true}
         animationType="slide"
       >
-        <View  style={className`relative flex items-center justify-center`}>
-          <ActivityIndicator size={'large'} />
-          <Text style={className`text-md font-bold absolute ${getmode.textColorTwo}`}>M</Text>
+        <View  style={className`relative h-full flex items-center justify-center`}>
+          <ActivityIndicator size={100} color={currentMode === 'light' ? '#f2f7fe' : '#ffd75b'} />
+          <Text style={className`text-3xl font-bold absolute ${getmode.textColorTwo}`}>M</Text>
         </View>
       </Modal>
      

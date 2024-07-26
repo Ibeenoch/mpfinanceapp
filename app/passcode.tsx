@@ -6,7 +6,7 @@ import ArrowForward from '../assets/arrow-forward-svgrepo-com.svg';
 import DeleteIcon from '../assets/backspace-svgrepo-com.svg';
 import useThemeStyles from '../utils/dynamic';
 
-const Passcode = () => {
+const passcode = () => {
     const currentMode = useColorScheme();
     const [isFocus, setISfocus] = useState<boolean>(false);
     const [currentIndex, setCurrentIndex] = useState<number>();
@@ -17,6 +17,7 @@ const Passcode = () => {
   
     // Update number and focus the next input
     const updateNum = (val: string) => {
+      console.log(val)
       const nextIndex = arrNum.findIndex(num => num === ''); // Find the first empty index
       if (nextIndex !== -1) {
         const newArrNum = [...arrNum];
@@ -109,9 +110,9 @@ const Passcode = () => {
                 </TouchableOpacity>              
                </View>
 
-            <View   style={className`rounded-full p-6 w-[25%]  ${ currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#1a263e]' }` }>
+            <View   style={className`rounded-full p-6 w-[25%]  ${ currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}` }>
                 <TouchableOpacity onPress={() => router.push('success')}>
-                  <ArrowForward  width={30} height={30} fill={currentMode === 'light' ? 'white' : 'white'} stroke={'white'} />
+                  <ArrowForward  width={30} height={30} fill={currentMode === 'light' ? '#0261ef' : 'white'} stroke={'white'} />
                 </TouchableOpacity> 
             </View>
               
@@ -126,4 +127,4 @@ const Passcode = () => {
   )
 }
 
-export default Passcode
+export default passcode

@@ -9,7 +9,6 @@ import ArrowUp from '../assets/up-arrow-svgrepo-com.svg';
 import countries from '../utils/countries';
 import { Picker } from '@react-native-picker/picker';
 import { router, useNavigation } from 'expo-router';
-import AppModal from '../components/Modal';
 import { StatusBar } from 'expo-status-bar';
 import { shouldShowModal } from '../features/auth/auth';
 import { useAppDispatch, useAppSelector } from '../features/hooks';
@@ -99,9 +98,7 @@ const  Signup = () => {
   };
   
 
-  useEffect(() => {
-    enableBtn()
-  }, [phone])
+
     
   const enableBtn = () => {
     if(phone){
@@ -181,7 +178,7 @@ const  Signup = () => {
     
   return (
     <TouchableWithoutFeedback onPress={handleOutsideClick}>
-    <View style={className`${ colorScheme === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} h-full flex-1 `}>
+    <View style={className`${ colorScheme === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'} h-full flex-1 `}>
      
     
 
@@ -198,12 +195,12 @@ const  Signup = () => {
           <View style={className`p-4 max-w-sm `}>
             <View style={className`p-4 ${ colorScheme === 'light' ? 'bg-[#ffffff]' : 'bg-[#0e1a32]'} rounded-2xl w-full`}>
               <View style={className`w-full flex-row rounded-xl ${ isInputErr ? 'border border-red-500' : ''} ${ isFocus ? `border ${ colorScheme === 'light' ? 'border-[#0261ef]' : 'border-[#ffd75b]' } ` : ''}   ${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}  `}>
-                  <View style={className`flex-row rounded-tl-xl rounded-bl-xl border-r border-gray-300 border-opacity-50 items-center p-2    ${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}`}>
+                  <View style={className`flex-row rounded-tl-xl rounded-bl-xl  items-center p-2    ${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}`}>
                       <Image source={require('../assets/flag.png')} style={className`w-8 h-8`} />
-                      <Text style={className` px-1 ${colorScheme === 'light' ? 'text-black' : 'text-white'}`}>+234</Text>
+                      <Text style={className` px-1 ${colorScheme === 'light' ? 'text-black' : 'text-white'} text-xs`}>+234</Text>
                   </View>
                 
-                  <TextInput onPress={HandlehideFooter} keyboardType='number-pad' maxLength={10} onFocus={handleFocus} onBlur={handleBlur}  onChangeText={handlePhone} value={phone} placeholder='Phone number'  placeholderTextColor={colorScheme === 'light' ? 'black' : 'white'} style={className`p-2 w-[60%] rounded-tr-xl rounded-br-xl  ${ colorScheme === 'light' ? 'bg-[#e6edfd] text-black' : 'bg-[#1a263e] text-white'} `} />
+                  <TextInput onPress={HandlehideFooter} keyboardType='number-pad' maxLength={10} onFocus={handleFocus} onBlur={handleBlur}  onChangeText={handlePhone} value={phone} placeholder='Phone number'  placeholderTextColor={colorScheme === 'light' ? 'black' : 'gray'} style={className`pl-4 py-2 w-[60%] rounded-tr-xl rounded-br-xl  ${ colorScheme === 'light' ? 'bg-[#e6edfd] text-black' : 'bg-[#1a263e] text-white'} `} />
                 
              
 
@@ -248,9 +245,9 @@ const  Signup = () => {
         ( <View style={className`p-3`}>
           {
             colorScheme === 'light' ? (
-              <TextInput onPress={HandlehideFooter}  onChangeText={handleReferralChange}  value={referral} placeholder='Referral Code (Optional)' placeholderTextColor='#b9c1ce'  style={className`px-4 py-2 text-sm rounded-lg bg-white text-gray-200`} />
+              <TextInput   onChangeText={handleReferralChange}  value={referral} placeholder='Referral Code (Optional)' placeholderTextColor='#b9c1ce'  style={className`px-4 py-2 text-sm rounded-lg bg-white text-gray-200`} />
             ) : (
-              <TextInput  onPress={HandlehideFooter} onChangeText={handleReferralChange} value={referral} placeholder='Referral Code (Optional)' placeholderTextColor='#b9c1ce' style={className`px-4 py-2 text-sm rounded-lg  bg-[#1a263e] text-gray-200 `}  />
+              <TextInput   onChangeText={handleReferralChange} value={referral} placeholder='Referral Code (Optional)' placeholderTextColor='#b9c1ce' style={className`px-4 py-2 text-sm rounded-lg  bg-[#1a263e] text-gray-200 `}  />
             )
           }
          </View>)
@@ -291,12 +288,7 @@ const  Signup = () => {
   
     {/* modal  */}
 
-  {
-    showModal && (
-      
-      <AppModal modalOn={showModal} />
-    )
-  }
+ 
   
     </View>
     </TouchableWithoutFeedback>

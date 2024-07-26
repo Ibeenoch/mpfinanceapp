@@ -8,8 +8,12 @@ import CardBlue from '../../assets/credit-card-01-blue.svg';
 import CardOrange from '../../assets/credit-card-01-orange.svg';
 import CardInactive from '../../assets/credit-card-inactive.svg';
 import Plus from '../../assets/up-arrow-svgrepo-com (1).svg';
-import SafeBox from '../../assets/safebox-svgrepo-com.svg';
-import Income from '../../assets/noun-income-834265.svg';
+import SafeBoxBlue from '../../assets/safebox-blue.svg';
+import SafeBoxYellow from '../../assets/safebox-yellow.svg';
+import SafeBoxInactive from '../../assets/safebox-inactive.svg';
+import IncomeBlue from '../../assets/income-blue.svg';
+import IncomeYellow from '../../assets/income-yellow.svg';
+import IncomeInactive from '../../assets/income-inactive.svg';
 import useThemeStyles from '../../utils/dynamic';
 import className from 'twrnc';
 import Bell from '../../assets/bell-svgrepo-com.svg'
@@ -38,6 +42,8 @@ const  Tablayout = () => {
       headerTitle: '',
       tabBarStyle: {
         borderRadius: 50,
+        position: 'absolute',
+        bottom: 5,
         marginBottom: 15,
         marginHorizontal: 9,
         paddingHorizontal: 10,
@@ -93,7 +99,7 @@ const  Tablayout = () => {
               title: '',
            
             tabBarIcon: () => {
-              return <View style={className`${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]' } mb-4 p-2 rounded-full`}>
+              return <View style={className`${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]' } mb-4 p-2 rounded-full`}>
                   <View style={className`${currentMode === 'light' ? `bg-[#0261ef]` : `bg-[#ffd75b]`} p-6 rounded-full`}>
                         <Plus width={25} height={25} strokeWidth={2} stroke={`${currentMode === 'light' ? `white` : `black`}`} fill={`${currentMode === 'light' ? `white` : `black`}`} />
                     </View>
@@ -117,7 +123,11 @@ const  Tablayout = () => {
             tabBarActiveTintColor: currentMode === 'light' ? `#0261ef` : `#ffd75b`,
             tabBarInactiveTintColor: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
             tabBarIcon: () => {
-              return <SafeBox width={25} height={25} stroke={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`} fill={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`} />
+              return currentMode === 'light' ? (
+                <SafeBoxBlue width={25} height={25} />
+              ) : (
+                <SafeBoxYellow width={25} height={25} />
+              )
             }
         }}/>
         <Tabs.Screen name='salary' options={{
@@ -130,7 +140,12 @@ const  Tablayout = () => {
             tabBarActiveTintColor: currentMode === 'light' ? `#0261ef` : `#ffd75b`,
             tabBarInactiveTintColor: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
             tabBarIcon: () => {
-              return <Income width={25} height={25} stroke={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`} fill={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`} />
+              return currentMode === 'light' ? (
+                <IncomeBlue width={25} height={25}  />
+              ) : (
+                <IncomeYellow width={25} height={25}  />
+
+              )
             }
         }}/>
 

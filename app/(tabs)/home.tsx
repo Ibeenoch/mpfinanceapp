@@ -6,7 +6,8 @@ import Copy from '../../assets/copy-svgrepo-com.svg';
 import Clock from '../../assets/clock-historyoteka-icon-svgrepo-com.svg';
 import ArrowRight from '../../assets/arrow-forward-simple-svgrepo-com.svg';
 import ArrowDown from '../../assets/arrow-down-3101.svg';
-import Transfer from '../../assets/telegram-communication-chat-interaction-network-connection-svgrepo-com.svg';
+import TransferLight from '../../assets/telegram-blue.svg';
+import TransferDark from '../../assets/telegram-yellow.svg';
 import Phone from '../../assets/telephone-outgoing-svgrepo-com.svg';
 import Bookmark from '../../assets/bookmark-multiple-solid-svgrepo-com.svg';
 import NoTransaction from '../../assets/transaction-money-svgrepo-com.svg';
@@ -16,7 +17,7 @@ const Home = () => {
   const getmode = useThemeStyles();
   const currentMode = useColorScheme();
   return (
-    <ScrollView>
+    <ScrollView >
       <View style={className`p-4 flex-1 ${getmode.dasboardBackgroundFirstLayerColor}`}>
 
           <View style={className`rounded-xl ${getmode.dasboardBackgroundSecondLayerColor} p-4 `}>
@@ -47,7 +48,7 @@ const Home = () => {
           
 
             <View style={className`px-4 pt-4 pb-8 flex-row items-center gap-2`}>
-              <View style={className`p-2 rounded-full bg-[#f7f7f7]`}>
+              <View style={className`p-1 rounded-full bg-[#f7f7f7]`}>
                 <Clock width={17} height={17} fill={'gray'} />
               </View>
               <Text  style={className`text-xs text-gray-500`}>No recent transactions yet</Text>
@@ -67,21 +68,27 @@ const Home = () => {
             
             <View style={className`flex-col rounded-xl p-2 ${getmode.dasboardBackgroundSecondLayerColor} `}>
                 <View style={className`flex justify-center items-center`}>
-                  <Transfer width={25} height={25} />
+                  {
+                    currentMode === 'light' ? (
+                      <TransferLight width={25} height={25}  fill={getmode.dasboardSvgButton} />
+                    ) : (
+                      <TransferDark width={25} height={25}  fill={getmode.dasboardSvgButton} />
+                    )
+                  }
                 </View>
                 <Text style={className`text-gray-500 text-md`}>Transfer</Text>
             </View>
 
             <View style={className`flex-col rounded-xl p-2 ${getmode.dasboardBackgroundSecondLayerColor} `}>
                 <View style={className`flex justify-center items-center `}>
-                  <Phone width={25} height={25} />
+                  <Phone width={25} height={25}  fill={getmode.dasboardSvgButton} stroke={getmode.dasboardSvgButton}  />
                 </View>
                 <Text style={className`text-gray-500 text-md`}>Top-Up</Text>
             </View>
 
             <View style={className`flex-col rounded-xl p-2 ${getmode.dasboardBackgroundSecondLayerColor} `}>
                 <View style={className`flex justify-center items-center `}>
-                  <Bookmark width={25} height={25} />
+                  <Bookmark width={25} height={25}  fill={getmode.dasboardSvgButton}  />
                 </View>
                 <Text style={className`text-gray-500 text-md`}>Pay Bills</Text>
             </View>
@@ -110,7 +117,7 @@ const Home = () => {
           </View>
 
           <Text style={className`text-gray-500 text-left my-2`}>Suggested For you</Text>
-          <View style={className`rounded-xl w-[100px] h-[150px]  mb-4 ${getmode.backGroundColorTwo}`}>
+          <View style={className`rounded-xl w-[100px] h-[150px]  mb-4 ${getmode.dasboardBackgroundSecondLayerColor}`}>
             <Text style={className`${getmode.textColorTwo} font-bold px-2 pt-2 text-xs pb-8 w-18`}>Earn from Referrals</Text>
             <View style={className``}>
               {
@@ -125,39 +132,39 @@ const Home = () => {
           </View>
 
           <Text style={className`text-gray-500 my-2 `}>Spending Trend</Text>
-          <View style={className`rounded-xl w-full px-4 pt-4 pb-8 ${getmode.secondLayerBgColor}`}>
-            <View style={className`flex-row gap-1 items-center bg-[#0e1a32] max-w-lg p-2 rounded-lg`}>
-              <Text style={className`text-[#ffd75b] text-left `}>This Week </Text>
-              <ArrowDown width={5} height={5} fill={'#ffd75b'} />
+          <View style={className`rounded-xl w-full px-4 pt-4 pb-8 ${getmode.dasboardBackgroundSecondLayerColor}`}>
+            <View style={className`flex-row gap-1 mb-2 items-center ${currentMode === 'light' ? 'bg-[#0e1a32]' : 'bg-[#19212c]'}  max-w-[95px] p-2 rounded-lg`}>
+              <Text style={className`text-[#ffd75b] text-left text-xs `}>This Week </Text>
+              <ArrowDown width={8} height={8} strokeWidth={6} fill={'#ffd75b'} />
             </View>
 
-            <View style={className`p-3 ${getmode.secondLayerBgColor}`}>
+            <View style={className`p-3 rounded-xl ${getmode.secondLayerBgColor}`}>
 
-              <View  style={className`flex-row`}>
+              <View  style={className`flex-row gap-3 mb-3`}>
 
               <View  style={className`flex-col`}>
-                <View  style={className`flex-row gap-1 my-3`}>
+                <View  style={className`flex-row items-center gap-1 my-3`}>
                   <View style={className`w-1 h-1 rounded-full p-1 bg-sky-500`}></View>
                   <Text style={className`text-gray-500 text-xs`}>Money in</Text>
                 </View>
 
-                <Text style={className`font-bold ${getmode.textColorTwo}`}>N0.00</Text>
+                <Text style={className`font-bold text-xs ${getmode.textColorTwo}`}>N0.00</Text>
               </View>
 
               <View  style={className`flex-col`}>
-                <View  style={className`flex-row gap-1`}>
-                  <View style={className`w-3 h-3 rounded-full p-2 bg-sky-500`}></View>
+                <View  style={className`flex-row  items-center gap-1 my-3`}>
+                  <View style={className`w-1 h-1 rounded-full p-1 bg-sky-500`}></View>
                   <Text style={className`text-gray-500 text-xs`}>Money Out</Text>
                 </View>
 
-                <Text style={className`font-bold ${getmode.textColorTwo}`}>N0.00</Text>
+                <Text style={className`font-bold text-xs ${getmode.textColorTwo}`}>N0.00</Text>
               </View>
 
               </View>
 
-              <View style={className`${getmode.firstLayerBgColor} p-3 rounded-xl`}>
+              <View style={className`${getmode.dasboardBackgroundSecondLayerColor} p-3 rounded-xl`}>
                 <View style={className`flex-row justify-center items-center w-full`}>
-                  <NoTransaction width={8} height={8} />
+                  <NoTransaction width={28} height={28} />
                 </View>
                 <Text style={className`text-gray-500`}>Nothing to show yet. Click the dropdown filter for more options</Text>
               </View>

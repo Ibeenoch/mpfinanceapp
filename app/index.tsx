@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import { Image } from 'expo-image';
 import className from 'twrnc';
 import {
@@ -17,18 +17,9 @@ import image from '../assets/image';
 import { router } from 'expo-router';
 import Spinner from '../assets/tube-spinner.svg'
 import useThemeStyles from '../utils/dynamic';
+import { useAppDispatch } from '../features/hooks';
+import { shouldShowModal } from '../features/auth/auth';
 
-let s1 = image.s1, s2= image.s2, s3 = image.s3, s4 = image.s4, s5 = image.s5;
-const images = [s1, s2, s3, s4, s5];
-const textBig = [
-  'Get a debit card that always works', 'Send and receive money with ease',
-  'Fast and easy way to pay anywhere', 'Buy Airtime and Data in a few clicks', 'Pay Bills'
-];
-const textSmall = [
-  'withdraw cash and make payments anywhere securely', 'From anyone and to anyone in seconds',
-  'Pay with transfer or cash at your favourite Moniepoint merchants in a blink of an eye', 'Recharge your phone seamlessly anytime',
-  "Don't get cut off on your TV or Electricity connection. Pay your bills on time seamlessly"
-];
 
      // light mode thick blue #0261ef 
     // light mode light blue bg #e6edfd 
@@ -48,15 +39,31 @@ const textSmall = [
     // dark mode yellow bg at login/sign up #343631
     // button number color at sign up #5b5b5b
 
-const App = () => {
+const Home = () => {
+  const dispatch = useAppDispatch();
   const scrollX = useRef(new Animated.Value(0)).current;
   const getmode = useThemeStyles();
+  useEffect(() => {
+    dispatch(shouldShowModal(false));
+  }, [])
+  
+  let s1 = image.s1, s2= image.s2, s3 = image.s3, s4 = image.s4, s5 = image.s5;
+  const images = [s1, s2, s3, s4, s5];
+  const textBig = [
+    'Get a debit card that always works', 'Send and receive money with ease',
+    'Fast and easy way to pay anywhere', 'Buy Airtime and Data in a few clicks', 'Pay Bills'
+  ];
+  const textSmall = [
+    'withdraw cash and make payments anywhere securely', 'From anyone and to anyone in seconds',
+    'Pay with transfer or cash at your favourite Moniepoint merchants in a blink of an eye', 'Recharge your phone seamlessly anytime',
+    "Don't get cut off on your TV or Electricity connection. Pay your bills on time seamlessly"
+  ];
 
   const {width: windowWidth} = useWindowDimensions();
   const currentMode = useColorScheme();
 
   return (
-    <SafeAreaView style={className`flex-1 justify-center items-center  ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'}`}>
+    <SafeAreaView style={className`flex-1 justify-center items-center  ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}`}>
 
         <View style={className`text-center text-2xl font-bold -mt-38 pb-6`}>
           <Text style={className`text-center text-2xl font-bold  ${currentMode === 'light' ? 'text-black' : 'text-white'}`}>MoniePoint</Text>
@@ -118,8 +125,7 @@ const App = () => {
           <Pressable style={className`px-2 py-4 w-[45%] ${getmode.backGroundColor} rounded-lg flex-row justify-center items-center`}>
             <Text style={className`text-xs font-bold ${getmode.textColor}`}>Login</Text>
           </Pressable>
-          {/* <Pressable onPress={() => router.push('signup')} style={className`px-2 py-4 w-[45%] ${getmode.backGroundColor} rounded-lg flex-row justify-center items-center`}> */}
-          <Pressable onPress={() => router.push('(tabs)/home')} style={className`px-2 py-4 w-[45%] ${getmode.backGroundColor} rounded-lg flex-row justify-center items-center`}>
+          <Pressable onPress={() => router.push('signup')} style={className`px-2 py-4 w-[45%] ${getmode.backGroundColor} rounded-lg flex-row justify-center items-center`}>
             <Text style={className`text-xs font-bold  ${getmode.textColor}`}>Sign Up</Text>
           </Pressable>
         </View>
@@ -174,4 +180,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default Home;
