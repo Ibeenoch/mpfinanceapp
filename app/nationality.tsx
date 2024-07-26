@@ -19,13 +19,17 @@ import ArrowLeft from '../assets/arrow-back-svgrepo-com.svg'
 import ArrowRight from '../assets/arrow-forward-svgrepo-com.svg'
 import { router } from 'expo-router';
 import { Picker } from '@react-native-picker/picker';
-// import StatusSpinner from '../components/statusCircle.js';
-
+import countries from '../utils/countries.js';
 
 
 const Nationality = () => {
   const currentMode = useColorScheme();
   const [selectedValue, setSelectedValue] = useState<string>('java');
+
+
+  const chooseCountry = () => {
+
+  }
 
 
   return (
@@ -46,19 +50,12 @@ const Nationality = () => {
         <View style={className`w-full flex-row rounded-xl items-center p-2 justify-between  ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}  `}>
                   <View style={className`flex-row rounded-tl-xl rounded-bl-xl border-r border-gray-300 border-opacity-50 items-center p-2    ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}`}>
                       <Image source={require('../assets/flag.png')} style={className`w-8 h-8`} />
-                      <Text style={className` px-1 ${currentMode === 'light' ? 'text-black' : 'text-white'}`}>Nigeria</Text>
+                      <Text style={className` px-1 ${currentMode === 'light' ? 'text-black' : 'text-white'} pl-2`}>Nigeria</Text>
                   </View>
                   <View style={className``}>
-                  <Text style={className`${currentMode === 'light' ? 'text-[#0261ef]' : 'text-[#19212c]'}`} >Change</Text>
-                    {/* <Picker
-                        selectedValue={selectedValue}
-                        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-                    >
-                        <Picker.Item label="Java" value="java" />
-                        <Picker.Item label="JavaScript" value="js" />
-                        <Picker.Item label="Python" value="python" />
-                        <Picker.Item label="C++" value="cpp" />
-                    </Picker> */}
+                    <TouchableOpacity onPress={chooseCountry}>
+                      <Text style={className`pr-4 ${currentMode === 'light' ? 'text-[#0261ef]' : 'text-[#ffd75b]'}`} >Change</Text>
+                    </TouchableOpacity>
                   </View>
          </View>
 

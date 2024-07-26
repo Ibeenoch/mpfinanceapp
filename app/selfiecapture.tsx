@@ -24,7 +24,7 @@ const SelfieCapture = () => {
         
         <View style={className`rounded-xl w-full ${getmode.backGroundBlueColor}`}>
                 <TouchableOpacity onPress={() => router.push('idverified')}>
-                    <Text style={className`text-center text-sm font-bold py-2 px-8  rounded-xl ${getmode.textColor}`}>Continue</Text>
+                    <Text style={className`text-center text-sm font-bold py-4 px-8  rounded-xl ${getmode.textColor}`}>Continue</Text>
                 </TouchableOpacity>
         </View>
 

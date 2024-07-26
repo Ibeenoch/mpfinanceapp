@@ -1,5 +1,5 @@
-import { View, Text, useColorScheme, TextInput } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import { View, Text, useColorScheme, TextInput, Keyboard } from 'react-native'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import className from 'twrnc'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { shouldShowModal } from '../features/auth/auth';
@@ -40,6 +40,10 @@ const Verifyphone = () => {
       }
     }
     };
+    
+    useLayoutEffect(() => {
+      Keyboard.dismiss();
+    }, [])
 
     useEffect(() => {
       inputRefs.current[0].focus();

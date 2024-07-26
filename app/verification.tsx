@@ -10,12 +10,17 @@ import useThemeStyles from '../utils/dynamic';
 
 const Verification = () => {
   const currentMode = useColorScheme();
-  const [selectedValue, setSelectedValue] = useState('option1'); 
-  const getmode = useThemeStyles()
+  const [selectedValue, setSelectedValue] = useState(''); 
+  const getmode = useThemeStyles();
 
+  const handleRadioPress = (value: string) => {
+    setSelectedValue(value);
+    console.log('selected val ', value);
+  }
+// yellow #ffd75b   blue #0663f0 white  #ffffff
   return (
-    <View style={className`${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'} px-5 py-2 h-screen flex-1`}>
-      
+    <View style={className`${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'} px-2 py-2 h-screen flex-1`}>
+      <View style={className`px-4`}>
         <View style={className``}>
           <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} font-bold text-2xl text-left pt-5 pb-1`}>Select an Options</Text>
           <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} text-xs text-left pb-7`}>select the type of ID to validate</Text>
@@ -24,7 +29,7 @@ const Verification = () => {
         <View style={className`flex rounded-lg my-3 p-4 ${currentMode === 'light' ? 'bg-[#ffffff]' : 'bg-[#0e1a32]'}`}>
             <View style={className`flex-row  w-auto`}>
             <View style={className`p-1 rounded-lg ${currentMode === 'light' ? 'bg-[#ffffff]' : 'bg-[#343631]'} max-w-sm`}>
-              <News width={50} height={50} fill={`${currentMode === 'light' ? 'blue' : 'white'}`} />
+              <News width={50} height={50} fill={`${currentMode === 'light' ? '#0663f0' : 'white'}`} />
               </View>
             </View>
             <View style={className`flex-row justify-between items-center px-1`}>
@@ -35,19 +40,19 @@ const Verification = () => {
                 {
                   currentMode === 'light' ? (
                     <RadioButton.Android 
-                        value="option1"
-                        status={selectedValue === 'option1' ?  
-                                'checked' : 'unchecked'} 
-                        onPress={() => setSelectedValue('option1')} 
-                        color='#007BFF'
+                        value="nin"
+                        status={selectedValue === 'nin' ?   'checked' : 'unchecked'} 
+                        // yellow #ffd75b   blue #0663f0 white  #ffffff
+                        onPress={() => handleRadioPress('nin')} 
+                        color={selectedValue === 'nin' ? '#0663f0' : 'gray'}
                     /> 
                   ) : (
                     <RadioButton.Android 
-                        value="option1"
-                        status={selectedValue === 'option1' ?  
+                        value="nin"
+                        status={selectedValue === 'nin' ?  
                                 'checked' : 'unchecked'} 
-                        onPress={() => setSelectedValue('option1')} 
-                        color='#fcd762'
+                        onPress={() => handleRadioPress('nin')} 
+                        color={selectedValue === 'nin' ? '#ffd75b' : 'gray'}
                     /> 
                   )
                 }
@@ -60,7 +65,7 @@ const Verification = () => {
         <View style={className`flex rounded-lg my-3 p-4 ${currentMode === 'light' ? 'bg-[#ffffff]' : 'bg-[#0e1a32]'}`}>
             <View style={className`flex-row  w-auto`}>
             <View style={className`p-4 rounded-lg ${currentMode === 'light' ? 'bg-[#ffffff]' : 'bg-[#343631]'} max-w-sm`}>
-              <BAnk width={20} height={20} fill={`${currentMode === 'light' ? 'blue' : 'white'}`} />
+              <BAnk width={20} height={20} fill={`${currentMode === 'light' ? '#0663f0' : 'white'}`} />
             </View>
             </View>
             <View style={className`flex-row justify-between items-center px-1`}>
@@ -71,19 +76,20 @@ const Verification = () => {
                 {
                   currentMode === 'light' ? (
                     <RadioButton.Android 
-                        value="option1"
-                        status={selectedValue === 'option1' ?  
+                        value="bvn"
+                        status={selectedValue === 'bvn' ?  
                                 'checked' : 'unchecked'} 
-                        onPress={() => setSelectedValue('option1')} 
-                        color='#007BFF'
+                        // onPress={() => setSelectedValue('bvn')}  // yellow #ffd75b   blue #0663f0 white  #ffffff
+                        onPress={() => handleRadioPress('bvn')} 
+                        color={selectedValue === 'bvn' ? `#0663f0` : 'gray'}
                     /> 
                   ) : (
                     <RadioButton.Android 
-                        value="option1"
-                        status={selectedValue === 'option1' ?  
+                        value="bvn"
+                        status={selectedValue === 'bvn' ?  
                                 'checked' : 'unchecked'} 
-                        onPress={() => setSelectedValue('option1')} 
-                        color='#fcd762'
+                        onPress={() => handleRadioPress('bvn')} 
+                        color={selectedValue === 'bvn' ? '#ffd75b' : 'gray'}
                     /> 
                   )
                 }
@@ -105,9 +111,11 @@ const Verification = () => {
           </View>
         </View>
 
+        </View>
 
-      <View style={className`p-4 absolute bottom-0 w-full left-2 right-2`}>    
-      <View style={className`w-full`}>
+
+      <View style={className`p-4 absolute bottom-5 w-full left-2 right-2`}>    
+      <View style={className`w-full flex-row items-center justify-center`}>
         <TouchableOpacity onPress={() => router.push('photocapture')}  style={className`rounded-xl w-full ${currentMode === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black'}  py-6 px-4 flex-row items-center justify-center`}  >
           <Text style={className`${ currentMode === 'dark' ? 'text-white' : 'text-white'} text-sm font-semibold`}>Proceed</Text>
         </TouchableOpacity>
