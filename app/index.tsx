@@ -44,7 +44,7 @@ const Home = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const getmode = useThemeStyles();
   useEffect(() => {
-    dispatch(shouldShowModal(true));
+    dispatch(shouldShowModal(false));
   }, [])
   
   let s1 = image.s1, s2= image.s2, s3 = image.s3, s4 = image.s4, s5 = image.s5;

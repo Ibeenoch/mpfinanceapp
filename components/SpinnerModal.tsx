@@ -6,7 +6,7 @@ import className from 'twrnc';
 const SpinnerModal = () => {
     const currentMode = useColorScheme();
   return (
-    <BlurView style={{ zIndex: 2, width: '100%', height: '100%', position: 'absolute'}} experimentalBlurMethod='dimezisBlurView' tint='regular' intensity={100}>
+    <BlurView style={{ zIndex: 2, width: '100%', height: '100%', position: 'absolute'}} experimentalBlurMethod='dimezisBlurView' tint='regular' intensity={10}>
     <View style={styles.modalContainer}>
       {/* Background circular tube */}
       <View style={styles.tubeContainer}>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
       width: '70%',
       height: '70%',
       borderRadius: 50, // Make it circular
-      borderWidth: 5, // Width of the tube
+      borderWidth: 6, // Width of the tube
       borderColor: '#D3D3D3', // Light gray color for the tube
       position: 'absolute',
     },

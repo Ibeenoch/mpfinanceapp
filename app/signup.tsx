@@ -1,4 +1,4 @@
-import { View, Text, Pressable,TextInput, StyleSheet, useColorScheme, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, TouchableOpacity, Modal } from 'react-native'
+import { View, Text, Pressable,TextInput, StyleSheet, useColorScheme, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, TouchableOpacity, Modal, ScrollView } from 'react-native'
 import { Image } from 'expo-image';
 import React, { useEffect, useRef, useState } from 'react';
 import className from 'twrnc'
@@ -20,6 +20,7 @@ const  Signup = () => {
     const navigation = useNavigation();
     const [showReferral, setShowReferral] = useState<boolean>(false);
     const [isFocus, setIsFocus] = useState<boolean>(false);
+    const [isFocused, setIsFocused] = useState<boolean>(false);
     const [isFocusRef, setIsFocusRef] = useState<boolean>(false);
     const [isBlur, setIsBlur] = useState<boolean>(false);
     const [isBlurRef, setIsBlurRef] = useState<boolean>(false);
@@ -151,119 +152,121 @@ const  Signup = () => {
     
   return (
     <TouchableWithoutFeedback onPress={handleOutsideClick}>
-    <View style={className`${ colorScheme === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'} h-full flex-1 `}>
-     
-    
+          <KeyboardAvoidingView style={className`flex-1`} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0 }>
+            <View style={className`${ colorScheme === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'} h-full flex-1 `}>
+            <ScrollView>
+              {/* main content  */}
+              <View style={className`flex-1`}>
+                  <View style={className` ${colorScheme === 'light' ? 'bg-[#f7f7f7] border-t-[#0261ef]' : 'bg-[#0e1a32] border-t-[#ffd75b]'}  border-t-[3px] w-[25%] `}>
+                    </View>
+                    
+                    <View style={className`px-4`}>
+                      <Text style={className` ${ colorScheme === 'light' ? 'text-black' : 'text-white'} font-bold text-xl text-left pt-5 pb-1`}>What's Your Phone Number?</Text>
+                      <Text style={className` ${ colorScheme === 'light' ? 'text-black' : 'text-white'} text-xs text-left pb-7`}>Enter the phone number you want to use for this account</Text>
+                    </View>
 
-      {/* main content  */}
-      <View style={className`flex-1`}>
-          <View style={className` ${colorScheme === 'light' ? 'bg-[#f7f7f7] border-t-[#0261ef]' : 'bg-[#0e1a32] border-t-[#ffd75b]'}  border-t-[3px] w-[25%] `}>
-            </View>
+                  <View style={className`px-4  max-w-sm `}>
+                    <View style={className`p-4 ${ colorScheme === 'light' ? 'bg-[#ffffff]' : 'bg-[#0e1a32]'} rounded-2xl w-full`}>
+                      <View style={className`w-full flex-row rounded-xl ${ isInputErr ? 'border border-red-500' : ''} ${ isFocus ? `border ${ colorScheme === 'light' ? 'border-[#0261ef]' : 'border-[#ffd75b]' } ` : ''}   ${ colorScheme === 'light' ? 'bg-[#f3f5f8]' : 'bg-[#1a263e]'}  `}>
+                          <View style={className`flex-row rounded-tl-xl rounded-bl-xl border-r border-gray-300 items-center p-2    ${ colorScheme === 'light' ? 'bg-[#f3f5f8]' : 'bg-[#1a263e]'}`}>
+                              <Image source={require('../assets/flag.png')} style={className`w-8 h-8`} />
+                              <Text style={className` px-1 ${colorScheme === 'light' ? 'text-black' : 'text-white'} text-xs`}>+234</Text>
+                          </View>
+                        
+                          <TextInput cursorColor={colorScheme === 'light' ? '#0261ef' : '#ffd75b'} keyboardType='number-pad' maxLength={10} onFocus={handleFocus} onBlur={handleBlur}  onChangeText={handlePhone} value={phone} placeholder='Phone number'  placeholderTextColor={colorScheme === 'light' ? 'black' : 'gray'} style={className`pl-4 py-2 w-[60%] rounded-tr-xl rounded-br-xl  ${ colorScheme === 'light' ? 'bg-[#f3f5f8] text-black' : 'bg-[#1a263e] text-white'} `} />
+                        
+                    
+
+                      </View>
+                      {
+                        isInputErr &&  <Text style={className`text-[12px] text-red-500 `}>Phone number is required</Text>
+                      } 
+                    </View>
+
+                    <View>
+
             
-            <View style={className`px-4`}>
-              <Text style={className` ${ colorScheme === 'light' ? 'text-black' : 'text-white'} font-bold text-xl text-left pt-5 pb-1`}>What's Your Phone Number?</Text>
-              <Text style={className` ${ colorScheme === 'light' ? 'text-black' : 'text-white'} text-xs text-left pb-7`}>Enter the phone number you want to use for this account</Text>
-            </View>
-
-          <View style={className`p-4 max-w-sm `}>
-            <View style={className`p-4 ${ colorScheme === 'light' ? 'bg-[#ffffff]' : 'bg-[#0e1a32]'} rounded-2xl w-full`}>
-              <View style={className`w-full flex-row rounded-xl ${ isInputErr ? 'border border-red-500' : ''} ${ isFocus ? `border ${ colorScheme === 'light' ? 'border-[#0261ef]' : 'border-[#ffd75b]' } ` : ''}   ${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}  `}>
-                  <View style={className`flex-row rounded-tl-xl rounded-bl-xl  items-center p-2    ${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}`}>
-                      <Image source={require('../assets/flag.png')} style={className`w-8 h-8`} />
-                      <Text style={className` px-1 ${colorScheme === 'light' ? 'text-black' : 'text-white'} text-xs`}>+234</Text>
                   </View>
-                
-                  <TextInput onPress={HandlehideFooter} keyboardType='number-pad' maxLength={10} onFocus={handleFocus} onBlur={handleBlur}  onChangeText={handlePhone} value={phone} placeholder='Phone number'  placeholderTextColor={colorScheme === 'light' ? 'black' : 'gray'} style={className`pl-4 py-2 w-[60%] rounded-tr-xl rounded-br-xl  ${ colorScheme === 'light' ? 'bg-[#e6edfd] text-black' : 'bg-[#1a263e] text-white'} `} />
-                
-             
 
+                  </View>
+
+                  
+
+                  <View style={className`max-w-sm mx-4 rounded-xl my-2 ${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#343631]'} py-1 px-6`}>
+                <View style={className`p-2 max-w-sm flex-row  items-center  ${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#343631]'}`}>
+                  <View style={className`p-1 w-full flex-row  ${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#343631]'}  rounded-xl `}>
+                      <View style={className`rounded-lg flex-row  items-center p-3  ${ colorScheme === 'light' ? 'bg-white' : 'bg-[#0e1a32]'}`}>
+                          <Gift width={20} height={20} stroke={`${ colorScheme === 'light' ? '#0261ef' : '#ffd75b' }`}  style={className``} />
+                      </View>
+
+                      <Text  style={className`p-2  ${ colorScheme === 'light' ? 'text-black' : 'text-white'} text-sm `} >Have a referral code?</Text>
+                  </View>
+
+                    <Pressable style={className`pr-14 mr-14`} onPress={() => setShowReferral(!showReferral)}>
+                        <View style={className``}>
+                          {
+                            showReferral ?   <ArrowUp  width={13} height={13} strokeWidth={5} fill={`${ colorScheme === 'light' ? '#0261ef' : '#ffd75b' }`} />
+                            : <ArrowDown  width={13} height={13} strokeWidth={5} fill={`${ colorScheme === 'light' ? '#0261ef' : '#ffd75b' }`} />
+
+                          }
+                        </View>
+                    </Pressable>
               </View>
+
               {
-                isInputErr &&  <Text style={className`text-[12px] text-red-500 `}>Phone number is required</Text>
-              } 
-            </View>
+                showReferral &&
+                ( <View style={className`p-3 relative`}>
+                    {
+                      isFocused && (
+                        <Text style={className`absolute z-8 top-4 left-6 text-[9px] text-gray-400`}>
+                          Referral Code (Optional)
+                        </Text>
+                      )
+                    }
 
-            <View>
-
-     
-          </View>
-
-          </View>
-
-          
-
-          <View style={className`max-w-sm mx-4 rounded-xl my-8 ${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#343631]'} py-1 px-6`}>
-        <View style={className`p-2 max-w-sm flex-row  items-center  ${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#343631]'}`}>
-          <View style={className`p-1 w-full flex-row  ${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#343631]'}  rounded-xl `}>
-              <View style={className`rounded-lg flex-row  items-center p-3  ${ colorScheme === 'light' ? 'bg-white' : 'bg-[#0e1a32]'}`}>
-                  <Gift width={20} height={20} stroke={`${ colorScheme === 'light' ? '#0261ef' : '#ffd75b' }`}  style={className``} />
-              </View>
-
-              <Text  style={className`p-2  ${ colorScheme === 'light' ? 'text-black' : 'text-white'} text-sm `} >Have a referral code?</Text>
-          </View>
-
-            <Pressable style={className`pr-14 mr-14`} onPress={() => setShowReferral(!showReferral)}>
-                <View style={className``}>
                   {
-                    showReferral ?   <ArrowUp  width={13} height={13} strokeWidth={5} fill={`${ colorScheme === 'light' ? '#0261ef' : '#ffd75b' }`} />
-                    : <ArrowDown  width={13} height={13} strokeWidth={5} fill={`${ colorScheme === 'light' ? '#0261ef' : '#ffd75b' }`} />
-
+                    colorScheme === 'light' ? (
+                      <TextInput onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} placeholder={isFocused ? '': 'Referral Code (Optional)'}  onChangeText={handleReferralChange}  cursorColor={'#0261ef'} value={referral}  style={className`px-4 py-2 text-sm rounded-lg bg-white text-gray-200`} />
+                    ) : (
+                      <TextInput onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} placeholder={isFocused ? '': 'Referral Code (Optional)'}  onChangeText={handleReferralChange} cursorColor={'#ffd75b'} value={referral}  placeholderTextColor='#b9c1ce' style={className`px-4 py-2 text-sm rounded-lg  bg-[#1a263e] text-gray-200 `}  />
+                    )
                   }
+                </View>)
+              }
+              
+              {/* <AppModal modalOn={showModal} /> */}
+
                 </View>
-            </Pressable>
-      </View>
-
-      {
-        showReferral &&
-        ( <View style={className`p-3`}>
-          {
-            colorScheme === 'light' ? (
-              <TextInput   onChangeText={handleReferralChange}  value={referral} placeholder='Referral Code (Optional)' placeholderTextColor='#b9c1ce'  style={className`px-4 py-2 text-sm rounded-lg bg-white text-gray-200`} />
-            ) : (
-              <TextInput   onChangeText={handleReferralChange} value={referral} placeholder='Referral Code (Optional)' placeholderTextColor='#b9c1ce' style={className`px-4 py-2 text-sm rounded-lg  bg-[#1a263e] text-gray-200 `}  />
-            )
-          }
-         </View>)
-      }
-      
-      {/* <AppModal modalOn={showModal} /> */}
-
-         </View>
-    </View>
-
-    
-
-   
-
-{/* footer  */}
-      {
-        hideFooter ? (
-          <View></View>
-        ) : 
-        <TouchableWithoutFeedback >
-            <KeyboardAvoidingView style={className`flex-1`} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <View style={className`p-4 absolute bottom-0 w-full`}>
-      
-              <View style={className`flex-row max-w-sm text-left text-xs py-4`}>
-              <Text style={className` ${ colorScheme === 'light' ? 'text-black' : 'text-white' } font-bold text-[12px] `}>By Clicking on "Create Profile", you agree to Moniepoint's <Text style={className`text-[#0261ef] text-[11px] font-bold dark:text-[#343631]`}>Terms and Conditions </Text>and <Text>Privacy Policy</Text> </Text>
-              </View>
-              {/* disabled={!btnActive} */}
-      
-              <View style={className`max-w-sm`}>
-                <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${colorScheme === 'light' ? 'bg-[#e5e5e5] text-white' : 'bg-[#343631] text-black'}`  :  'bg-[#343631]'} py-6 px-4 flex-row items-center justify-center`}  >
-                  <Text style={className`${btnActive && colorScheme === 'dark' ? 'text-white' : 'text-white'} text-sm font-semibold`}>Next</Text>
-                </TouchableOpacity>
-              </View>
             </View>
-            </KeyboardAvoidingView>
-        </TouchableWithoutFeedback>
-      }
-  
-    {/* modal  */}
-
- 
-  
-    </View>
+              </ScrollView>
+            
+        {/* footer  */}
+              {
+                hideFooter ? (
+                  <View></View>
+                ) : 
+                <TouchableWithoutFeedback >
+                    <View style={className`p-4 mt-1  w-full`}>
+              
+                      <View style={className`flex-row max-w-sm text-left text-xs py-2`}>
+                      <Text style={className` ${ colorScheme === 'light' ? 'text-black' : 'text-white' } text-[12px] `}>By Clicking on "Create Profile", you agree to Moniepoint's <Text style={className`text-[#0261ef] text-[11px] font-bold dark:text-[#343631]`}>Terms and Conditions </Text>and <Text>Privacy Policy</Text> </Text>
+                      </View>
+                      {/* disabled={!btnActive} */}
+              
+                      <View style={className`max-w-sm`}>                                                                                         
+                        <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${colorScheme === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`  :   `${colorScheme === 'light' ? 'bg-[#e5e5e5]' : 'bg-[#19222c]'}` } py-6 px-4 flex-row items-center justify-center`}  >
+                          <Text style={className`${btnActive && colorScheme === 'dark' ? 'text-white' : 'text-white'} text-sm font-semibold`}>Next</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                </TouchableWithoutFeedback>
+              }
+          
+            {/* modal  */}
+        
+          
+            </View>
+          </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   )
 }
