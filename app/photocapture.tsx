@@ -5,11 +5,32 @@ import useThemeStyles from '../utils/dynamic';
 import Bulb from '../assets/light_bulb_icon_152593.svg'
 import Glass from '../assets/spectacles-icon.svg'
 import { router } from 'expo-router';
+import * as ImagePicker from 'expo-image-picker'
+import { useAppDispatch } from '../features/hooks';
+import { saveImageCaptured } from '../features/auth/auth';
 
 
 
 const Photocapture = () => {
-    const getmode = useThemeStyles()
+    const getmode = useThemeStyles();
+    const dispatch = useAppDispatch();
+    const handleCamera = async() => {
+    let result =  await ImagePicker.launchCameraAsync({
+        quality: 1,
+        exif: true,
+        cameraType: ImagePicker.CameraType.front,
+        allowsEditing: true,
+        aspect: [1, 1],
+      })
+
+      if(!result.canceled){
+        console.log('results ',  result.assets[0].uri);
+        let url =  result.assets[0].uri;
+        dispatch(saveImageCaptured(url));
+        router.push('selfietake')
+      }
+      // () => 
+    }
   return (
     <View style={className`${getmode.backGroundColorTwo} flex-1 p-4`}>
       
@@ -45,7 +66,7 @@ const Photocapture = () => {
           <TouchableOpacity onPress={() => router.back()} style={className`px-2 py-4 w-[45%] ${getmode.backGroundColor} rounded-lg flex-row justify-center items-center`}>
             <Text style={className`text-xs font-bold ${getmode.textColor}`}>Dismiss</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push('selfietake')} style={className`px-2 py-4 w-[45%]  ${getmode.backGroundColor} rounded-lg flex-row justify-center items-center`}>
+          <TouchableOpacity onPress={handleCamera} style={className`px-2 py-4 w-[45%]  ${getmode.backGroundColor} rounded-lg flex-row justify-center items-center`}>
             <Text style={className`text-xs font-bold ${getmode.textColor}`}>Proceed</Text>
           </TouchableOpacity>
         </View>

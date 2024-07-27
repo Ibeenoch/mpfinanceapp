@@ -1,13 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 
 interface authState {
   value: number;
   showmodal: boolean;
+  imageUrl: string;
 }
 
 const initialState: authState = {
   value: 0,
   showmodal: false,
+  imageUrl: ''
 };
 
 const authSlice = createSlice({
@@ -26,8 +29,13 @@ const authSlice = createSlice({
     shouldShowModal: (state, action: PayloadAction<boolean>) => {
       state.showmodal = action.payload;
     },
+    saveImageCaptured: (state, action: PayloadAction<string>) => {
+      state.imageUrl = action.payload;
+    },
   },
 });
 
-export const { increment, decrement, setValue, shouldShowModal } = authSlice.actions;
+export const selectUser = (state: RootState) => state.auth;
+
+export const { increment, decrement, setValue, shouldShowModal, saveImageCaptured } = authSlice.actions;
 export default authSlice.reducer;

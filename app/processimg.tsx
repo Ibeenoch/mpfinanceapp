@@ -10,7 +10,7 @@ const Processimg = () => {
     const getmode = useThemeStyles();
   return (
     <View style={className`flex-1 py-[60%] px-[3%] bg-black`}>
-    <View style={className`${getmode.backGroundColorTwo} flex-1 rounded-xl px-4 justify-center items-center`}>
+    <View style={className`${getmode.backGroundColorTwo} flex-1 rounded-3xl px-4 justify-center items-center`}>
       
       <View style={className`flex-row justify-center items-center relative`}>
         <Focus fill={getmode.fillPhotoColor} strokeWidth={1} width={50} height={50} />
@@ -21,7 +21,7 @@ const Processimg = () => {
 
       <View>
             <Text style={className`max-w-sm text-center py-4 text-3xl font-semibold ${getmode.textColorTwo}`}>Processing selfie</Text>
-            <Text style={className`max-w-sm text-center pb-4 text-xs font-bold ${getmode.textColorTwo}`}>Just a few more seconds</Text>
+            <Text style={className`max-w-sm text-center pb-4 text-sm ${getmode.textColorTwo}`}>Just a few more seconds</Text>
        </View>
 
        <View style={className`rounded-xl mx-4 w-full bg-[#0261ef]`}>

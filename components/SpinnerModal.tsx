@@ -6,7 +6,7 @@ import className from 'twrnc';
 const SpinnerModal = () => {
     const currentMode = useColorScheme();
   return (
-    <BlurView style={[className``, StyleSheet.absoluteFill, styles.modalIntensity]} experimentalBlurMethod='none' tint='light' intensity={10}>
+    <BlurView style={{ zIndex: 2, width: '100%', height: '100%', position: 'absolute'}} experimentalBlurMethod='dimezisBlurView' tint='regular' intensity={100}>
     <View style={styles.modalContainer}>
       {/* Background circular tube */}
       <View style={styles.tubeContainer}>
@@ -14,7 +14,7 @@ const SpinnerModal = () => {
       </View>
       {/* ActivityIndicator  */}
       <Text style={className`text-3xl ${currentMode === 'light' ? 'text-[#0261ef]' : 'text-[#ffd75b]' } font-bold`}>M</Text>
-      <ActivityIndicator size={120} color={currentMode === 'light' ? '#0261ef' : '#ffd75b'  } style={styles.spinner} />
+      <ActivityIndicator size={85} color={currentMode === 'light' ? '#0261ef' : '#ffd75b'  } style={styles.spinner} />
     </View>
   </BlurView>
   )
@@ -37,10 +37,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.80)', 
     },
     tube: {
-      width: '100%',
-      height: '100%',
+      width: '70%',
+      height: '70%',
       borderRadius: 50, // Make it circular
-      borderWidth: 10, // Width of the tube
+      borderWidth: 5, // Width of the tube
       borderColor: '#D3D3D3', // Light gray color for the tube
       position: 'absolute',
     },

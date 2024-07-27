@@ -18,7 +18,7 @@ const Home = () => {
   const currentMode = useColorScheme();
   return (
     <ScrollView >
-      <View style={className`p-4 flex-1 ${getmode.dasboardBackgroundFirstLayerColor}`}>
+      <View style={className`pl-4 pr-4 pt-4 pb-24 flex-1 ${getmode.dasboardBackgroundFirstLayerColor}`}>
 
           <View style={className`rounded-xl ${getmode.dasboardBackgroundSecondLayerColor} p-4 `}>
             <View style={className`flex-row w-full gap-2 rounded-full mb-3 p-2`}>
@@ -26,7 +26,8 @@ const Home = () => {
                   <View style={className`rounded-full py-1 px-2 bg-blue-600`}>
                     <Text style={className`font-bold ${getmode.textColor}`}>M</Text>
                   </View>
-                  <Text style={className`${getmode.textColorTwo} text-xs`}>John Doe</Text>
+                  <Text style={className`${getmode.textColorTwo} text-xs`}>John wickton Doe</Text>
+                  <View style={className`p-1 border-l border-gray-300`}></View>
                   <Text style={className`text-gray-500 text-sm`}>709829383</Text>
                 </View>
 
@@ -36,22 +37,22 @@ const Home = () => {
 
             </View>
 
-            <View style={className`py-4 px-6 flex-row items-center justify-between rounded-xl ${getmode.dasboardBackgroundButtonColor}`}>
+            <View style={className` px-4 flex-row items-center justify-between rounded-xl ${getmode.dasboardBackgroundButtonColor}`}>
               <Text style={className`${getmode.textColorTwoInverse} font-bold text-xl`}>₦0.00</Text>
 
               <View style={className`flex-row items-center gap-1 p-4`}>
                 <Text  style={className`text-xs ${getmode.textColorTwoInverse}`}>History</Text>
-                <ArrowRight width={15} height={15} fill={getmode.fillColorInverse} stroke={getmode.fillColorInverse} />
+                <ArrowRight width={15} height={15} strokeWidth={3} stroke={getmode.fillColorInverse} />
               </View>
             </View>
 
-          
+            <Text  style={className`text-xs text-left py-2 text-gray-500`}>Recent Transactions </Text>
 
-            <View style={className`px-4 pt-4 pb-8 flex-row items-center gap-2`}>
+            <View style={className` pb-8 flex-row items-center gap-2`}>
               <View style={className`p-1 rounded-full bg-[#f7f7f7]`}>
                 <Clock width={17} height={17} fill={'gray'} />
               </View>
-              <Text  style={className`text-xs text-gray-500`}>No recent transactions yet</Text>
+              <Text  style={className`text-xs text-gray-600`}>No recent transactions yet</Text>
               <View>
 
               </View>
@@ -60,7 +61,7 @@ const Home = () => {
           </View>
 
           <View style={className`my-6 w-full`}>
-            <Image width={100} height={25} style={className`rounded-full`} />
+            <Image source={require('../../assets/s13.png')}   style={className`rounded-xl w-full h-30`} />
           </View>
 
           <Text style={className`py-3 text-left text-gray-500`}>Make Payment</Text>
@@ -95,25 +96,22 @@ const Home = () => {
 
           </View>
 
-          <View style={className`relative w-full`}>
-            <ImageBackground
-            source={{ uri: '../../assets/s16.png'}}
-            style={[className`w-full h-14`, styles.backgroundImage]}
-            >
-              <View style={className`rounded-xl overflow-hidden w-full p-3`}>
-                  <Text style={className`text-sm text-left font-semibold text-black`}>Reward Balance</Text>
-                  <Text style={className`text-xs font-bold text-black`}>₦0.00</Text>
-              </View>
-            </ImageBackground>
-
-              <View style={className`rounded-xl absolute bottom-0 left-4 right-4 -mt-8 w-full p-4`}>
-                  <View style={className`flex-row items-center justify-between p-2 rounded-lg ${getmode.dasboardBackgroundSecondLayerColor} px-2 w-full`}>
-                    <Text style={className`text-xs ${getmode.textColorTwo}`}>No recent transaction</Text>
-                    <View style={className`p-2 rounded-full ${getmode.dasboardBackgroundFirstLayerColor}`}>
-                      <ArrowRight width={13} height={13} fill={getmode.fillColor} />
+          <View style={className`relative w-full rounded-xl overflow-hidden`}>
+            <Image source={require('../../assets/s16.png')}  style={className`w-full h-20 rounded-3xl`}/>
+       
+              <View style={className`rounded-xl  -mt-28 w-full p-4`}>
+                <View style={className`rounded-xl overflow-hidden w-full p-3`}>
+                    <Text style={className`text-sm text-left font-semibold text-black`}>Reward Balance</Text>
+                    <Text style={className`text-sm font-bold text-black`}>₦0.00</Text>
+                </View>
+                
+                    <View style={className`flex-row w-[330px] items-center justify-between -ml-4  p-2 rounded-lg bg-[#142f5c] `}>
+                      <Text style={className`text-xs ${getmode.textColorTwo}`}>No recent transaction</Text>
+                      <View style={className`p-2 rounded-full bg-[#000]`}>
+                        <ArrowRight width={13} height={13} strokeWidth={3} stroke={getmode.fillColor} />
+                      </View>
                     </View>
-                  </View>
-              </View>
+                </View>
           </View>
 
           <Text style={className`text-gray-500 text-left my-2`}>Suggested For you</Text>
@@ -182,6 +180,7 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover', // or 'contain', 'repeat', etc.
     justifyContent: 'center', // Center the content
+    borderRadius: 10,
   },
   content: {
     padding: 20,

@@ -44,7 +44,7 @@ const Home = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const getmode = useThemeStyles();
   useEffect(() => {
-    dispatch(shouldShowModal(false));
+    dispatch(shouldShowModal(true));
   }, [])
   
   let s1 = image.s1, s2= image.s2, s3 = image.s3, s4 = image.s4, s5 = image.s5;
@@ -66,7 +66,7 @@ const Home = () => {
     <SafeAreaView style={className`flex-1 justify-center items-center  ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}`}>
 
         <View style={className`text-center text-2xl font-bold -mt-38 pb-6`}>
-          <Text style={className`text-center text-2xl font-bold  ${currentMode === 'light' ? 'text-black' : 'text-white'}`}>MoniePoint</Text>
+          <Text style={[className`text-center text-2xl font-bold  ${currentMode === 'light' ? 'text-black' : 'text-white'}`]}>MoniePoint</Text>
         </View>
     
       <View style={styles.scrollContainer}>
