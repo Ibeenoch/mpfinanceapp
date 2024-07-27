@@ -6,7 +6,7 @@ import className from 'twrnc';
 const SpinnerModal = () => {
     const currentMode = useColorScheme();
   return (
-    <BlurView style={[StyleSheet.absoluteFill, styles.modalIntensity]} intensity={100}>
+    <BlurView style={[className``, StyleSheet.absoluteFill, styles.modalIntensity]} experimentalBlurMethod='none' tint='light' intensity={10}>
     <View style={styles.modalContainer}>
       {/* Background circular tube */}
       <View style={styles.tubeContainer}>

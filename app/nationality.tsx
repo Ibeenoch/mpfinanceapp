@@ -49,9 +49,12 @@ const Nationality = () => {
     }
   }, [ selectedflag]);
 
+  useEffect(() => {
+    countryActive && countryModalRef.current?.present();
+  }, [countryActive])
+
   const chooseCountry = () => {
     setcountryActive(true)
-    console.log(countryActive, countries[0])
     countryModalRef.current?.present()
   }
 

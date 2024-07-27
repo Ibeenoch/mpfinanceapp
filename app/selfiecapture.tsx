@@ -10,7 +10,7 @@ const SelfieCapture = () => {
     const getmode = useThemeStyles();
   return (
     <View style={className`flex-1 py-[50%] px-[3%] bg-black`}>
-        <View style={className`${getmode.backGroundColorTwo} flex-1 rounded-xl border border-gray-300 justify-center items-center px-5`}>
+        <View style={className`${getmode.backGroundColorTwo} flex-1 rounded-xl  justify-center items-center px-5`}>
         
         <View style={className`flex-row w-15 h-15 mb-4 rounded-full ${getmode.backGroundBlueColor} justify-center items-center`}>
                 <CheckMark width={20} height={20} fill={'white'} />
