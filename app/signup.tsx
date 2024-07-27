@@ -6,7 +6,6 @@ import Flag from '../assets/Flag_of_Nigeria.svg';
 import Gift from '../assets/gift-card-svgrepo-com.svg';
 import ArrowDown from '../assets/arrow-down-3101.svg';
 import ArrowUp from '../assets/up-arrow-svgrepo-com.svg';
-import countries from '../utils/countries';
 import { Picker } from '@react-native-picker/picker';
 import { router, useNavigation } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -146,35 +145,9 @@ const  Signup = () => {
       setSelectedCountry(value);
     };
 
-    const getCountries = countries.map(country => ({
-        name: country.name.common,
-        code: country.cca2,
-        callingCode: country.idd.root + (country.idd.suffixes[0] || ''),
-        flag: `https://flagcdn.com/w320/${country.cca2.toLowerCase()}.png`
-      }));
-
+ 
   
-    const selectedCountryData = getCountries.find(country => country.code === selectedCountry);
-
-    // light mode thick blue #0261ef 
-    // light mode light blue bg #e6edfd 
-    // light mode lighter blue bg btn #ffffff 
-    // light mode bg #f7f7f7
-    // light mode next button #e5e5e5
-    // red #dc4846
-    // black light mode #212121
-    // dark mode bg #000e28
-    // dark mode bg btn #1a263e
-    // dark mode text placeholder color #1a263c
-    // dark mode yellow #ffd75b
-    // dark mode gray #b9c1ce
-    // dark mode green #1fb02f
-    // dark mode orange at dashboard = #e48c35
-    // dark mode orange bg at dashboard #312726
-    // dark mode yellow bg at login/sign up #343631
-    // button number color at sign up #5b5b5b
-
-
+    
     
   return (
     <TouchableWithoutFeedback onPress={handleOutsideClick}>

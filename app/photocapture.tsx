@@ -14,7 +14,7 @@ const Photocapture = () => {
     <View style={className`${getmode.backGroundColorTwo} flex-1 p-4`}>
       
       <View style={className`py-6  mx-auto px-4 w-35 h-35 `}>
-            <Image source={require('../assets/s9.png')} style={className`w-35 h-35 `}  />
+            <Image source={require('../assets/s9.png')} style={className`w-35 h-35 rounded-3xl px-5`}  />
       </View>
 
       <View style={className`px-4 py-6`}>

@@ -23,24 +23,31 @@ const Address = () => {
     const [stateLga, setStateLga] = useState<string>('');
     
   const [selectedValue, setSelectedValue] = useState(''); 
+
   const handleRadioPress = (value: string) => {
      setSelectedValue(value);
      setSelectedState(value);
-     console.log('selected val ', value);
    }
 
   const handleLgaRadioPress = (value: string) => {
      setStateLga(value);
-     console.log('selected lga ', value);
    }
 
     const snaPoints = [ '70%'];
+    
+   useEffect(() => {
+    stateActive && bottomModalInputRef.current?.present();
+   }, [stateActive])
+    
+   useEffect(() => {
+    lgaActive && bottomModalInputRef.current?.present();
+   }, [stateActive])
 
     const handlePresentModal = () => {
-        setStateActive(true);
         bottomModalInputRef.current?.present();
+        setStateActive(true);
     };
-
+console.log(lgaActive)
     const handleLgaModal = () => {
         setLgaActive(true);
         bottomModalLgaInputRef.current?.present();
@@ -89,15 +96,16 @@ const Address = () => {
     useEffect(() => {
         if(selectedState){
             setSelectedLga(LGAEachState.Nigeria[`${selectedState}`]);
-            bottomModalInputRef.current?.collapse();
+            setLgaActive(true);
             bottomModalInputRef.current?.close();
+            setStateActive(false);
         }
     }, [selectedState]);
 
     useEffect(() => {
         if(stateLga){
-            bottomModalLgaInputRef.current?.collapse();
             bottomModalLgaInputRef.current?.close();
+            setLgaActive(false);
         }
     }, [stateLga]);
 
@@ -736,7 +744,6 @@ const Address = () => {
           ]
         }
       }
-      console.log(LGAEachState.Nigeria[`${selectedState}`])
       
 
   return (
@@ -763,7 +770,7 @@ const Address = () => {
                     <TouchableOpacity onPress={handlePresentModal}>
                         <View style={className`${getmode.secondLayerBgColor} flex-row items-center justify-between px-4`}>
                             <Text style={className`${getmode.textColorTwo} `}>{selectedValue ? selectedValue : 'State'}</Text>
-                            <ArrowDown width={8} height={8} fill={`${getmode.fillColor}`} />
+                            <ArrowDown width={12} height={12}  fill={`${getmode.fillColor}`} />
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -772,7 +779,7 @@ const Address = () => {
                     <TouchableOpacity onPress={handleLgaModal}>
                     <View style={className`${getmode.secondLayerBgColor} flex-row items-center justify-between px-4`}> 
                         <Text style={className`${getmode.textColorTwo} `}>{stateLga ? stateLga : 'LGA'}</Text>
-                        <ArrowDown width={8} height={8} fill={`${getmode.fillColor}`} />
+                        <ArrowDown width={12} height={12} fill={`${getmode.fillColor}`} />
                     </View>
                     </TouchableOpacity>
                 </View>
@@ -784,10 +791,10 @@ const Address = () => {
                 ref={bottomModalInputRef}
                 index={0}
                 snapPoints={snaPoints}
-                
-                style={className`rounded-3xl  ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#333e52]'} `}
+                backgroundStyle={className`rounded-3xl ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
+                style={className`rounded-3xl ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
                 >
-                <Text style={className`${getmode.textColorTwo}  ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#333e52]'} font-bold px-3 py-6 text-left text-md`}>State</Text>
+                <Text style={className`${getmode.textColorTwo}  ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} font-bold px-3 py-6 text-left text-md`}>State</Text>
 
                     {
                        
@@ -795,7 +802,7 @@ const Address = () => {
       data={states}
       keyExtractor={(item, index) => index.toString()} // Use index as a key if items do not have unique IDs
       renderItem={({ item }) => (
-        <View style={className`${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#333e52]'}`}>
+        <View style={className` ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'}`}>
           <View style={className`flex-row justify-between px-3`}>
             <Text style={className`${getmode.textColorTwo} text-sm font-bold`}>{item}</Text>
             <TouchableOpacity style={styles.container}>
@@ -824,10 +831,10 @@ const Address = () => {
                 ref={bottomModalLgaInputRef}
                 index={0}
                 snapPoints={snaPoints}
-                
-                style={className`rounded-3xl  ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#333e52]'} `}
+                backgroundStyle={className`rounded-3xl ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
+                style={className`rounded-3xl ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'}`}
                 >
-                <Text style={className`${getmode.textColorTwo}  ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#333e52]'} font-bold px-3 py-6 text-left text-md`}>LGA</Text>
+                <Text style={className`${getmode.textColorTwo} ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} font-bold px-3 py-6 text-left text-md`}>LGA</Text>
 
                     {
                        
@@ -835,7 +842,7 @@ const Address = () => {
                         data={selectedLga}
                         keyExtractor={(item, index) => index.toString()} // Use index as a key if items do not have unique IDs
                         renderItem={({ item }) => (
-                            <View style={className`${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#333e52]'}`}>
+                            <View style={className` ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'}`}>
                             <View style={className`flex-row justify-between px-3`}>
                                 <Text style={className`${getmode.textColorTwo} text-sm font-bold`}>{item}</Text>
                                 <TouchableOpacity style={styles.container}>

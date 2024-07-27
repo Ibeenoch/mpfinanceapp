@@ -4627,4 +4627,9 @@ const countries: Countries[] = [
     idd: { root: "+1", suffixes: ["264"] },
   },
 ];
-export default countries;
+
+let countryList: any = [];
+countries.forEach((country) => {
+  countryList.push(country.name.common)
+})
+export default countryList;
