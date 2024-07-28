@@ -72,6 +72,7 @@ const Passcode = () => {
             key={index}
             ref={ref => inputRefs.current[index] = ref!}
             value={num}
+            secureTextEntry={true}
             onChangeText={(text) => {
               // Allow only single character input
               if (text.length <= 1) {
@@ -90,8 +91,8 @@ const Passcode = () => {
         </View>
 
 
-        <View style={className`mx-4 my-6 p-4 rounded-xl ${currentMode === 'light' ? '' : 'bg-[#0e1a32]'}`}>
-        <View style={className`flex-row flex-wrap w-full justify-between gap-2 mb-4`}>
+        <View style={className`mx-4 my-6 p-4 rounded-xl ${currentMode === 'light' ? '' : ''}`}>
+        <View style={className`flex-row flex-wrap w-full justify-between gap-2 mb-2`}>
           {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(num => (
             <View key={num} style={className`rounded-full p-6 w-[25%] ${currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}`}>
               <TouchableOpacity onPress={() => updateNum(num)}>

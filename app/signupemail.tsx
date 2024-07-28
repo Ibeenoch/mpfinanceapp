@@ -1,5 +1,5 @@
-import { View, Text, useColorScheme, TextInput } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, useColorScheme, TextInput, Keyboard } from 'react-native'
+import React, { useLayoutEffect, useState } from 'react'
 import className from 'twrnc'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Envelope from '../assets/letter-svgrepo-com.svg'
@@ -8,6 +8,11 @@ import { router } from 'expo-router';
 const SignUpEmail = () => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
     const colorScheme = useColorScheme();
+
+    useLayoutEffect(() => {
+      Keyboard.dismiss();
+    }, [])
+
     const handleNext = () => {
       router.push('passcode')
     }
@@ -34,7 +39,7 @@ const SignUpEmail = () => {
               </Text>
             )
           }
-          <TextInput onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} placeholder={isFocused ? '': 'Email Address'}  placeholderTextColor={colorScheme === 'light' ? 'black' : 'gray'} style={className`py-2 px-1 w-[90%] rounded-lg  ${ colorScheme === 'light' ? 'bg-[#e6edfd] text-black' : 'bg-[#1a263e] text-white'} `} />
+          <TextInput  cursorColor={`${ colorScheme === 'light' ? '#0261ef' : '#ffd75b'}`}  onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} placeholder={isFocused ? '': 'Email Address'}  placeholderTextColor={colorScheme === 'light' ? 'black' : 'gray'} style={className`py-2 px-1 w-[90%] rounded-lg  ${ colorScheme === 'light' ? 'bg-[#e6edfd] text-black' : 'bg-[#1a263e] text-white'} `} />
         </View>
         </View>
 

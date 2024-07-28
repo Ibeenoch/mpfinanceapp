@@ -2,7 +2,7 @@ import { View, Text, Image, useColorScheme, ImageBackground, StyleSheet, ScrollV
 import React from 'react'
 import className from 'twrnc';
 import useThemeStyles from '../../utils/dynamic';
-import Copy from '../../assets/copy-svgrepo-com.svg';
+import Copy from '../../assets/copy-svgrepo-com (2).svg';
 import Clock from '../../assets/clock-historyoteka-icon-svgrepo-com.svg';
 import ArrowRight from '../../assets/arrow-forward-simple-svgrepo-com.svg';
 import ArrowDown from '../../assets/arrow-down-3101.svg';
@@ -18,7 +18,7 @@ const Home = () => {
   const currentMode = useColorScheme();
   return (
     <ScrollView >
-      <View style={className`pl-4 pr-4 pt-4 pb-24 flex-1 ${getmode.dasboardBackgroundFirstLayerColor}`}>
+      <View style={className`pl-4 pr-4 pt-4 pb-24 flex-1 ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}`}>
 
           <View style={className`rounded-xl ${getmode.dasboardBackgroundSecondLayerColor} p-4 `}>
             <View style={className`flex-row w-full gap-2 rounded-full mb-3 p-2`}>
@@ -97,7 +97,7 @@ const Home = () => {
           </View>
 
           <View style={className`relative w-full rounded-xl overflow-hidden`}>
-            <Image source={require('../../assets/s16.png')}  style={className`w-full h-20 rounded-3xl`}/>
+            <Image source={require('../../assets/s16.png')}  style={className`w-full h-30 rounded-3xl`}/>
        
               <View style={className`rounded-xl  -mt-28 w-full p-4`}>
                 <View style={className`rounded-xl overflow-hidden w-full p-3`}>
@@ -105,8 +105,8 @@ const Home = () => {
                     <Text style={className`text-sm font-bold text-black`}>₦0.00</Text>
                 </View>
                 
-                    <View style={className`flex-row w-[330px] items-center justify-between -ml-4  p-2 rounded-lg bg-[#142f5c] `}>
-                      <Text style={className`text-xs ${getmode.textColorTwo}`}>No recent transaction</Text>
+                    <View style={className`flex-row w-[327px] items-center justify-between -ml-4  p-4 rounded-lg bg-[#142f5c] `}>
+                      <Text style={className`text-sm ${getmode.textColor}`}>No recent transaction</Text>
                       <View style={className`p-2 rounded-full bg-[#000]`}>
                         <ArrowRight width={13} height={13} strokeWidth={3} stroke={getmode.fillColor} />
                       </View>

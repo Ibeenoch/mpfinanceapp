@@ -6,7 +6,7 @@ interface authState {
   showmodal: boolean;
   selectionmodal: boolean;
   imageUrl: string;
-  activeTabs: 'home' | 'card' | 'savings' | 'salary'
+  activeTabs: 'home' | 'card' | 'saving' | 'salary'
 }
 
 const initialState: authState = {
@@ -36,7 +36,7 @@ const authSlice = createSlice({
     setSelectionModal: (state, action: PayloadAction<boolean>) => {
       state.selectionmodal = action.payload;
     },
-    setActiveTab: (state, action: PayloadAction<'home' | 'card' | 'savings' | 'salary'>) => {
+    setActiveTab: (state, action: PayloadAction<'home' | 'card' | 'saving' | 'salary'>) => {
       state.activeTabs = action.payload;
     },
     saveImageCaptured: (state, action: PayloadAction<string>) => {

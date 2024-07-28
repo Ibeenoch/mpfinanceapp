@@ -1,13 +1,26 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, useColorScheme } from 'react-native'
+import React, { useEffect } from 'react'
 import className from 'twrnc'
 import useThemeStyles from '../utils/dynamic';
 import UserImage from '../assets/user.svg';
 import Focus from '../assets/focus-8.svg';
 import { router } from 'expo-router';
+import { ProgressBar } from 'react-native-paper';
 
 const Processimg = () => {
     const getmode = useThemeStyles();
+    const currentMode = useColorScheme();
+
+
+    useEffect(() => {
+      const interval = setTimeout(() => {
+        router.push('selfiecapture')
+      }, 6000);
+
+      return () => {
+        clearTimeout(interval)
+      }
+    })
   return (
     <View style={className`flex-1 py-[60%] px-[3%] bg-black`}>
     <View style={className`${getmode.backGroundColorTwo} flex-1 rounded-3xl px-4 justify-center items-center`}>
@@ -24,11 +37,10 @@ const Processimg = () => {
             <Text style={className`max-w-sm text-center pb-4 text-sm ${getmode.textColorTwo}`}>Just a few more seconds</Text>
        </View>
 
-       <View style={className`rounded-xl mx-4 w-full bg-[#0261ef]`}>
-                <TouchableOpacity onPress={() => router.push('selfiecapture')}>
-                    <Text style={className`text-center text-sm font-bold py-4 px-8  rounded-xl ${getmode.textColor}`}>Continue</Text>
-                </TouchableOpacity>
-        </View>
+       {/* loading modal   */}
+       <ProgressBar indeterminate={true} color={`${currentMode === 'light' ? '#0261ef' : '#ffd75b' }`} style={className`w-[250px] h-[3px] ${getmode.dasboardSvgButton}`} />
+
+      
 
 
 

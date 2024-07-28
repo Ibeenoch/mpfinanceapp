@@ -22,7 +22,7 @@ const App = () => {
         <>
             <Stack>
                 <Stack.Screen name='index'  options={{ headerShown: false }}  />
-                <Stack.Screen name='(tabs)'  options={{ headerShown: false,  }}  />
+                <Stack.Screen name='(tabs)'  options={{ headerShown: false,   }}  />
                 <Stack.Screen name='signup'  options={{ 
                 headerShown: true, 
                 headerTitle: '', 
@@ -67,7 +67,12 @@ const App = () => {
                 }} />
                 <Stack.Screen name='verifyphone'  options={{ 
                 headerShown: false, 
-              
+                }} />
+                <Stack.Screen name='nindocument'  options={{ 
+                headerShown: false, 
+                }} />
+                <Stack.Screen name='bvndocument'  options={{ 
+                headerShown: false, 
                 }} />
                 <Stack.Screen name='signupemail'  options={{ 
                 headerShown: true, 

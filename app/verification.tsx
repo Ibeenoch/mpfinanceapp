@@ -17,7 +17,7 @@ const Verification = () => {
     setSelectedValue(value);
     console.log('selected val ', value);
   }
-  
+
 // yellow #ffd75b   blue #0663f0 white  #ffffff
   return (
     <View style={className`${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'} px-2 py-2 h-screen flex-1`}>
@@ -117,9 +117,22 @@ const Verification = () => {
 
       <View style={className`p-4 absolute bottom-5 w-full left-2 right-2`}>    
       <View style={className`w-full flex-row items-center justify-center`}>
-        <TouchableOpacity onPress={() => router.push('photocapture')}  style={className`rounded-xl w-full ${currentMode === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black'}  py-6 px-4 flex-row items-center justify-center`}  >
+        {
+          selectedValue === 'nin' ? (
+       
+        <TouchableOpacity onPress={() => router.push('nindocument')}  style={className`rounded-xl w-full ${currentMode === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black'}  py-6 px-4 flex-row items-center justify-center`}  >
           <Text style={className`${ currentMode === 'dark' ? 'text-white' : 'text-white'} text-sm font-semibold`}>Proceed</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>     
+          ) : selectedValue === 'bvn' ? (
+            <TouchableOpacity onPress={() => router.push('bvndocument')}  style={className`rounded-xl w-full ${currentMode === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black'}  py-6 px-4 flex-row items-center justify-center`}  >
+            <Text style={className`${ currentMode === 'dark' ? 'text-white' : 'text-white'} text-sm font-semibold`}>Proceed</Text>
+          </TouchableOpacity>    
+          ) : (
+            <TouchableOpacity  style={className`rounded-xl w-full ${currentMode === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black'}  py-6 px-4 flex-row items-center justify-center`}  >
+            <Text style={className`${ currentMode === 'dark' ? 'text-white' : 'text-white'} text-sm font-semibold`}>Proceed</Text>
+          </TouchableOpacity>    
+          )
+        }
       </View>
     </View>
 

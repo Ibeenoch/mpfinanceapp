@@ -1,6 +1,6 @@
-import { View, Text, useColorScheme } from 'react-native'
+import { View, Text, useColorScheme, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Tabs } from 'expo-router'
+import { router, Tabs } from 'expo-router'
 import HomeIcon from '../../assets/home-inactive.svg'
 import HomeIconOrange from '../../assets/home-orange.svg'
 import HomeIconBlue from '../../assets/home-blue.svg'
@@ -19,24 +19,27 @@ import className from 'twrnc';
 import Bell from '../../assets/bell-svgrepo-com.svg'
 import Signal from '../../assets/signal-02-svgrepo-com.svg'
 import { Image } from 'expo-image';
+import { useAppDispatch, useAppSelector } from '../../features/hooks'
+import { selectUser, setActiveTab } from '../../features/auth/auth'
 
-
-const getmode = useThemeStyles();
-const currentMode = useColorScheme();
 
 const  Tablayout = () => {
+  const getmode = useThemeStyles();
+  const currentMode = useColorScheme();
+  const dispatch = useAppDispatch();
+  const { activeTabs } = useAppSelector(selectUser);
   return (
     <Tabs screenOptions={{
       headerRight: () => {
-        return <View style={className`flex-row gap-3`}>
+        return <View style={className`flex-row gap-3 pr-4`}>
             <Bell width={25}  height={25} fill={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`}  />
-            <Signal width={25}  height={25} fill={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`} stroke={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`}  />
+            <Signal width={25}  height={25} stroke={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`}  />
         </View>
       },
       headerLeft: () => {
-        return <View style={className`flex-row pl-2 items-center`}>
-            <Image source={require('../../assets/s14.png')} style={className`w-9 h-9`} />
-            <Text style={className`text-sm font-semibold py-1 px-2 rounded-md ${`${currentMode === 'light' ? `bg-[#fdf3e9] text-[#f3a352]` : `bg-[#312726] text-[#de8d3c]`}`} `}>Level 1</Text>
+        return <View style={className`flex-row pl-4 items-center`}>
+            <Image source={require('../../assets/s14.png')} style={className`w-9 h-9 px-2 rounded-xl`} />
+            <Text style={className`text-sm font-semibold py-1 px-2 rounded-xl ${`${currentMode === 'light' ? `bg-[#fdf3e9] text-[#f3a352]` : `bg-[#312726] text-[#de8d3c]`}`} `}>Level 1</Text>
         </View>
       },
       headerTitle: '',
@@ -51,6 +54,7 @@ const  Tablayout = () => {
         paddingHorizontal: 10,
         paddingVertical: 10,
         height: 75,
+        borderTopWidth: 0,
         backgroundColor:  currentMode === 'dark' ?  '#0e1a32' : '#f7f7f7',
         display: 'flex',
         alignItems: 'center'
@@ -65,16 +69,25 @@ const  Tablayout = () => {
             tabBarLabelStyle: {
               fontSize: 13,
               padding: 10,
-              color: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
+              fontWeight: 400,
+              color: currentMode === 'light' ? `${activeTabs === 'home' ? '#0261ef' : '#9eacc7'}` : `${activeTabs === 'home' ? '#ffd75b' : '#b9c1ce'}`,
             },
+
+            tabBarButton: (props) => (
+              <TouchableOpacity {...props} 
+              onPress={() => {
+                console.log('home');
+                dispatch(setActiveTab('home'))
+                router.push('home')
+              }}
+              />
+            ),
            
             tabBarIcon: ({ color, size}) => {
               return currentMode === 'light' ? (
-                <HomeIconBlue width={25} height={25} color={color}  />
-
+                activeTabs === 'home' ? <HomeIconBlue width={25} height={25} color={color}  /> : <HomeIcon width={25} height={25} color={color}  />
               ) : (
-                <HomeIconOrange width={25} height={25} color={color} />
-
+                activeTabs === 'home' ? <HomeIconOrange width={25} height={25} color={color} /> : <HomeIcon width={25} height={25} color={color}  />
               )
             }
         }}/>
@@ -83,23 +96,34 @@ const  Tablayout = () => {
             tabBarLabelStyle: {
               fontSize: 13,
               padding: 10,
-              color: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
+              fontWeight: 400,
+              color: currentMode === 'light' ? `${activeTabs === 'card' ? '#0261ef' : '#9eacc7'}` : `${activeTabs === 'card' ? '#ffd75b' : '#b9c1ce'}`,
             },
+            tabBarButton: (props) => (
+              <TouchableOpacity {...props} 
+              onPress={() => {
+                console.log('card');
+                dispatch(setActiveTab('card'));
+                router.push('cards')
+              }}
+              />
+            ),
             tabBarIcon: ({ color, size }) => {
               return  currentMode === 'light' ? (
-                            <CardBlue width={25} height={25} color={color} />
+                       activeTabs === 'card' ?     <CardBlue width={25} height={25} color={color} /> : <CardInactive width={25} height={25} color={color} />
                       ) : (
-                        <CardOrange width={25} height={25} color={color} />
+                        activeTabs === 'card' ?     <CardOrange width={25} height={25} color={color} /> : <CardInactive width={25} height={25} color={color} />
+
                       )
             }
         }}/>
         <Tabs.Screen name='main' options={{
               title: '',
            
-            tabBarIcon: () => {
+            tabBarIcon: ({ color, size}) => {
               return <View style={className`${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]' } mb-4 p-2 rounded-full`}>
                   <View style={className`${currentMode === 'light' ? `bg-[#0261ef]` : `bg-[#ffd75b]`} p-6 rounded-full`}>
-                        <Plus width={25} height={25} strokeWidth={2} stroke={`${currentMode === 'light' ? `white` : `black`}`} fill={`${currentMode === 'light' ? `white` : `black`}`} />
+                        <Plus width={25} height={25} strokeWidth={2} stroke={`${currentMode === 'light' ? '#ffffff' : '#000000' } `} fill={`${currentMode === 'light' ? '#ffffff' : '#000000' }`} />
                     </View>
                     </View>
             }
@@ -116,13 +140,23 @@ const  Tablayout = () => {
             tabBarLabelStyle: { 
               fontSize: 13,
               padding: 10,
-              color: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
+              fontWeight: 400,
+              color: currentMode === 'light' ? `${activeTabs === 'saving' ? '#0261ef' : '#9eacc7'}` : `${activeTabs === 'saving' ? '#ffd75b' : '#b9c1ce'}`,            
             },
+            tabBarButton: (props) => (
+              <TouchableOpacity {...props} 
+              onPress={() => {
+                console.log('saving');
+                dispatch(setActiveTab('saving'))
+                router.push('saving')
+              }}
+              />
+            ),
             tabBarIcon: ({ color, size }) => {
               return currentMode === 'light' ? (
-                <SafeBoxBlue width={25} height={25} color={color}/>
+              activeTabs === 'saving' ?  <SafeBoxBlue width={25} height={25} color={color}/> :  <SafeBoxInactive width={25} height={25} color={color}/> 
               ) : (
-                <SafeBoxYellow width={25} height={25} color={color}/>
+                activeTabs === 'saving' ?  <SafeBoxYellow width={25} height={25} color={color}/> :  <SafeBoxInactive width={25} height={25} color={color}/>                 
               )
             }
         }}/>
@@ -131,26 +165,27 @@ const  Tablayout = () => {
             tabBarLabelStyle: { 
               fontSize: 13,
               padding: 10,
-              color: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
-            },
+              fontWeight: 400,
+              color: currentMode === 'light' ? `${activeTabs === 'salary' ? '#0261ef' : '#9eacc7'}` : `${activeTabs === 'salary' ? '#ffd75b' : '#b9c1ce'}`,            },
+            tabBarButton: (props) => (
+              <TouchableOpacity {...props} 
+              onPress={() => {
+                console.log('salary');
+                dispatch(setActiveTab('salary'));
+                router.push('salary')
+              }}
+              />
+            ),
             tabBarIcon: ({ color, size}) => {
               return currentMode === 'light' ? (
-                <IncomeBlue width={25} height={25}  color={color} />
+              activeTabs === 'salary' ?  <IncomeBlue width={25} height={25}  color={color} /> : <IncomeInactive width={25} height={25}  color={color} /> 
               ) : (
-                <IncomeYellow width={25} height={25} color={color}  />
-
+                activeTabs === 'salary' ?   <IncomeYellow width={25} height={25} color={color}  /> : <IncomeInactive width={25} height={25}  color={color} /> 
               )
             }
         }}/>
 
-        {/* <Tabs.Screen name='requestcard' options={{
-            headerTitle: 'Card Request',
-          headerStyle: {
-            backgroundColor: `${getmode.backGroundColorTwo}`
-          },
-          headerTintColor: currentMode === 'light' ? 'blue' : 'white',
-          headerTitleAlign: 'center'
-        }}/> */}
+       
     </Tabs>
   )
 }

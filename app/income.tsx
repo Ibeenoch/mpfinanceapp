@@ -34,7 +34,7 @@ const Income = () => {
         occupationActive && occupationModalRef.current?.present(); 
     }, [occupationActive])
     
-    const snapPoints = ['90%'];
+    const snapPoints = [ '70%', '90%'];
 
     const handleRadioPress = (item: string) => {
         setSelectedIncome(item);
@@ -139,7 +139,14 @@ const Income = () => {
             }
         ]
     
-    
+    const closeIncomeModal = () => {
+        setIncomeActive(false);
+        incomeModalRef.current?.dismiss()
+    }
+    const closeOccupationModal = () => {
+        setOccupationActive(false);
+        occupationModalRef.current?.dismiss()
+    }
 
   return (
     <GestureHandlerRootView style={{ flex: 1}}>
@@ -255,6 +262,9 @@ const Income = () => {
             ref={incomeModalRef}
             index={0}
             snapPoints={snapPoints}
+            backdropComponent={(props) => (
+                <View {...props} onTouchEnd={closeIncomeModal}   />
+            )}
             backgroundStyle={className`rounded-3xl w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
             style={className`rounded-3xl w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
             >
@@ -297,6 +307,9 @@ const Income = () => {
         ref={occupationModalRef}
         index={0}
         snapPoints={snapPoints}
+        backdropComponent={(props) => (
+            <View {...props} onTouchEnd={closeOccupationModal}   />
+        )}
         backgroundStyle={className`rounded-3xl w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
         style={className`rounded-3xl w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
         >

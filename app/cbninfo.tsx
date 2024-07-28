@@ -52,7 +52,7 @@ const CbnInfo = () => {
   const {width: windowWidth} = useWindowDimensions();
 
   return (
-    <SafeAreaView style={className`flex-1 h-screen justify-center items-center  ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'}`}>
+    <SafeAreaView style={className`flex-1 h-screen justify-center items-center  ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}`}>
 
         <View style={className`text-center text-2xl font-bold mt-8 pb-6`}>
           <Text style={className`text-center text-2xl font-bold  ${currentMode === 'light' ? 'text-black' : 'text-white'}`}>MoniePoint</Text>
@@ -107,15 +107,15 @@ const CbnInfo = () => {
             );
           })}
           
-           <View style={className`flex-row items-center gap-2 justify-between pl-19`}>
+           <View style={className`flex-row items-center gap-2 justify-between pl-39`}>
             <TouchableOpacity onPress={() => router.back()}>
-              <View  style={className`p-3 rounded-full ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#19253d]'}`} >
-                  <ArrowLeft  width={35} height={35} fill={`${ currentMode === 'light' ? 'blue' : 'white'}`} />
+              <View  style={className`p-2 rounded-full ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#19253d]'}`} >
+                  <ArrowLeft  width={27} height={27} fill={`${ currentMode === 'light' ? 'blue' : 'white'}`} />
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => router.push('cbnlast')}>
-              <View style={className`p-3 rounded-full ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#ffd75b]'}`} >
-                  <ArrowRight  width={35} height={35} fill={`${ currentMode === 'light' ? 'blue' : 'white'}`} />
+              <View style={className`p-2 rounded-full ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#ffd75b]'}`} >
+                  <ArrowRight  width={27} height={27} fill={`${ currentMode === 'light' ? 'blue' : 'white'}`} />
               </View>
             </TouchableOpacity>
           </View>

@@ -13,7 +13,7 @@ const PepStatus = () => {
   return (
     <View style={className`bg-black flex-1 py-6 `}>
     <View style={className`${getmode.backGroundColorTwo} flex-1 justify-center items-center my-4 rounded-3xl p-4`}>
-      
+
         <View style={className`px-6`}>
             <Image source={require('../assets/s10.png')} style={className`w-85 h-48 rounded-xl`} />
         </View>
@@ -37,13 +37,13 @@ const PepStatus = () => {
    
 
         
-            <View style={className`flex-row absolute left-4 right-4 bottom-4 gap-2 px-4`}>
-                <TouchableOpacity onPress={() => router.push('processimg')} style={className`rounded-xl w-1/2 px-8 py-4 ${getmode.backGroundColor}`}>
-                    <Text style={className`${getmode.textColor} text-center`}>No, I'm not</Text>
+            <View style={className`flex-row absolute left-4 right-4 bottom-4 gap-2 px-4`}> 
+                <TouchableOpacity onPress={() => router.push('processimg')} style={className`rounded-xl w-1/2 px-8 py-4 ${currentMode === 'light' ? 'bg-[f7f7f7] border border-[#0261ef]' : 'bg-[#343631]'}`}>
+                    <Text style={className`${currentMode === 'light' ? 'text-[#0261ef]' : 'text-[#ffd75b]'} text-center`}>No, I'm not</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => router.push('income')} style={className`rounded-xl w-1/2 px-8 py-4 ${getmode.backGroundColor}`}>
-                    <Text style={className`${getmode.textColor} text-center`}>Yes, i am</Text>
+                    <Text style={className`${getmode.textColorTwoInverse} text-center`}>Yes, i am</Text>
                 </TouchableOpacity>
             </View>
 

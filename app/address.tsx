@@ -41,12 +41,14 @@ const Address = () => {
 
   const handleRadioPress = (value: string) => {
      setSelectedValue(value);
+     setStateActive(false);
      setSelectedState(value);
      dispatch(setSelectionModal(false));
    }
 
   const handleLgaRadioPress = (value: string) => {
      setStateLga(value);
+     setLgaActive(false);
      dispatch(setSelectionModal(false));
    }
 
@@ -758,6 +760,17 @@ console.log('lgaActive ', lgaActive , 'stateActive ', stateActive, 'selectedLga 
           ]
         }
       }
+    
+    const closeStateModal = () => {
+      setStateActive(false);
+      bottomModalInputRef.current?.dismiss();
+    }
+      
+    
+    const closeLgaModal = () => {
+      setLgaActive(false);
+      bottomModalLgaInputRef.current?.dismiss();
+    }
       
 
   return (
@@ -813,10 +826,13 @@ console.log('lgaActive ', lgaActive , 'stateActive ', stateActive, 'selectedLga 
                     ref={bottomModalInputRef}
                     index={0}
                     snapPoints={snaPoints}
+                    backdropComponent={(props) => (
+                      <View {...props} onTouchEnd={closeStateModal}   />
+                  )}
                     backgroundStyle={className`rounded-3xl ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
                     style={className`rounded-3xl ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
                     >
-                    <Text style={className`${getmode.textColorTwo}  ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} font-bold px-3 py-6 text-left text-md`}>State</Text>
+                    <Text style={className`${getmode.textColorTwo}  ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} font-bold px-3 py-6 text-left text-xl `}>State</Text>
 
                         {
                           
@@ -854,6 +870,9 @@ console.log('lgaActive ', lgaActive , 'stateActive ', stateActive, 'selectedLga 
                 ref={bottomModalLgaInputRef}
                 index={0}
                 snapPoints={snaPoints}
+                backdropComponent={(props) => (
+                  <View {...props} onTouchEnd={closeLgaModal}   />
+              )}
                 backgroundStyle={className`rounded-3xl ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
                 style={className`rounded-3xl ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'}`}
                 >

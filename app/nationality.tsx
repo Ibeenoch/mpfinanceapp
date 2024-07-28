@@ -847,6 +847,10 @@ const Nationality = () => {
   }
 ]
 
+const closeModal = () => {
+    setcountryActive(false);
+    countryModalRef.current?.dismiss();
+}
 
 
   const snapPoints = [ '60%', '80%']
@@ -899,6 +903,9 @@ const Nationality = () => {
                     ref={countryModalRef}
                     index={0}
                     snapPoints={snapPoints}
+                    backdropComponent={(props) => (
+                        <View {...props} onTouchEnd={closeModal}   />
+                    )}
                     backgroundStyle={className`rounded-3xl w-full ${currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#162640]'} `}
                     style={className`rounded-3xl z-3 w-full ${currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#162640]'} `}
                     >

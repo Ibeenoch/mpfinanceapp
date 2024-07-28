@@ -39,12 +39,13 @@ const Verifyphone = () => {
 
     const { showmodal } = useAppSelector((state) => state.auth );
 
-    const snapShot = [70, 80]
+    const snapShot = ['45%', '50%']
   
     // Update number and focus the next input
     const updateNum = (val: string) => {
       if(arrNum.length < 7){
       const nextIndex = arrNum.findIndex(num => num === ''); // Find the first empty index
+      console.log('index to add ', nextIndex, val);
       if (nextIndex !== -1) {
         const newArrNum = [...arrNum];
         newArrNum[nextIndex] = val;
@@ -53,6 +54,7 @@ const Verifyphone = () => {
   
         // Focus the next TextInput
         if (inputRefs.current[nextIndex + 1]) {
+          console.log('index to focus after adding ', nextIndex + 1);
           inputRefs.current[nextIndex + 1].focus();
           setCurrentIndex(nextIndex + 1);
           setFocusIndex(nextIndex + 1)
@@ -66,11 +68,16 @@ const Verifyphone = () => {
     const deleteLastNum = () => {
       const newArrNum = [...arrNum];
       const lastIndex = arrNum.findLastIndex(num => num !== '');
-      if (lastIndex !== -1) {
+      if(lastIndex === -1 || lastIndex < 0){
+        return;
+      };
+
+      if (lastIndex !== -1 ) {
         newArrNum[lastIndex] = '';
         setArrNum(newArrNum);
-        setFocusIndex(lastIndex - 1);
-        inputRefs.current[lastIndex-1].focus();
+        console.log('index to focus after deleting ', lastIndex - 1, 'arr length', arrNum.length);
+        setFocusIndex( lastIndex === 0 ? lastIndex : lastIndex - 1);
+        inputRefs.current[lastIndex === 0 ? lastIndex : lastIndex - 1].focus();
       }
     };
     const handleNext = () => {
@@ -116,31 +123,18 @@ const Verifyphone = () => {
             ref={ref => inputRefs.current[index] = ref!}
             value={num}
             keyboardType='number-pad'
-            onKeyPress={({nativeEvent}) => {
-              nativeEvent.key === 'Backspace' && index >= 0 && deleteLastNum() 
-            }}
+           
             onChangeText={(text) => {
-              // Allow only single character input
-              if (text.length <= 1) {
-                // Update the number
-                updateNum(text);
-                
-                // If the input is empty, focus on the previous input
-                if (text === '') {
-                  const newArrNum = [...arrNum];
-                  newArrNum[index] = ''; // Clear the current input
-                  setArrNum(newArrNum);
-                  
-                  // Focus the previous input
-                  if (inputRefs.current[index - 1]) {
-                    console.log('my index is ', index)
-                    setCurrentIndex(index - 1);
-                    inputRefs.current[index - 1].focus();
-                  }
-                }
+              if (text.length > 0) {
+                updateNum(text); // Update with the entered value when the text is not an empty string i.e a delete button
               }
             }}
-            cursorColor={`${ !currentIndex ? 'black' : currentIndex === index && colorScheme === 'light' ? 'black' : 'white'}`}
+            onKeyPress={({ nativeEvent }) => {
+              if (nativeEvent.key === 'Backspace') {
+                deleteLastNum(); // Call delete function for backspace
+              }
+            }}
+            cursorColor={`${ !currentIndex ? `${colorScheme === 'light' ? 'black' : 'yellow' }` : currentIndex === index && colorScheme === 'light' ? 'black' : 'white'}`}
             // editable={false}
             // showSoftInputOnFocus={false}
             // onFocus={() => handleFocus(index)}
@@ -184,19 +178,19 @@ const Verifyphone = () => {
                     backgroundStyle={className`rounded-3xl w-full ${colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#162640]'} `}
                     style={className`rounded-3xl flex-1 z-3 w-full ${colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#162640]'} `}
                     >
-                    <View style={className`p-4 flex-1 h-[100%]`}>
+                    <View style={className`p-4 flex-1 `}>
 
                       <View style={className`flex-row justify-center `}>
                         <View style={className`flex-row rounded-full justify-center items-center p-4 ${colorScheme === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`}>
                           <Exclaimation width={22} height={22} fill={colorScheme === 'light' ? 'black' : 'white'} />
                         </View>
                       </View>
-                    <Text style={className`${colorScheme === 'light'  ? 'text-black' : 'text-white'}  ${colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#162640]'} font-bold  py-6 text-center text-sm`}>Resend OTP</Text>
+                      <Text style={className`${colorScheme === 'light'  ? 'text-black' : 'text-white'}  ${colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#162640]'} font-bold  py-6 text-center text-sm`}>Resend OTP</Text>
 
                      
 
                       <View style={className`flex-row items-center my-2  gap-2`}>
-                        <View style={className`flex-row rounded-xl justify-center items-center p-2 ${colorScheme === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`}>
+                        <View style={className`flex-row rounded-xl justify-center items-center p-2 ${colorScheme === 'light' ? 'bg-[#0261ef]' : 'bg-[#19212c]'}`}>
                             <DialPad width={20} height={20} fill={getmode.fillColor} />
                         </View>
                         <View>

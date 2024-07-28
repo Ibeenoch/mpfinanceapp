@@ -30,9 +30,6 @@ const  Signup = () => {
     const navigation = useNavigation();
     const { showmodal } = useAppSelector((state) => state.auth);
 
-
-   
-
    const handleFocus = () => {
     setIsBlur(false);
       setIsFocus(true);
