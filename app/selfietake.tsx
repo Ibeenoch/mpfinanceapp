@@ -5,7 +5,7 @@ import useThemeStyles from '../utils/dynamic';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { useAppSelector, useAppDispatch } from '../features/hooks';
-import { selectUser } from '../features/auth/auth';
+import { selectUser, setProcessPhoto } from '../features/auth/auth';
 import * as ImagePicker from 'expo-image-picker'
 import { saveImageCaptured } from '../features/auth/auth';
 
@@ -31,6 +31,11 @@ const Selfietake = () => {
             dispatch(saveImageCaptured(url));
             
           }
+    };
+
+    const handleProcessing = () => {
+        dispatch(setProcessPhoto(true))
+        router.push('processimg');
     }
     
   return (
@@ -47,7 +52,7 @@ const Selfietake = () => {
 
         <View style={className`flex-col gap-4 my-2`}>
         {/* border-t-[#0261ef]' : 'bg-[#0e1a32] border-t-[#ffd75b] */}
-            <TouchableOpacity onPress={() => router.push('processimg')} style={className`rounded-xl border border-gray-400 w-full py-4 px-6 ${currentMode === 'light' ? 'bg-[#0261ef] border-[#0261ef]' : 'bg-[#ffd75b] border-[#000e28]'}`}>
+            <TouchableOpacity onPress={handleProcessing} style={className`rounded-xl border border-gray-400 w-full py-4 px-6 ${currentMode === 'light' ? 'bg-[#0261ef] border-[#0261ef]' : 'bg-[#ffd75b] border-[#000e28]'}`}>
                 <Text style={className`${currentMode === 'light' ? 'text-white' : 'text-white'} text-center `}>Yes, use this</Text>
             </TouchableOpacity>
 

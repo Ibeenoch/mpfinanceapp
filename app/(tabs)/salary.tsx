@@ -18,9 +18,9 @@ const Salary = () => {
 
       <Text style={className`text-xl text-center font-bold my-4 ${getmode.textColorTwo} `}>Get Paid Before Payday</Text>
 
-      <View style={[className`p-2 mb-4 rounded-full border border-gray-300`, styles.dashBorder]}>
+      <View style={[className`p-2 mb-4 rounded-xl border border-gray-300`, styles.dashBorder]}>
 
-        <View style={className`flex-row py-2 gap-2`}>
+        <View style={className`flex-row items-center py-2 gap-2`}>
           <View style={className`flex-row justify-center items-center rounded-full p-1 bg-[#b9c1ce]`}>
             <View style={className`flex-row justify-center items-center rounded-lg p-1 bg-[#1fb02f]`}>
               <CheckMark width={6} height={6} fill={`${getmode.fillColor}`} />
@@ -29,6 +29,30 @@ const Salary = () => {
 
           <View style={className`pr-3`}>
             <Text style={className`text-xs font-semibold ${getmode.textColorTwo}`}>Get up to 100% of your earned salary</Text>
+          </View>
+        </View>
+
+        <View style={className`flex-row items-center py-2 gap-2`}>
+          <View style={className`flex-row justify-center items-center rounded-full p-1 bg-[#b9c1ce]`}>
+            <View style={className`flex-row justify-center items-center rounded-lg p-1 bg-[#1fb02f]`}>
+              <CheckMark width={6} height={6} fill={`${getmode.fillColor}`} />
+            </View>
+          </View>
+
+          <View style={className`pr-3`}>
+            <Text style={className`text-xs font-semibold ${getmode.textColorTwo}`}>No interest rate</Text>
+          </View>
+        </View>
+
+        <View style={className`flex-row items-center py-2 gap-2`}>
+          <View style={className`flex-row justify-center items-center rounded-full p-1 bg-[#b9c1ce]`}>
+            <View style={className`flex-row justify-center items-center rounded-lg p-1 bg-[#1fb02f]`}>
+              <CheckMark width={6} height={6} fill={`${getmode.fillColor}`} />
+            </View>
+          </View>
+
+          <View style={className`pr-3`}>
+            <Text style={className`text-xs font-semibold ${getmode.textColorTwo}`}>Minimal charges</Text>
           </View>
         </View>
 

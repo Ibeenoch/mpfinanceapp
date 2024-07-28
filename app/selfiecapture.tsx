@@ -5,9 +5,14 @@ import useThemeStyles from '../utils/dynamic';
 import CheckMark from '../assets/check-mark-10126.svg';
 import Focus from '../assets/focus-8.svg';
 import { router } from 'expo-router';
+import { useAppSelector } from '../features/hooks';
+import { selectUser } from '../features/auth/auth';
 
 const SelfieCapture = () => {
     const getmode = useThemeStyles();
+    const { processPhoto } = useAppSelector(selectUser);
+    console.log('processphoto status ', processPhoto);
+    
   return (
     <View style={className`flex-1 py-[50%] px-[3%] bg-black`}>
         <View style={className`${getmode.backGroundColorTwo} flex-1 rounded-xl  justify-center items-center px-5`}>

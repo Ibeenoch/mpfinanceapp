@@ -3,10 +3,10 @@ import React from 'react';
 import className from 'twrnc';
 import useThemeStyles from '../../utils/dynamic';
 import { Image } from 'expo-image';
-import Shield from '../../assets/protect-svgrepo-com.svg';
+import Shield from '../../assets/fraudprotectmajor-svgrepo-com.svg';
 import CustomerService from '../../assets/customer-service-agent-svgrepo-com.svg';
 import Delivery from '../../assets/delivery-svgrepo-com.svg';
-import Globe from '../../assets/globe-svgrepo-com.svg';
+import Globe from '../../assets/global-grid-logo-svgrepo-com.svg';
 import { router } from 'expo-router';
 
 const Cards = () => {
@@ -25,10 +25,10 @@ const Cards = () => {
 
           <Text style={className`text-xl font-bold my-4 ${getmode.textColorTwo} `}>A Card That Works...</Text>
 
-          <View style={[className`p-4 mb-4 rounded-xl border border-gray-300`, styles.dashBorder]}>
+        <View style={[className`p-4 mb-4 rounded-xl border border-gray-300`, styles.dashBorder]}>
             <Text style={className`text-xs text-gray-500 pb-2 `}>What you get</Text>
 
-            <View style={className`flex-row gap-1 p-2 ${getmode.backGroundlightYellowColor}`}>
+            <View style={className`flex-row items-center gap-2 p-2 ${getmode.backGroundlightYellowColor}`}>
               <View style={className`flex-row justify-center items-center rounded-lg`}>
                 <Shield width={20} height={20} fill={`${getmode.fillColor}`} />
               </View>
@@ -39,31 +39,31 @@ const Cards = () => {
               </View>
             </View>
 
-            <View style={className`flex-row gap-1 p-2 ${getmode.backGroundlightYellowColor}`}>
+            <View style={className`flex-row items-center gap-2 p-2 ${getmode.backGroundlightYellowColor}`}>
               <View style={className`flex-row justify-center items-center rounded-lg`}>
-                <CustomerService width={20} height={20} stroke={`${getmode.fillColor}`} />
+                <CustomerService width={20} height={20} fill={`${getmode.fillColor}`} />
               </View>
 
               <View style={className`pr-3`}>
                 <Text style={className`text-sm font-bold ${getmode.textColorTwo}`}>Fast Dispute Resolution</Text>
-                <Text style={className`text-xs text-gray-500 pb-4 `}>Say goodbye to unreversed debits. Log disputes within your app, and monitior them till you get a full refund.</Text>
+                <Text style={className`text-xs text-gray-500 pb-4 text-justify pr-2`}>Say goodbye to unreversed debits. Log disputes within your app, and monitior them till you get a full refund.</Text>
               </View>
             </View>
 
-            <View style={className`flex-row gap-1 p-2 ${getmode.backGroundlightYellowColor}`}>
+            <View style={className`flex-row items-center gap-2 p-2 ${getmode.backGroundlightYellowColor}`}>
               <View style={className`flex-row justify-center items-center rounded-lg`}>
                 <Delivery width={20} height={20} fill={`${getmode.fillColor}`} />
               </View>
 
               <View style={className`pr-3`}>
                 <Text style={className`text-sm font-bold ${getmode.textColorTwo}`}>48 Hrs Delivery</Text>
-                <Text style={className`text-xs text-gray-500 pb-4 `}>We'll deliver it to you within 48 hours. Activate it in seconds, and start using it right away.</Text>
+                <Text style={className`text-xs text-gray-500 pb-4 text-left `}>We'll deliver it to you within 48 hours. Activate it in seconds, and start using it right away.</Text>
               </View>
             </View>
 
-            <View style={className`flex-row gap-1 p-2 ${getmode.backGroundlightYellowColor}`}>
+            <View style={className`flex-row items-center gap-2 p-2 ${getmode.backGroundlightYellowColor}`}>
               <View style={className`flex-row justify-center items-center rounded-lg `}>
-                <Globe width={11} height={11} fill={`${getmode.fillColor}`} />
+                <Globe width={20} height={20} stroke={`${getmode.fillColor}`} />
               </View>
 
               <View style={className`pr-3`}>

@@ -5,8 +5,10 @@ interface authState {
   value: number;
   showmodal: boolean;
   selectionmodal: boolean;
+  processPhoto: boolean;
   imageUrl: string;
-  activeTabs: 'home' | 'card' | 'saving' | 'salary'
+  activeTabs: 'home' | 'card' | 'saving' | 'salary' | 'main',
+  mainModalActive: boolean;
 }
 
 const initialState: authState = {
@@ -15,6 +17,8 @@ const initialState: authState = {
   selectionmodal: false,
   imageUrl: '',
   activeTabs: 'home',
+  processPhoto: false,
+  mainModalActive: false,
 };
 
 const authSlice = createSlice({
@@ -36,16 +40,22 @@ const authSlice = createSlice({
     setSelectionModal: (state, action: PayloadAction<boolean>) => {
       state.selectionmodal = action.payload;
     },
-    setActiveTab: (state, action: PayloadAction<'home' | 'card' | 'saving' | 'salary'>) => {
+    setMainModalActive: (state, action: PayloadAction<boolean>) => {
+      state.mainModalActive = action.payload;
+    },
+    setActiveTab: (state, action: PayloadAction<'home' | 'card' | 'saving' | 'salary' | 'main'>) => {
       state.activeTabs = action.payload;
     },
     saveImageCaptured: (state, action: PayloadAction<string>) => {
       state.imageUrl = action.payload;
     },
+    setProcessPhoto: (state, action: PayloadAction<boolean>) => {
+      state.processPhoto = action.payload;
+    }
   },
 });
 
 export const selectUser = (state: RootState) => state.auth;
 
-export const { increment, decrement, setValue, shouldShowModal, saveImageCaptured, setSelectionModal, setActiveTab } = authSlice.actions;
+export const { increment, decrement, setValue, shouldShowModal, saveImageCaptured, setMainModalActive, setProcessPhoto, setSelectionModal, setActiveTab } = authSlice.actions;
 export default authSlice.reducer;

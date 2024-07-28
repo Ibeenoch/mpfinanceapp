@@ -6,21 +6,36 @@ import UserImage from '../assets/user.svg';
 import Focus from '../assets/focus-8.svg';
 import { router } from 'expo-router';
 import { ProgressBar } from 'react-native-paper';
+import { useAppDispatch, useAppSelector } from '../features/hooks';
+import { selectUser, setProcessPhoto } from '../features/auth/auth';
 
 const Processimg = () => {
     const getmode = useThemeStyles();
     const currentMode = useColorScheme();
+    const dispatch = useAppDispatch();
+    const { processPhoto } = useAppSelector(selectUser);
 
-
-    useEffect(() => {
+    const progressing = () => {
       const interval = setTimeout(() => {
+        console.log('processing...')
         router.push('selfiecapture')
       }, 6000);
+     
+      dispatch(setProcessPhoto(false));
 
+      console.log('processPhoto status ', processPhoto)
       return () => {
         clearTimeout(interval)
       }
-    })
+    }
+
+    useEffect(() => {
+      if(processPhoto){
+        progressing()
+      }
+    }, [processPhoto])
+
+
   return (
     <View style={className`flex-1 py-[60%] px-[3%] bg-black`}>
     <View style={className`${getmode.backGroundColorTwo} flex-1 rounded-3xl px-4 justify-center items-center`}>
