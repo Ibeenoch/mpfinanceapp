@@ -8,17 +8,32 @@ import { router } from 'expo-router'
 import { RadioButton } from 'react-native-paper'
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import { BlurView } from 'expo-blur'
 
 const Income = () => {
+    //custom hooks
+    const getmode = useThemeStyles();
     const currentMode = useColorScheme();
+
+    // state hooks
     const [selectedValue, setSelectedValue] = useState<string>(''); 
     const [selectedIncome, setSelectedIncome] = useState<string>(''); 
     const [selectedOccupation, setSelectedOccupation] = useState<string>(''); 
-    const getmode = useThemeStyles();
     const [incomeActive, setIncomeActive] = useState<boolean>(false);
     const [occupationActive, setOccupationActive] = useState<boolean>(false);
+    //ref hooks
     const incomeModalRef = useRef<BottomSheetModal>(null);
     const occupationModalRef = useRef<BottomSheetModal>(null);
+
+    // effect hook
+    useEffect(() => {
+        incomeActive && incomeModalRef.current?.present(); 
+    }, [incomeActive])
+
+    useEffect(() => {
+        occupationActive && occupationModalRef.current?.present(); 
+    }, [occupationActive])
+    
     const snapPoints = ['90%'];
 
     const handleRadioPress = (item: string) => {
@@ -43,13 +58,7 @@ const Income = () => {
         occupationModalRef.current?.present();
     }
 
-    useEffect(() => {
-        incomeActive && incomeModalRef.current?.present(); 
-    }, [incomeActive])
 
-    useEffect(() => {
-        occupationActive && occupationModalRef.current?.present(); 
-    }, [occupationActive])
 
     const occupations = [
         "Accountant",
@@ -241,48 +250,49 @@ const Income = () => {
 
     {
         incomeActive && (
-    
-        <BottomSheetModal 
-        ref={incomeModalRef}
-        index={0}
-        snapPoints={snapPoints}
-        backgroundStyle={className`rounded-3xl w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
-        style={className`rounded-3xl w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
-        >
-        <Text style={className`${currentMode === 'light'  ? 'text-black' : 'text-white'}  ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} font-bold pl-5 py-6 text-left text-sm`}>Choose Country</Text>
+        <BlurView style={{ zIndex: 0, width: '100%', height: '100%', position: 'absolute'}} experimentalBlurMethod='dimezisBlurView' tint='regular' intensity={10}>
+            <BottomSheetModal 
+            ref={incomeModalRef}
+            index={0}
+            snapPoints={snapPoints}
+            backgroundStyle={className`rounded-3xl w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
+            style={className`rounded-3xl w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
+            >
+            <Text style={className`${currentMode === 'light'  ? 'text-black' : 'text-white'}  ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} font-bold pl-5 py-6 text-left text-sm`}>Choose Country</Text>
 
-            {
-                
-<FlatList
-data={salaryRanges}
-keyExtractor={(item, index) => index.toString()} // Use index as a key if items do not have unique IDs
-renderItem={({ item }) => (
+                {
+                    
+    <FlatList
+    data={salaryRanges}
+    keyExtractor={(item, index) => index.toString()} // Use index as a key if items do not have unique IDs
+    renderItem={({ item }) => (
 
-    <TouchableOpacity style={styles.container} >
-    <View  key={item.range} style={className`w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} flex-row justify-between p-5`}>
-    <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} text-sm font-bold`}>{item.range}</Text>
-        <View>
-        <RadioButton.Android 
-            value={item.range}
-            status={selectedIncome === item.range ? 'checked' : 'unchecked'} 
-            onPress={() => handleRadioPress(item.range)}
-            color={selectedIncome === item.range ? (currentMode === 'light' ? '#0663f0' : '#ffd75b') : 'gray'}
-        />
+        <TouchableOpacity style={styles.container} >
+        <View  key={item.range} style={className`w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} flex-row justify-between p-5`}>
+        <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} text-sm font-bold`}>{item.range}</Text>
+            <View>
+            <RadioButton.Android 
+                value={item.range}
+                status={selectedIncome === item.range ? 'checked' : 'unchecked'} 
+                onPress={() => handleRadioPress(item.range)}
+                color={selectedIncome === item.range ? (currentMode === 'light' ? '#0663f0' : '#ffd75b') : 'gray'}
+            />
+            </View>
+        
         </View>
-    
-    </View>
-</TouchableOpacity>
-)}
-/>
-            } 
-        </BottomSheetModal>
+    </TouchableOpacity>
+    )}
+    />
+                } 
+            </BottomSheetModal>
+        </BlurView>
     )
     }
 
 
     {
         occupationActive && (
-    
+        <BlurView style={{ zIndex: 0, width: '100%', height: '100%', position: 'absolute'}} experimentalBlurMethod='dimezisBlurView' tint='regular' intensity={10}>    
         <BottomSheetModal 
         ref={occupationModalRef}
         index={0}
@@ -317,6 +327,7 @@ renderItem={({ item }) => (
             />
             } 
         </BottomSheetModal>
+        </BlurView>
     )
     }
 

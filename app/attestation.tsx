@@ -9,13 +9,12 @@ import { RadioButton } from 'react-native-paper';
 
 
 const Attestation = () => {
+    const [selectedValue, setSelectedValue] = useState(''); 
     const getmode = useThemeStyles();
     const currentMode = useColorScheme();
-    const [selectedValue, setSelectedValue] = useState(''); 
   
     const handleRadioPress = (value: string) => {
       setSelectedValue(value);
-      console.log('selected val ', value);
     }
   return (
     <ScrollView style={className`flex-1`}>
@@ -34,7 +33,7 @@ const Attestation = () => {
                     </View>
 
                     <View style={className`flex-row justify-center items-center`}>
-                        <TouchableOpacity style={className`flex-row justify-center items-center`}>
+                        <TouchableOpacity onPress={() => router.push('nationality')} style={className`flex-row justify-center items-center`}>
                             <EditLogo width={14} height={14} fill={`${getmode.fillColor}`} />
                             <Text style={className` px-1 ${getmode.textColorTwo}`}>Edit</Text>
                         </TouchableOpacity>
@@ -71,7 +70,7 @@ const Attestation = () => {
 
                     
                     <View style={className`flex-row justify-center`}>
-                        <TouchableOpacity style={className`flex-row gap-1 justify-center items-center`}>
+                        <TouchableOpacity onPress={() => router.push('address')}  style={className`flex-row gap-1 justify-center items-center`}>
                             <EditLogo width={14} height={14} fill={`${getmode.fillColor}`} />
                             <Text style={className`${getmode.textColorTwo} font-bold`}>Edit</Text>
                         </TouchableOpacity>
@@ -87,7 +86,7 @@ const Attestation = () => {
                     </View>
 
                     <View style={className`flex-row justify-center items-center`}>
-                        <TouchableOpacity style={className`flex-row gap-1 justify-center items-center`}>
+                        <TouchableOpacity onPress={() => router.push('pepstatus')}  style={className`flex-row gap-1 justify-center items-center`}>
                             <EditLogo width={14} height={14} fill={`${getmode.fillColor}`} />
                             <Text style={className`${getmode.textColorTwo} font-bold`}>Edit</Text>
                         </TouchableOpacity>
@@ -112,7 +111,7 @@ const Attestation = () => {
                     </View>
 
                     <View style={className`flex-row  justify-center items-center`}>
-                        <TouchableOpacity style={className`flex-row gap-1 justify-center items-center`}>
+                        <TouchableOpacity onPress={() => router.push('income')}  style={className`flex-row gap-1 justify-center items-center`}>
                             <EditLogo width={14} height={14} fill={`${getmode.fillColor}`} />
                             <Text style={className`${getmode.textColorTwo}  font-bold`}>Edit</Text>
                         </TouchableOpacity>

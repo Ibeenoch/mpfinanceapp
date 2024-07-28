@@ -6,13 +6,13 @@ import Envelope from '../assets/letter-svgrepo-com.svg'
 import { router } from 'expo-router';
 
 const SignUpEmail = () => {
+  const [isFocused, setIsFocused] = useState<boolean>(false);
     const colorScheme = useColorScheme();
-    const [isFocused, setIsFocused] = useState<boolean>(false);
     const handleNext = () => {
       router.push('passcode')
     }
-    console.log('isFocused ', isFocused)
-  return (
+
+    return (
     <View style={className` ${ colorScheme === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} h-screen flex-1 `}>
          <View style={className` ${colorScheme === 'light' ? 'bg-[#f7f7f7] border-t-[#0261ef]' : 'bg-[#0e1a32] border-t-[#ffd75b]'}  border-t-[3px] w-[100%] `}>
          </View>

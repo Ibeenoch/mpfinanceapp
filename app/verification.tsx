@@ -9,14 +9,15 @@ import { router } from 'expo-router';
 import useThemeStyles from '../utils/dynamic';
 
 const Verification = () => {
-  const currentMode = useColorScheme();
   const [selectedValue, setSelectedValue] = useState(''); 
   const getmode = useThemeStyles();
+  const currentMode = useColorScheme();
 
   const handleRadioPress = (value: string) => {
     setSelectedValue(value);
     console.log('selected val ', value);
   }
+  
 // yellow #ffd75b   blue #0663f0 white  #ffffff
   return (
     <View style={className`${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'} px-2 py-2 h-screen flex-1`}>
@@ -107,7 +108,7 @@ const Verification = () => {
               <View></View>
             </View>
           <View style={className`w-70 p-2`}>
-            <Text style={className` ${currentMode === 'light' ? 'text-black' : 'text-white' } text-[12px] font-semibold max-w-lg `}>You can proceed with either one now, but you will be required to provide the other for a level 2 account upgrade</Text>
+            <Text style={className` ${currentMode === 'light' ? 'text-black' : 'text-white' } text-justify pr-4 text-[12px] font-semibold max-w-lg `}>You can proceed with either one now, but you will be required to provide the other for a level 2 account upgrade</Text>
           </View>
         </View>
 

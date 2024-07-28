@@ -11,13 +11,14 @@ import Phone from '../assets/call-answer-svgrepo-com.svg'
 import className from 'twrnc'
 import Home from '.'
 import SpinnerModal from '../components/SpinnerModal'
+import HeaderStatus from '../components/HeaderStatus'
 
 const App = () => {
+    const [loading, setLoading] = useState<boolean>(false);
     let colorScheme = useColorScheme();
     const { showmodal } = useAppSelector((state) => state.auth );
-    const [loading, setLoading] = useState<boolean>(false);
-console.log('showmodal ', showmodal)
-  return (
+
+    return (
         <>
             <Stack>
                 <Stack.Screen name='index'  options={{ headerShown: false }}  />
@@ -47,8 +48,7 @@ console.log('showmodal ', showmodal)
                 headerTitleStyle: {
                     fontSize: 15,
                 },
-                headerRight: () => <Text style={{ color: colorScheme === 'dark' ?  '#ffd75b' : '#0261ef'  }}>Needs help</Text>,
-                
+                headerRight: () => <HeaderStatus progress={0.2} leftNum={2} rightNum={7} />                
                 }} />
                 <Stack.Screen name='attestation'  
                 options={{ 
@@ -66,17 +66,8 @@ console.log('showmodal ', showmodal)
                 
                 }} />
                 <Stack.Screen name='verifyphone'  options={{ 
-                headerShown: true, 
-                headerTitle: '', 
-                headerStyle: {
-                    backgroundColor:  colorScheme === 'dark' ? '#000e28' : '#f7f7f7',
-                }, 
-                headerTintColor: colorScheme === 'dark' ? '#ffd75b' : '#0261ef', 
-                headerTitleStyle: {
-                    fontSize: 15,
-                },
-                headerRight: () => <Text style={{ color: colorScheme === 'dark' ? '#ffd75b' : '#0261ef'  }}>Needs help</Text>,
-                
+                headerShown: false, 
+              
                 }} />
                 <Stack.Screen name='signupemail'  options={{ 
                 headerShown: true, 
@@ -92,21 +83,7 @@ console.log('showmodal ', showmodal)
                 ,
                 
                 }} />
-                <Stack.Screen name='address'  options={{ 
-                headerShown: true, 
-                headerTitle: 'Upgrade To Level 1', 
-                headerTitleAlign: 'center',
-                headerStyle: {
-                    backgroundColor:  colorScheme === 'dark' ? '#000e28' : '#f7f7f7',
-                }, 
-                headerTintColor: colorScheme === 'dark' ? '#ffd75b' : '#0261ef', 
-                headerTitleStyle: {
-                    fontSize: 15,
-                },
-                headerRight: () =>  <Text style={{ color: colorScheme === 'dark' ? '#ffd75b' : '#0261ef'  }}>Need help?</Text>
-                ,
-                
-                }} />
+                <Stack.Screen name='address'  options={{  headerShown: false, }} />
                     <Stack.Screen name='passcode'  options={{ 
                 headerShown: true, 
                 headerTitle: '', 
@@ -130,7 +107,7 @@ console.log('showmodal ', showmodal)
                 <Stack.Screen name='biometrics'  options={{ headerShown: false }} />
                 <Stack.Screen name='cbninfo'  options={{ headerShown: false }} />
                 <Stack.Screen name='cbnlast'  options={{ headerShown: false }} />
-                <Stack.Screen name='nationality'  options={{ headerShown: false }} />
+                <Stack.Screen name='nationality'   options={{ headerShown: false }} />
                 <Stack.Screen name='photocapture'  options={{ headerShown: false }} />
                 <Stack.Screen name='selfietake'  options={{ headerShown: false }} />
                 <Stack.Screen name='processimg'  options={{ headerShown: false }} />

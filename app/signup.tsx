@@ -1,37 +1,33 @@
 import { View, Text, Pressable,TextInput, StyleSheet, useColorScheme, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, TouchableOpacity, Modal, ScrollView } from 'react-native'
 import { Image } from 'expo-image';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import className from 'twrnc'
-import Flag from '../assets/Flag_of_Nigeria.svg';
 import Gift from '../assets/gift-card-svgrepo-com.svg';
 import ArrowDown from '../assets/arrow-down-3101.svg';
 import ArrowUp from '../assets/up-arrow-svgrepo-com.svg';
-import { Picker } from '@react-native-picker/picker';
 import { router, useNavigation } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { shouldShowModal } from '../features/auth/auth';
 import { useAppDispatch, useAppSelector } from '../features/hooks';
 
 
 
 const  Signup = () => {
+  const [showReferral, setShowReferral] = useState<boolean>(false);
+  const [isFocus, setIsFocus] = useState<boolean>(false);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [isFocusRef, setIsFocusRef] = useState<boolean>(false);
+  const [isBlur, setIsBlur] = useState<boolean>(false);
+  const [isBlurRef, setIsBlurRef] = useState<boolean>(false);
+  const [isInputErr, setIsInputErr] = useState<boolean>(false);
+  const [btnActive, setBtnActive] = useState<boolean>(false);
+  const [phone, setPhone] = useState<string>();
+  const [referral, setreferral] = useState<string>('');
+  const [selectedCountry, setSelectedCountry] = useState<string>('+234');
+  const [ hideFooter, setHideFooter ] = useState<boolean>(false);
+  const [ showModal, setShowModal ] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState(false);
     let colorScheme = useColorScheme();
     const dispatch = useAppDispatch();
     const navigation = useNavigation();
-    const [showReferral, setShowReferral] = useState<boolean>(false);
-    const [isFocus, setIsFocus] = useState<boolean>(false);
-    const [isFocused, setIsFocused] = useState<boolean>(false);
-    const [isFocusRef, setIsFocusRef] = useState<boolean>(false);
-    const [isBlur, setIsBlur] = useState<boolean>(false);
-    const [isBlurRef, setIsBlurRef] = useState<boolean>(false);
-    const [isInputErr, setIsInputErr] = useState<boolean>(false);
-    const [btnActive, setBtnActive] = useState<boolean>(false);
-    const [phone, setPhone] = useState<string>();
-    const [referral, setreferral] = useState<string>('');
-    const [selectedCountry, setSelectedCountry] = useState<string>('+234');
-    const [ hideFooter, setHideFooter ] = useState<boolean>(false);
-    const [ showModal, setShowModal ] = useState<boolean>(false);
-    const [openModal, setOpenModal] = useState(false);
     const { showmodal } = useAppSelector((state) => state.auth);
 
 

@@ -7,14 +7,18 @@ import DeleteIcon from '../assets/backspace-svgrepo-com.svg';
 import useThemeStyles from '../utils/dynamic';
 
 const Passcode = () => {
-    const currentMode = useColorScheme();
     const [isFocus, setISfocus] = useState<boolean>(false);
     const [currentIndex, setCurrentIndex] = useState<number>();
     const [arrNum, setArrNum] = useState<string[]>(Array(6).fill(''));
-  
-    // Create refs for each TextInput
+    const getmode = useThemeStyles();
+    const currentMode = useColorScheme();
     const inputRefs = useRef<TextInput[]>([]);
-  
+
+    useEffect(() => {
+      setCurrentIndex(0);
+      inputRefs.current[0].focus();
+    }, [])
+    
     // Update number and focus the next input
     const updateNum = (val: string) => {
       if(arrNum.length <= 6){
@@ -33,10 +37,7 @@ const Passcode = () => {
       }
     };
 
-    useEffect(() => {
-      setCurrentIndex(0);
-      inputRefs.current[0].focus();
-    }, [])
+   
 
     const deleteLastNum = () => {
       const newArrNum = [...arrNum];
@@ -55,7 +56,6 @@ const Passcode = () => {
       setISfocus(true);
     };
     
-    const getmode = useThemeStyles()
  // dark '#000e28' : light '#f7f7f7'
   return (
     <View style={className`flex-1 ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}`}>

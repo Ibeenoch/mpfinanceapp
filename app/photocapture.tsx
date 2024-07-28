@@ -29,18 +29,17 @@ const Photocapture = () => {
         dispatch(saveImageCaptured(url));
         router.push('selfietake')
       }
-      // () => 
     }
   return (
     <View style={className`${getmode.backGroundColorTwo} flex-1 p-4`}>
       
-      <View style={className`py-6  mx-auto px-4 w-35 h-35 `}>
-            <Image source={require('../assets/s9.png')} style={className`w-35 h-35 rounded-3xl px-5`}  />
+      <View style={className`py-6 mt-4  mx-auto px-4 w-40 h-38 `}>
+            <Image source={require('../assets/s9.png')} style={className`w-40 h-38 rounded-3xl px-5`}  />
       </View>
 
-      <View style={className`px-4 py-6`}>
+      <View style={className`px-4 py-4 mt-3`}>
               <Text style={className` ${ getmode.textColorTwo} font-bold text-2xl text-center pt-5 pb-1`}>Photo Capture</Text>
-              <Text style={className` ${ getmode.textColorTwo} text-xs text-center pb-7`}>Your face needs to be verified against your BVN information. Please follow the guidelines below to ensure proper capture.</Text>
+              <Text style={className` ${ getmode.textColorTwo} text-xs text-center pb-2`}>Your face needs to be verified against your BVN information. Please follow the guidelines below to ensure proper capture.</Text>
       </View>
 
       <View style={[className`p-3 rounded-lg border border-gray-400`, styles.dashBorder]}>

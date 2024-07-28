@@ -13,8 +13,7 @@ const PepStatus = () => {
   return (
     <View style={className`bg-black flex-1 py-6 `}>
     <View style={className`${getmode.backGroundColorTwo} flex-1 justify-center items-center my-4 rounded-3xl p-4`}>
-    
-
+      
         <View style={className`px-6`}>
             <Image source={require('../assets/s10.png')} style={className`w-85 h-48 rounded-xl`} />
         </View>

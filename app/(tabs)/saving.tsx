@@ -9,7 +9,7 @@ const Saving = () => {
   const currentMode = useColorScheme();
   // currentMode === 'light' ? 'bg-[#e6eefd] text-[#0361f0]' : 'bg-[#001231] text-[#4f89f3]'
   return (
-    <ScrollView>
+    <ScrollView style={className`flex-1 ${getmode.backGroundColorTwo}`}>
       <View style={className`p-4 flex-1 ${getmode.backGroundColorTwo}`}>
           <Text style={className` ${ getmode.textColorTwo} font-bold text-2xl text-left my-5`}>Choose a savings Plan</Text>
 

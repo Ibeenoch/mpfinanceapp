@@ -19,21 +19,21 @@ const Main = () => {
       {/* create the modal  */}
       <View style={className`flex-1 p-4 ${getmode.backGroundColorTwo}`}>
         
-        <View style={className`flex-row justify-between p-2`}>
-            <View style={className`flex-row gap-2`}>
+        <View style={className`flex-row ${getmode.backGroundlightYellowColor} rounded-xl my-2 items-center justify-between items-center p-2`}>
+            <View style={className`flex-row items-center gap-2`}>
                 <View style={className`p-2 rounded-md ${getmode.backGroundlightYellowColor} `}>
-                  <Plus width={8} height={8} fill={getmode.buttonBgColor} />
+                  <Plus width={18} height={18} strokeWidth={2} stroke={getmode.fillColor} />
                 </View>
                 <Text style={className`text-sm ${currentMode === 'light' ? `text-[#9eacc7]` : `text-[#b9c1ce]`}`}>Add Money</Text>
             </View>
 
             <View>
-                <ArrowForward width={8} height={8} fill={getmode.buttonBgColor} />
+                <ArrowForward width={18} height={18} fill={getmode.fillColor} />
             </View>
         </View>
         
-        <View style={className`flex-row justify-between p-2`}>
-            <View style={className`flex-row gap-2`}>
+        <View style={className`flex-row  ${getmode.backGroundlightYellowColor} rounded-xl my-2 items-center justify-between p-2`}>
+            <View style={className`flex-row  items-center gap-2`}>
                 <View style={className`p-2 rounded-md ${getmode.backGroundlightYellowColor} `}>
                   {
                     currentMode === 'light' ? (
@@ -48,33 +48,33 @@ const Main = () => {
             </View>
 
             <View>
-                <ArrowForward width={8} height={8} fill={getmode.buttonBgColor} />
+                <ArrowForward width={18} height={18} fill={getmode.fillColor} />
             </View>
         </View>
         
-        <View style={className`flex-row justify-between p-2`}>
-            <View style={className`flex-row gap-2`}>
+        <View style={className`flex-row  ${getmode.backGroundlightYellowColor} rounded-xl my-2 items-center justify-between p-2`}>
+            <View style={className`flex-row items-center gap-2`}>
                 <View style={className`p-2 rounded-md ${getmode.backGroundlightYellowColor} `}>
-                  <Phone width={8} height={8} fill={getmode.buttonBgColor} />
+                  <Phone width={18} height={18} fill={getmode.fillColor} />
                 </View>
                 <Text style={className`text-sm ${currentMode === 'light' ? `text-[#9eacc7]` : `text-[#b9c1ce]`}`}>Buy Airtime</Text>
             </View>
 
             <View>
-                <ArrowForward width={8} height={8} fill={getmode.buttonBgColor} />
+                <ArrowForward width={18} height={18} fill={getmode.fillColor} />
             </View>
         </View>
         
-        <View style={className`flex-row justify-between p-2`}>
-            <View style={className`flex-row gap-2`}>
+        <View style={className`flex-row  ${getmode.backGroundlightYellowColor} rounded-xl my-2 items-center justify-between p-2`}>
+            <View style={className`flex-row items-center gap-2`}>
                 <View style={className`p-2 rounded-md ${getmode.backGroundlightYellowColor} `}>
-                  <PayBill width={8} height={8} fill={getmode.buttonBgColor} />
+                  <PayBill width={18} height={18} fill={getmode.fillColor} />
                 </View>
                 <Text style={className`text-sm ${currentMode === 'light' ? `text-[#9eacc7]` : `text-[#b9c1ce]`}`}>Pay Bills</Text>
             </View>
 
             <View>
-                <ArrowForward width={8} height={8} fill={getmode.buttonBgColor} />
+                <ArrowForward width={18} height={18} fill={getmode.fillColor} />
             </View>
         </View>
       </View>

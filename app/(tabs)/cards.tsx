@@ -17,7 +17,7 @@ const Cards = () => {
 
   return (
     <ScrollView>
-      <View style={className`p-4 flex-1 ${getmode.backGroundColorTwo}`}>
+      <View style={className`pt-4 px-4 pb-24 flex-1 ${getmode.backGroundColorTwo}`}>
         <View style={className`p-2 flex-1 rounded-xl ${getmode.firstLayerBgColor}`}>
           <View style={className`rounded-xl ${getmode.firstLayerBgColor}`}>
               <Image source={require('../../assets/s14.png')} style={className`w-full h-40 rounded-xl`} />

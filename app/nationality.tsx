@@ -23,29 +23,29 @@ import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet.js';
 import { RadioButton } from 'react-native-paper';
+import { BlurView } from 'expo-blur';
+import { useAppDispatch, } from '../features/hooks';
+import { setSelectionModal, shouldShowModal } from '../features/auth/auth';
+import HeaderStatus from '../components/HeaderStatus';
+import useThemeStyles from '../utils/dynamic';
 
 
 const Nationality = () => {
-  const currentMode = useColorScheme();
-  const [selectedValue, setSelectedValue] = useState<string>('java');
-  const [countryActive, setcountryActive] = useState<boolean>(false);
-  const [countryLists, setcountryLists] = useState<string[]>([]);
-  const [selectedState, setSelectedState] = useState<string>('');
-  const [selectedflag, setSelectedFlag] = useState<string>('');
-
-  const countryModalRef = useRef<BottomSheetModal>(null)
-
-  const handleRadioPress = (value: string, f: string) => {
-    setSelectedValue(value);
-    setSelectedState(value);
-    setSelectedFlag(f);
-    console.log('selected val ', value, f);
-  }
+    const [selectedValue, setSelectedValue] = useState<string>('java');
+    const [countryActive, setcountryActive] = useState<boolean>(false);
+    const [countryLists, setcountryLists] = useState<string[]>([]);
+    const [selectedState, setSelectedState] = useState<string>('');
+    const [selectedflag, setSelectedFlag] = useState<string>('');
+    const countryModalRef = useRef<BottomSheetModal>(null);
+    const getmode = useThemeStyles();
+    const currentMode = useColorScheme();
+    const dispatch = useAppDispatch();
 
   useEffect(() => {
     if(selectedflag){
-
-      countryModalRef.current?.close()
+      countryModalRef.current?.close();
+      setcountryActive(false);
+      dispatch(setSelectionModal(false));
     }
   }, [ selectedflag]);
 
@@ -53,9 +53,19 @@ const Nationality = () => {
     countryActive && countryModalRef.current?.present();
   }, [countryActive])
 
+  const handleRadioPress = (value: string, f: string) => {
+    setSelectedValue(value);
+    setSelectedState(value);
+    setSelectedFlag(f);
+   
+  }
+
+
+
   const chooseCountry = () => {
-    setcountryActive(true)
-    countryModalRef.current?.present()
+    setcountryActive(true);
+    dispatch(setSelectionModal(true));
+    countryModalRef.current?.present();
   }
 
  const countries = [
@@ -842,21 +852,21 @@ const Nationality = () => {
   const snapPoints = [ '60%', '80%']
 
   return (
-    <GestureHandlerRootView style={{ flex: 1}}>
-      <View style={className`flex-1  ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} `}>
+    <GestureHandlerRootView style={{ flex: 1}}> 
+      <View style={className`flex-1  ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'} `}>
       <BottomSheetModalProvider>
-      <SafeAreaView style={className`flex-1 py-6 px-5 items-center ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} `}>
-          <View style={className`my-4 flex-row justify-between px-5 `}>
-              <View></View>
-              <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} font-semibold`}>Upgrade To Level 1</Text>
-              {/* <View>
-                  <StatusSpinner lower={7} upper={1} num={0.25} />
-              </View> */}
-          </View>
+      <SafeAreaView style={className`flex-1 py-6 px-5 items-center ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'} `}>
+         
 
-          <View style={className`text-center font-bold pb-6`}>
-            <Text style={className`text-center text-xl font-bold ${currentMode === 'light' ? 'text-black' : 'text-white'} py-2`}>What is your Nationality?</Text>
-            <Text style={className`text-center text-xs font-bold ${currentMode === 'light' ? 'text-black' : 'text-white'} py-3`}>Select the country you are from</Text>
+          <View style={className`font-bold flex-row mt-6 justify-between items-center w-full pb-6`}>
+            <View></View>
+            <Text style={className`text-lg font-bold ${getmode.textColorTwo}`}>Upgrade to Level 1</Text>
+            <HeaderStatus progress={0.1} leftNum={1} rightNum={7} />
+            </View>
+
+          <View style={className`font-bold w-full pb-6`}>
+            <Text style={className`text-left text-xl font-bold ${currentMode === 'light' ? 'text-black' : 'text-white'} py-1`}>What is your Nationality?</Text>
+            <Text style={className`text-left text-xs font-bold ${currentMode === 'light' ? 'text-black' : 'text-white'} py-1`}>Select the country you are from</Text>
           </View>
       
           <View style={className`w-full flex-row rounded-xl items-center p-2 justify-between  ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}  `}>
@@ -867,14 +877,14 @@ const Nationality = () => {
                     </View>
                     <View style={className``}>
                       <TouchableOpacity onPress={chooseCountry}>
-                        <Text style={className`pr-4 ${currentMode === 'light' ? 'text-[#0261ef]' : 'text-[#ffd75b]'}`} >Change</Text>
+                        <Text style={className`pr-4 font-semibold ${currentMode === 'light' ? 'text-[#0261ef]' : 'text-[#ffd75b]'}`} >Change</Text>
                       </TouchableOpacity>
                     </View>
           </View>
 
           
           <View style={className`flex-row gap-4 justify-center absolute bottom-7`}>
-            <TouchableOpacity onPress={() => router.push('verification')} style={className`px-2 py-4 w-full ${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'} rounded-lg flex-row justify-center items-center`}>
+            <TouchableOpacity onPress={() => router.push('verification')} style={className`px-2 py-6 w-full ${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'} rounded-xl flex-row justify-center items-center`}>
               <Text style={className`text-xs font-bold ${currentMode === 'light' ? 'text-white' : 'text-white'} `}>Proceed</Text>
             </TouchableOpacity>
           </View>
@@ -884,41 +894,42 @@ const Nationality = () => {
 
       {
                 countryActive && (
-            
-                <BottomSheetModal 
-                ref={countryModalRef}
-                index={0}
-                snapPoints={snapPoints}
-                backgroundStyle={className`rounded-3xl w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
-                style={className`rounded-3xl w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
-                >
-                <Text style={className`${currentMode === 'light'  ? 'text-black' : 'text-white'}  ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} font-bold pl-5 py-6 text-left text-sm`}>Choose Country</Text>
+                <BlurView style={{ zIndex: 0, width: '100%', height: '100%', position: 'absolute'}} experimentalBlurMethod='dimezisBlurView' tint='regular' intensity={10}>
+                    <BottomSheetModal 
+                    ref={countryModalRef}
+                    index={0}
+                    snapPoints={snapPoints}
+                    backgroundStyle={className`rounded-3xl w-full ${currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#162640]'} `}
+                    style={className`rounded-3xl z-3 w-full ${currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#162640]'} `}
+                    >
+                    <Text style={className`${currentMode === 'light'  ? 'text-black' : 'text-white'}  ${currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#162640]'} font-bold pl-5 py-6 text-left text-sm`}>Choose Country</Text>
 
-                    {
-                       
-      <FlatList
-      data={countries}
-      keyExtractor={(item, index) => index.toString()} // Use index as a key if items do not have unique IDs
-      renderItem={({ item }) => (
-      
-            <TouchableOpacity style={styles.container} >
-          <View style={className`w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} flex-row justify-between p-5`}>
-            <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} text-sm font-bold`}>{item.name}</Text>
-              <View>
-                <RadioButton.Android 
-                  value={item.name}
-                  status={selectedValue === item.name ? 'checked' : 'unchecked'} 
-                  onPress={() => handleRadioPress(item.name, item.flag)}
-                  color={selectedValue === item.name ? (currentMode === 'light' ? '#0663f0' : '#ffd75b') : 'gray'}
-                />
-              </View>
-           
-          </View>
-      </TouchableOpacity>
-      )}
-    />
-                    } 
-                </BottomSheetModal>
+                        {
+                        
+        <FlatList
+        data={countries}
+        keyExtractor={(item, index) => index.toString()} // Use index as a key if items do not have unique IDs
+        renderItem={({ item }) => (
+        
+                <TouchableOpacity style={styles.container} >
+            <View style={className`w-full ${currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#162640]'} flex-row justify-between p-5`}>
+                <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} text-sm font-bold`}>{item.name}</Text>
+                <View>
+                    <RadioButton.Android 
+                    value={item.name}
+                    status={selectedValue === item.name ? 'checked' : 'unchecked'} 
+                    onPress={() => handleRadioPress(item.name, item.flag)}
+                    color={selectedValue === item.name ? (currentMode === 'light' ? '#0663f0' : '#ffd75b') : 'gray'}
+                    />
+                </View>
+            
+            </View>
+        </TouchableOpacity>
+        )}
+        />
+                        } 
+                    </BottomSheetModal>
+                </BlurView>
             )
             }
         

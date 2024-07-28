@@ -11,9 +11,9 @@ import { saveImageCaptured } from '../features/auth/auth';
 
 
 const Selfietake = () => {
-    const dispatch = useAppDispatch();
     const getmode = useThemeStyles();
     const currentMode = useColorScheme();
+    const dispatch = useAppDispatch();
     const { imageUrl } = useAppSelector(selectUser);
 
     const handleRetake = async() => {
@@ -42,13 +42,13 @@ const Selfietake = () => {
         </View>
 
         <View style={className`my-4  mx-auto px-1 w-[100%] h-85 `}>
-            <Image source={ imageUrl ? imageUrl : require('../assets/gift.png')} style={className`w-70 h-85 rounded-xl`} />
+            <Image source={ imageUrl ? imageUrl : require('../assets/gift.png')} style={className`w-70 h-85 rounded-3xl`} />
         </View>
 
         <View style={className`flex-col gap-4 my-2`}>
         {/* border-t-[#0261ef]' : 'bg-[#0e1a32] border-t-[#ffd75b] */}
             <TouchableOpacity onPress={() => router.push('processimg')} style={className`rounded-xl border border-gray-400 w-full py-4 px-6 ${currentMode === 'light' ? 'bg-[#0261ef] border-[#0261ef]' : 'bg-[#ffd75b] border-[#000e28]'}`}>
-                <Text style={className`${currentMode === 'light' ? 'text-white' : 'text-[#ffd75b]'} text-center `}>Yes, use this</Text>
+                <Text style={className`${currentMode === 'light' ? 'text-white' : 'text-white'} text-center `}>Yes, use this</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={handleRetake} style={className`rounded-xl border border-gray-400 w-full py-4 px-6 ${currentMode === 'light' ? 'text-[#f7f7f7] bg-white border border-[#0261ef]' : 'text-[#ffd75b]  border border-[#ffd75b]'}`}>

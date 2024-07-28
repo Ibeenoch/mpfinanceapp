@@ -34,12 +34,14 @@ const  Tablayout = () => {
         </View>
       },
       headerLeft: () => {
-        return <View style={className`flex-row gap-2`}>
-            <Image source={require('../../assets/s14.png')} />
+        return <View style={className`flex-row pl-2 items-center`}>
+            <Image source={require('../../assets/s14.png')} style={className`w-9 h-9`} />
             <Text style={className`text-sm font-semibold py-1 px-2 rounded-md ${`${currentMode === 'light' ? `bg-[#fdf3e9] text-[#f3a352]` : `bg-[#312726] text-[#de8d3c]`}`} `}>Level 1</Text>
         </View>
       },
       headerTitle: '',
+      tabBarActiveTintColor: currentMode === 'light' ? `#0261ef` : `#ffd75b`,
+      tabBarInactiveTintColor: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
       tabBarStyle: {
         borderRadius: 50,
         position: 'absolute',
@@ -52,8 +54,7 @@ const  Tablayout = () => {
         backgroundColor:  currentMode === 'dark' ?  '#0e1a32' : '#f7f7f7',
         display: 'flex',
         alignItems: 'center'
-      },
-      
+      },      
       headerStyle: {
         backgroundColor: currentMode === 'dark' ?  '#0e1a32' : '#f7f7f7',
       }
@@ -66,32 +67,29 @@ const  Tablayout = () => {
               padding: 10,
               color: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
             },
-            tabBarActiveTintColor: currentMode === 'light' ? `#0261ef` : `#ffd75b`,
-            tabBarInactiveTintColor: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
-            tabBarIcon: () => {
+           
+            tabBarIcon: ({ color, size}) => {
               return currentMode === 'light' ? (
-                <HomeIconBlue width={25} height={25}   />
+                <HomeIconBlue width={25} height={25} color={color}  />
 
               ) : (
-                <HomeIconOrange width={25} height={25}  />
+                <HomeIconOrange width={25} height={25} color={color} />
 
               )
             }
         }}/>
-        <Tabs.Screen name='cards' options={{
+        <Tabs.Screen name='cards'  options={{
             title: 'Cards',
             tabBarLabelStyle: {
               fontSize: 13,
               padding: 10,
               color: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
             },
-            tabBarActiveTintColor: currentMode === 'light' ? `#0261ef` : `#ffd75b`,
-            tabBarInactiveTintColor: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
-            tabBarIcon: () => {
+            tabBarIcon: ({ color, size }) => {
               return  currentMode === 'light' ? (
-                            <CardBlue width={25} height={25}  />
+                            <CardBlue width={25} height={25} color={color} />
                       ) : (
-                        <CardOrange width={25} height={25}  />
+                        <CardOrange width={25} height={25} color={color} />
                       )
             }
         }}/>
@@ -120,13 +118,11 @@ const  Tablayout = () => {
               padding: 10,
               color: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
             },
-            tabBarActiveTintColor: currentMode === 'light' ? `#0261ef` : `#ffd75b`,
-            tabBarInactiveTintColor: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
-            tabBarIcon: () => {
+            tabBarIcon: ({ color, size }) => {
               return currentMode === 'light' ? (
-                <SafeBoxBlue width={25} height={25} />
+                <SafeBoxBlue width={25} height={25} color={color}/>
               ) : (
-                <SafeBoxYellow width={25} height={25} />
+                <SafeBoxYellow width={25} height={25} color={color}/>
               )
             }
         }}/>
@@ -137,13 +133,11 @@ const  Tablayout = () => {
               padding: 10,
               color: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
             },
-            tabBarActiveTintColor: currentMode === 'light' ? `#0261ef` : `#ffd75b`,
-            tabBarInactiveTintColor: currentMode === 'light' ? `#9eacc7` : `#b9c1ce`,
-            tabBarIcon: () => {
+            tabBarIcon: ({ color, size}) => {
               return currentMode === 'light' ? (
-                <IncomeBlue width={25} height={25}  />
+                <IncomeBlue width={25} height={25}  color={color} />
               ) : (
-                <IncomeYellow width={25} height={25}  />
+                <IncomeYellow width={25} height={25} color={color}  />
 
               )
             }

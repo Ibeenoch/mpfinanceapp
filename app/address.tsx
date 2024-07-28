@@ -1,4 +1,4 @@
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { GestureHandlerRootView, TextInput } from 'react-native-gesture-handler';
 import { View, Text, TouchableOpacity,  Pressable, useColorScheme, StyleSheet } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import className from 'twrnc'
@@ -9,48 +9,62 @@ import { router } from 'expo-router';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { RadioButton } from 'react-native-paper';
 import { ScrollView, FlatList } from 'react-native-gesture-handler';
+import HeaderStatus from '../components/HeaderStatus';
+import { BlurView } from 'expo-blur';
+import { useAppDispatch, useAppSelector } from '../features/hooks';
+import { selectUser, setSelectionModal } from '../features/auth/auth';
 
 
 const Address = () => {
+  const [stateActive, setStateActive] = useState<boolean>(false);
+  const [lgaActive, setLgaActive] = useState<boolean>(false);
+  const [selectedState, setSelectedState] = useState<string>('');
+  const [selectedLga, setSelectedLga] = useState<string[]>([]);
+  const [stateLga, setStateLga] = useState<string>('');
+  const [selectedValue, setSelectedValue] = useState(''); 
     const getmode = useThemeStyles();
     const currentMode = useColorScheme()
     const bottomModalInputRef = useRef<BottomSheetModal>(null);
     const bottomModalLgaInputRef = useRef<BottomSheetModal>(null);
-    const [stateActive, setStateActive] = useState<boolean>(false);
-    const [lgaActive, setLgaActive] = useState<boolean>(false);
-    const [selectedState, setSelectedState] = useState<string>('');
-    const [selectedLga, setSelectedLga] = useState<string[]>([]);
-    const [stateLga, setStateLga] = useState<string>('');
-    
-  const [selectedValue, setSelectedValue] = useState(''); 
+    const dispatch = useAppDispatch();
+    const { selectionmodal } = useAppSelector(selectUser);
 
-  const handleRadioPress = (value: string) => {
-     setSelectedValue(value);
-     setSelectedState(value);
-   }
-
-  const handleLgaRadioPress = (value: string) => {
-     setStateLga(value);
-   }
-
-    const snaPoints = [ '70%'];
-    
+        
    useEffect(() => {
     stateActive && bottomModalInputRef.current?.present();
    }, [stateActive])
     
    useEffect(() => {
-    lgaActive && bottomModalInputRef.current?.present();
-   }, [stateActive])
+    lgaActive && bottomModalLgaInputRef.current?.present();
+   }, [lgaActive])
+    
+
+  const handleRadioPress = (value: string) => {
+     setSelectedValue(value);
+     setSelectedState(value);
+     dispatch(setSelectionModal(false));
+   }
+
+  const handleLgaRadioPress = (value: string) => {
+     setStateLga(value);
+     dispatch(setSelectionModal(false));
+   }
+
+    const snaPoints = [ '70%'];
+
 
     const handlePresentModal = () => {
         bottomModalInputRef.current?.present();
         setStateActive(true);
+        dispatch(setSelectionModal(true))
     };
-console.log(lgaActive)
+
+console.log('lgaActive ', lgaActive , 'stateActive ', stateActive, 'selectedLga ', 'selectionmodal ', selectionmodal)
+
     const handleLgaModal = () => {
-        setLgaActive(true);
-        bottomModalLgaInputRef.current?.present();
+      setLgaActive(true);
+      bottomModalLgaInputRef.current?.present();
+        dispatch(setSelectionModal(true))
     };
 
     const states = [
@@ -751,24 +765,32 @@ console.log(lgaActive)
             <View style={className`flex-1 p-4 ${getmode.backGroundColorTwo}`}>
              <BottomSheetModalProvider>
         <ScrollView>
+
+            
+          <View style={className`font-bold flex-row mt-6 justify-between items-center w-full pb-6`}>
+            <View></View>
+            <Text style={className`text-lg font-bold ${getmode.textColorTwo}`}>Upgrade to Level 1</Text>
+            <HeaderStatus progress={0.4} leftNum={2} rightNum={5} />
+            </View>
+
             <View style={className`px-4`}>
                 <Text style={className` ${ getmode.textColorTwo} font-bold text-xl text-left pt-5 pb-1`}>Residential Address</Text>
-                <Text style={className` ${ getmode.textColorTwo} text-xs text-left pb-7`}>Provide deatils of where you live</Text>
+                <Text style={className` ${ getmode.textColorTwo} text-xs text-left pb-2`}>Provide details of where you live</Text>
             </View>
 
             <View style={className`${getmode.firstLayerBgColor} rounded-xl mb-3 p-4`}>
                 
                 <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
-                    <Text style={className`${getmode.textColorTwo} `}>House Number</Text>
+                    <TextInput  cursorColor={currentMode === 'light' ? '#0261ef' : '#ffd75b'} style={className`${getmode.textColorTwo} `} placeholder='House Number'  placeholderTextColor={currentMode === 'light' ? 'black' : 'white'} />
                 </View>
 
                 <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
-                    <Text style={className`${getmode.textColorTwo} `}>Street Name</Text>
+                    <TextInput  cursorColor={currentMode === 'light' ? '#0261ef' : '#ffd75b'} style={className`${getmode.textColorTwo} `} placeholder='Street Name'  placeholderTextColor={currentMode === 'light' ? 'black' : 'white'} />
                 </View>
 
                 <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
                     <TouchableOpacity onPress={handlePresentModal}>
-                        <View style={className`${getmode.secondLayerBgColor} flex-row items-center justify-between px-4`}>
+                        <View style={className`${getmode.secondLayerBgColor} flex-row items-center justify-between px-2`}>
                             <Text style={className`${getmode.textColorTwo} `}>{selectedValue ? selectedValue : 'State'}</Text>
                             <ArrowDown width={12} height={12}  fill={`${getmode.fillColor}`} />
                         </View>
@@ -777,7 +799,7 @@ console.log(lgaActive)
 
                 <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
                     <TouchableOpacity onPress={handleLgaModal}>
-                    <View style={className`${getmode.secondLayerBgColor} flex-row items-center justify-between px-4`}> 
+                    <View style={className`${getmode.secondLayerBgColor} flex-row items-center justify-between px-2`}> 
                         <Text style={className`${getmode.textColorTwo} `}>{stateLga ? stateLga : 'LGA'}</Text>
                         <ArrowDown width={12} height={12} fill={`${getmode.fillColor}`} />
                     </View>
@@ -785,48 +807,49 @@ console.log(lgaActive)
                 </View>
             </View>
             {
-                stateActive && (
-            
-                <BottomSheetModal 
-                ref={bottomModalInputRef}
-                index={0}
-                snapPoints={snaPoints}
-                backgroundStyle={className`rounded-3xl ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
-                style={className`rounded-3xl ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
-                >
-                <Text style={className`${getmode.textColorTwo}  ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} font-bold px-3 py-6 text-left text-md`}>State</Text>
+                stateActive && selectionmodal && (
+                  <BlurView style={{ zIndex: 2, width: '100%', height: '100%', position: 'absolute'}} experimentalBlurMethod='dimezisBlurView' tint='regular' intensity={10}>
+                    <BottomSheetModal 
+                    ref={bottomModalInputRef}
+                    index={0}
+                    snapPoints={snaPoints}
+                    backgroundStyle={className`rounded-3xl ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
+                    style={className`rounded-3xl ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
+                    >
+                    <Text style={className`${getmode.textColorTwo}  ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} font-bold px-3 py-6 text-left text-md`}>State</Text>
 
-                    {
-                       
-      <FlatList
-      data={states}
-      keyExtractor={(item, index) => index.toString()} // Use index as a key if items do not have unique IDs
-      renderItem={({ item }) => (
-        <View style={className` ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'}`}>
-          <View style={className`flex-row justify-between px-3`}>
-            <Text style={className`${getmode.textColorTwo} text-sm font-bold`}>{item}</Text>
-            <TouchableOpacity style={styles.container}>
-              <View>
-                <RadioButton.Android 
-                  value={item}
-                  status={selectedValue === item ? 'checked' : 'unchecked'} 
-                  onPress={() => handleRadioPress(item)} 
-                  color={selectedValue === item ? (currentMode === 'light' ? '#0663f0' : '#ffd75b') : 'gray'}
-                />
+                        {
+                          
+          <FlatList
+          data={states}
+          keyExtractor={(item, index) => index.toString()} // Use index as a key if items do not have unique IDs
+          renderItem={({ item }) => (
+            <View style={className` ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'}`}>
+              <View style={className`flex-row justify-between px-3`}>
+                <Text style={className`${getmode.textColorTwo} text-sm font-bold`}>{item}</Text>
+                <TouchableOpacity style={styles.container}>
+                  <View>
+                    <RadioButton.Android 
+                      value={item}
+                      status={selectedValue === item ? 'checked' : 'unchecked'} 
+                      onPress={() => handleRadioPress(item)} 
+                      color={selectedValue === item ? (currentMode === 'light' ? '#0663f0' : '#ffd75b') : 'gray'}
+                    />
+                  </View>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
-    />
-                    } 
-                </BottomSheetModal>
+            </View>
+          )}
+        />
+                        } 
+                    </BottomSheetModal>
+                  </BlurView>
             )
             }
 
             {
-                 lgaActive && selectedState && (
-            
+                 lgaActive && selectedState.length > 1  && (
+                  <BlurView style={{ zIndex: 2, width: '100%', height: '100%', position: 'absolute'}} experimentalBlurMethod='dimezisBlurView' tint='regular' intensity={10}>
                 <BottomSheetModal 
                 ref={bottomModalLgaInputRef}
                 index={0}
@@ -861,6 +884,7 @@ console.log(lgaActive)
                         />
                     } 
                 </BottomSheetModal>
+                </BlurView>
             )
             }
 

@@ -18,7 +18,7 @@ import { router } from 'expo-router';
 import Spinner from '../assets/tube-spinner.svg'
 import useThemeStyles from '../utils/dynamic';
 import { useAppDispatch } from '../features/hooks';
-import { shouldShowModal } from '../features/auth/auth';
+import { setSelectionModal, shouldShowModal } from '../features/auth/auth';
 
 
      // light mode thick blue #0261ef 
@@ -40,13 +40,16 @@ import { shouldShowModal } from '../features/auth/auth';
     // button number color at sign up #5b5b5b
 
 const Home = () => {
-  const dispatch = useAppDispatch();
-  const scrollX = useRef(new Animated.Value(0)).current;
   const getmode = useThemeStyles();
+  const currentMode = useColorScheme();
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(shouldShowModal(false));
+    dispatch(setSelectionModal(false));
   }, [])
-  
+
+  const scrollX = useRef(new Animated.Value(0)).current;
   let s1 = image.s1, s2= image.s2, s3 = image.s3, s4 = image.s4, s5 = image.s5;
   const images = [s1, s2, s3, s4, s5];
   const textBig = [
@@ -60,7 +63,6 @@ const Home = () => {
   ];
 
   const {width: windowWidth} = useWindowDimensions();
-  const currentMode = useColorScheme();
 
   return (
     <SafeAreaView style={className`flex-1 justify-center items-center  ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}`}>

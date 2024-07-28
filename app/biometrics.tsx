@@ -6,11 +6,11 @@ import { router } from 'expo-router';
 import useThemeStyles from '../utils/dynamic';
 
 const Biometrics = () => {
+    const getmode = useThemeStyles();
     const currentMode = useColorScheme();
     const handleEnableBioMetrics = () => {
         router.push('cbninfo')
     }
-    const getmode = useThemeStyles();
   return (
     <View style={className`${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} h-screen flex-1 `}>
 

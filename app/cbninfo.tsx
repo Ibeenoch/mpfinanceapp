@@ -47,10 +47,9 @@ const textBig = [
     // button number color at sign up #5b5b5b
 
 const CbnInfo = () => {
-  const scrollX = useRef(new Animated.Value(0)).current;
-
-  const {width: windowWidth} = useWindowDimensions();
   const currentMode = useColorScheme();
+  const scrollX = useRef(new Animated.Value(0)).current;
+  const {width: windowWidth} = useWindowDimensions();
 
   return (
     <SafeAreaView style={className`flex-1 h-screen justify-center items-center  ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'}`}>
