@@ -24,8 +24,8 @@ import Bookmark from '../../assets/bookmark-multiple-solid-svgrepo-com.svg';
 import NoTransaction from '../../assets/transaction-money-svgrepo-com.svg';
 import Referral from '../../assets/advertising-svgrepo-com.svg';
 import { Skeleton } from 'moti/skeleton';
-import { useAppDispatch } from '../../features/hooks';
-import { setActiveTab } from '../../features/auth/auth';
+import { useAppDispatch, useAppSelector } from '../../features/hooks';
+import { selectUser, setActiveTab, setSkeletonHome } from '../../features/auth/auth';
 import img from '../../assets/img';
 import { Image } from 'expo-image';
 import useInterval from '../../utils/useIntervalHook';
@@ -36,27 +36,26 @@ const Home = () => {
   const currentMode = useColorScheme();
   const scrollX = useRef(new Animated.Value(0)).current;
   const dispatch = useAppDispatch();
+  const { skeletonHome } = useAppSelector(selectUser);
 
   useEffect(() => {
     makeHomeActive()
   }, []);
+  console.log('skeletonHome ', skeletonHome)
 
 
-  // Use the custom hook to toggle images
-  useInterval(() => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-  }, 3000); // Change image every 3 seconds
+const stopHomeSkeleton = () => {
+  const stopSkeletonInterval = setTimeout(() => {
+    dispatch(setSkeletonHome(false));
+  }, 3000)
 
-  // Update scroll position when currentIndex changes
-  useEffect(() => {
-    Animated.spring(scrollX, {
-      toValue: currentIndex * windowWidth,
-      useNativeDriver: true,
-    }).start();
-  }, [currentIndex]);
+  return () => clearTimeout(stopSkeletonInterval)
+}
+
 
   const makeHomeActive = () => {
     dispatch(setActiveTab('home'));
+    stopHomeSkeleton();
   }
   const skeletonCommonProps = {
     backgroundColor: currentMode === 'light' ? '#e9eaec' : '#17233b',
@@ -75,15 +74,16 @@ const Home = () => {
 
   return (
     <ScrollView >
+      <Skeleton.Group show={skeletonHome} >
       <View style={className`pl-4 pr-4 pt-4 pb-24 flex-1 ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}`}>
 
           <View style={className`rounded-xl ${getmode.dasboardBackgroundSecondLayerColor} p-4 `}>
             
-            <View style={className`flex-row w-full gap-2 rounded-full mb-3 p-2`}>
-              
-                  <Skeleton show height={60} width={300}  
+                  <Skeleton height={60} width={300}  
                   {...skeletonCommonProps}
                   >
+            <View style={className`flex-row w-full gap-2 rounded-full mb-3 p-2`}>
+              
                 <View style={className`flex-row w-[80%] pl-2 items-center gap-1 rounded-full border border-gray-300  border-opacity-50`}>
                   <View style={className`rounded-full py-1 px-2 bg-blue-600`}>
                     <Text style={className`font-bold ${getmode.textColor}`}>M</Text>
@@ -96,25 +96,30 @@ const Home = () => {
                 </View>
              
 
-                  </Skeleton>
+                  
                 <View style={className`py-1 px-2 rounded-full border border-gray-300`}>
                     <Copy width={25} height={25} fill={getmode.dasboardSvgButton} />
                 </View>
             </View>
+                </Skeleton>
             
 
             <View style={className` px-4 flex-row items-center justify-between rounded-xl ${getmode.dasboardBackgroundButtonColor}`}>
-            <Skeleton show height={30} width={80} {...skeletonCommonProps} >
+            <Skeleton  height={30} width={80} {...skeletonCommonProps} >
               <Text style={className`${getmode.textColorTwoInverse} font-bold text-xl`}>₦0.00</Text>
             </Skeleton>
               <View style={className`flex-row items-center gap-1 p-4`}>
+            <Skeleton  height={30} width={80} {...skeletonCommonProps} >
                 <Text  style={className`text-xs ${getmode.textColorTwoInverse}`}>History</Text>
+              </Skeleton>
+              <Skeleton  height={30} width={40} {...skeletonCommonProps} >
                 <ArrowRight width={15} height={15} strokeWidth={3} stroke={getmode.fillColorInverse} />
+                </Skeleton>
               </View>
             </View>
             
             <Text  style={className`text-xs text-left py-2 text-gray-500`}>Recent Transactions </Text>
-            <Skeleton show height={60} width={300}  
+            <Skeleton  height={60} width={300}  
                   {...skeletonCommonProps}
                   >
 
@@ -155,7 +160,7 @@ const Home = () => {
           scrollEventThrottle={1}>
           {images.map((image, imageIndex) => {
             return (
-              <View style={{width: windowWidth, height: 100, }} key={imageIndex}>
+              <View style={{width: windowWidth - 30, height: 100, }} key={imageIndex}>
                 <Image source={image} style={styles.card} />
               </View>
             );
@@ -189,7 +194,7 @@ const Home = () => {
           {/* </Skeleton> */}
 
           <Text style={className`py-3 text-left text-gray-500`}>Make Payment</Text>
-          <Skeleton show height={80} width={300}
+          <Skeleton  height={70} width={300}
                   {...skeletonCommonProps}
                   >
           <View style={className`flex-row gap-3 pb-4`}>
@@ -224,7 +229,7 @@ const Home = () => {
           </View>
           </Skeleton>
 
-          <Skeleton show height={160} width={330} {...skeletonCommonProps}  >
+          <Skeleton height={150} width={330}  {...skeletonCommonProps}  >
           <View style={className`relative w-full rounded-xl overflow-hidden`}>
             <Image source={require('../../assets/s16.png')}  style={className`w-full h-30 rounded-3xl`}/>
        
@@ -245,7 +250,7 @@ const Home = () => {
           </Skeleton>
 
           <Text style={className`text-gray-500 text-left my-2`}>Suggested For you</Text>
-          <Skeleton show height={160} width={100} {...skeletonCommonProps}  >
+          <Skeleton  height={160} width={100} {...skeletonCommonProps}  >
           <View style={className`rounded-xl w-[100px] h-[150px]  mb-4 ${getmode.dasboardBackgroundSecondLayerColor}`}>
             <Text style={className`${getmode.textColorTwo} font-bold px-2 pt-2 text-xs pb-8 w-18`}>Earn from Referrals</Text>
             <View style={className``}>
@@ -263,7 +268,7 @@ const Home = () => {
 
           <Text style={className`text-gray-500 my-2 `}>Spending Trend</Text>
           
-          <Skeleton show height={250} width={330} {...skeletonCommonProps}  >
+          <Skeleton  height={250} width={330} {...skeletonCommonProps}  >
           <View style={className`rounded-xl w-full px-4 pt-4 pb-8 ${getmode.dasboardBackgroundSecondLayerColor}`}>
             <View style={className`flex-row gap-1 mb-2 items-center ${currentMode === 'light' ? 'bg-[#0e1a32]' : 'bg-[#19212c]'}  max-w-[95px] p-2 rounded-lg`}>
               <Text style={className`text-[#ffd75b] text-left text-xs `}>This Week </Text>
@@ -305,6 +310,7 @@ const Home = () => {
           </Skeleton>
 
       </View>
+      </Skeleton.Group>
     </ScrollView>
   )
 }

@@ -5,14 +5,23 @@ import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import Exclaimation from '../assets/exclamation-mark-sign-alert-warning-important-svgrepo-com.svg'
 import useThemeStyles from '../utils/dynamic';
+import { useAppDispatch } from '../features/hooks';
+import { setSkeletonCard, setSkeletonHome, setSkeletonSaving } from '../features/auth/auth';
 
 
 const Congrats = () => {
     const getmode = useThemeStyles();
+    const dispatch = useAppDispatch();
+
+    const handleTabs = () => {
+        dispatch(setSkeletonHome(true));
+        dispatch(setSkeletonCard(true));
+        dispatch(setSkeletonSaving(true));
+        router.push('(tabs)/home')
+    }
+
   return (
     <View style={className`${getmode.backGroundColorTwo} flex-1 p-4`}>
-    
-
         <View style={className`pt-14 flex-row justify-center`}>
             <Image source={require('../assets/s11.png')} style={className`w-35 h-35 rounded-xl`} />
         </View>
@@ -50,7 +59,7 @@ const Congrats = () => {
         </View>
 
         <View style={className`absolute bottom-5 right-4 left-4`}>
-            <TouchableOpacity onPress={() => router.push('(tabs)/home')} style={className`rounded-xl w-full px-6 py-4 flex-row justify-center items-center ${getmode.backGroundColor}`}>
+            <TouchableOpacity onPress={() => handleTabs()} style={className`rounded-xl w-full px-6 py-4 flex-row justify-center items-center ${getmode.backGroundColor}`}>
                 <Text style={className`${getmode.textColor} `}>Proceed To Dashboard</Text>
             </TouchableOpacity>
 

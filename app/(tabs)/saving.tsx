@@ -1,13 +1,32 @@
 import { View, Text, useColorScheme, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import className from 'twrnc';
 import useThemeStyles from '../../utils/dynamic';
 import { Image } from 'expo-image';
 import { Skeleton } from 'moti/skeleton';
+import { useAppDispatch, useAppSelector } from '../../features/hooks';
+import { selectUser, setSkeletonSaving } from '../../features/auth/auth';
 
 const Saving = () => {
   const getmode = useThemeStyles();
   const currentMode = useColorScheme();
+
+  const dispatch = useAppDispatch();
+  const { skeletonSaving } = useAppSelector(selectUser);
+
+  useEffect(() => {
+    stopSavingSkeleton()
+  }, []);
+  console.log('skeletonSaving ', skeletonSaving)
+
+const stopSavingSkeleton = () => {
+  const stopSkeletonInterval = setTimeout(() => {
+    dispatch(setSkeletonSaving(false));
+  }, 3000)
+
+  return () => clearTimeout(stopSkeletonInterval)
+}
+
   // currentMode === 'light' ? 'bg-[#e6eefd] text-[#0361f0]' : 'bg-[#001231] text-[#4f89f3]'
   const skeletonCommonProps = {
     backgroundColor: currentMode === 'light' ? '#e9eaec' : '#17233b',
@@ -15,11 +34,12 @@ const Saving = () => {
   } as const;
   return (
     <ScrollView style={className`flex-1 ${getmode.backGroundColorTwo}`}>
+      <Skeleton.Group show={skeletonSaving}>
       <View style={className`pt-4 px-4 pb-8 flex-1 ${getmode.backGroundColorTwo}`}>
-      <Skeleton show height={55} width={250} {...skeletonCommonProps}  >
+      <Skeleton  height={55} width={250} {...skeletonCommonProps}  >
           <Text style={className` ${ getmode.textColorTwo} font-bold text-2xl text-left my-5`}>Choose a savings Plan</Text>
           </Skeleton>
-          <Skeleton show height={150} width={320} {...skeletonCommonProps}  >
+          <Skeleton  height={150} width={320} {...skeletonCommonProps}  >
           <View style={className`p-4  my-2 rounded-xl ${getmode.secondLayerBgColor}`}>
             <View style={className`flex-row gap-2 px-2`}>
               <View>
@@ -42,7 +62,7 @@ const Saving = () => {
           </View>
           </Skeleton>
           
-          <Skeleton show height={150} width={320} {...skeletonCommonProps}  >
+          <Skeleton  height={150} width={320} {...skeletonCommonProps}  >
           <View style={className`p-4  my-2 rounded-xl ${getmode.secondLayerBgColor}`}>
             <View style={className`flex-row gap-2 px-2`}>
               <View>
@@ -65,7 +85,7 @@ const Saving = () => {
           </View>
           </Skeleton>
 
-          <Skeleton show height={150} width={340} {...skeletonCommonProps}  >
+          <Skeleton  height={150} width={340} {...skeletonCommonProps}  >
           <View style={className`p-4  my-2 rounded-xl ${getmode.secondLayerBgColor}`}>
             <View style={className`flex-row gap-2 px-2`}>
               <View>
@@ -88,6 +108,7 @@ const Saving = () => {
           </View>
           </Skeleton>
       </View>
+      </Skeleton.Group>
     </ScrollView>
   )
 }

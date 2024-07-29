@@ -30,6 +30,9 @@ const useThemeStyles = () => {
     dasboardBackgroundButtonColor: currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]', // light white/light black
     dasboardSvgButton: currentMode === 'light' ? '#0261ef' : '#ffd75b', // blue/orange
     dasboardTextButton: currentMode === 'light' ? 'text-[#0261ef]' : 'text-[#ffd75b]', // blue/orange
+    inactiveBtnText: currentMode === 'dark' ? 'text-[#675e3d]' : 'text-[#999999]', // 
+    inactiveBackground: currentMode === 'light' ? 'bg-[#e5e5e5]' : 'bg-[#19222c]', //
+    activeBackground: currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]', //
   };
 };
 

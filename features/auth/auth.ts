@@ -9,6 +9,9 @@ interface authState {
   imageUrl: string;
   activeTabs: 'home' | 'card' | 'saving' | 'salary' | 'main',
   mainModalActive: boolean;
+  skeletonHome: boolean;
+  skeletonCard: boolean;
+  skeletonSaving: boolean;
 }
 
 const initialState: authState = {
@@ -19,6 +22,9 @@ const initialState: authState = {
   activeTabs: 'home',
   processPhoto: false,
   mainModalActive: false,
+  skeletonHome: false,
+  skeletonCard: false,
+  skeletonSaving: false,
 };
 
 const authSlice = createSlice({
@@ -51,11 +57,20 @@ const authSlice = createSlice({
     },
     setProcessPhoto: (state, action: PayloadAction<boolean>) => {
       state.processPhoto = action.payload;
-    }
+    },
+    setSkeletonHome: (state, action: PayloadAction<boolean>) => {
+      state.skeletonHome = action.payload;
+    },
+    setSkeletonCard: (state, action: PayloadAction<boolean>) => {
+      state.skeletonCard = action.payload;
+    },
+    setSkeletonSaving: (state, action: PayloadAction<boolean>) => {
+      state.skeletonSaving = action.payload;
+    },
   },
 });
 
 export const selectUser = (state: RootState) => state.auth;
 
-export const { increment, decrement, setValue, shouldShowModal, saveImageCaptured, setMainModalActive, setProcessPhoto, setSelectionModal, setActiveTab } = authSlice.actions;
+export const { increment, decrement, setValue, shouldShowModal, saveImageCaptured, setMainModalActive, setSkeletonCard, setSkeletonHome, setSkeletonSaving, setProcessPhoto, setSelectionModal, setActiveTab } = authSlice.actions;
 export default authSlice.reducer;

@@ -17,6 +17,7 @@ import useThemeStyles from '../utils/dynamic';
 const Verifyphone = () => {
   const [isFocus, setISfocus] = useState<boolean>(false);
   const [resend, setResend] = useState<boolean>(false);
+  const [onchangeHasUpdate, setOnChangeHasUpdate] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>();
   const [focusIndex, setFocusIndex] = useState<number>();
   const [arrNum, setArrNum] = useState<string[]>(Array(6).fill(''));
@@ -43,18 +44,15 @@ const Verifyphone = () => {
   
     // Update number and focus the next input
     const updateNum = (val: string) => {
-      if(arrNum.length < 7){
+      console.log(val)
       const nextIndex = arrNum.findIndex(num => num === ''); // Find the first empty index
-      console.log('index to add ', nextIndex, val);
       if (nextIndex !== -1) {
         const newArrNum = [...arrNum];
         newArrNum[nextIndex] = val;
         setArrNum(newArrNum);
         
-  
         // Focus the next TextInput
         if (inputRefs.current[nextIndex + 1]) {
-          console.log('index to focus after adding ', nextIndex + 1);
           inputRefs.current[nextIndex + 1].focus();
           setCurrentIndex(nextIndex + 1);
           setFocusIndex(nextIndex + 1)
@@ -62,7 +60,6 @@ const Verifyphone = () => {
 
         
       }
-    }
     };
 
     const deleteLastNum = () => {
@@ -126,12 +123,17 @@ const Verifyphone = () => {
            
             onChangeText={(text) => {
               if (text.length > 0) {
+                setOnChangeHasUpdate(true);
                 updateNum(text); // Update with the entered value when the text is not an empty string i.e a delete button
               }
             }}
             onKeyPress={({ nativeEvent }) => {
               if (nativeEvent.key === 'Backspace') {
+                setOnChangeHasUpdate(false);
                 deleteLastNum(); // Call delete function for backspace
+              }else{
+                if(onchangeHasUpdate) return;
+                updateNum(nativeEvent.key)
               }
             }}
             cursorColor={`${ !currentIndex ? `${colorScheme === 'light' ? 'black' : 'yellow' }` : currentIndex === index && colorScheme === 'light' ? 'black' : 'white'}`}
@@ -147,7 +149,7 @@ const Verifyphone = () => {
             <View style={className`${ colorScheme === 'light' ? 'bg-white' : 'bg-[#19212c]'} py-3 px-6 rounded-lg flex-row items-center justify-between`}>
                 <View style={className`flex-row items-center gap-2`}>
                     <View style={className` ${colorScheme === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]' }  rounded-full p-1`}>
-                    <Exclaimation width={11} height={11} strokeWidth={4}   fill={`${colorScheme === 'light' ?  'white' : 'black' }`} />
+                    <Exclaimation width={11} height={11} strokeWidth={4}   fill={`${colorScheme === 'light' ?  'black' : 'black' }`} />
                     </View>
                     <Text style={className`text-xs ${colorScheme === 'light' ? 'text-black' : 'text-white'} `}>Didn't get OTP?</Text>
                 </View>
@@ -191,7 +193,7 @@ const Verifyphone = () => {
 
                       <View style={className`flex-row items-center my-2  gap-2`}>
                         <View style={className`flex-row rounded-xl justify-center items-center p-2 ${colorScheme === 'light' ? 'bg-[#0261ef]' : 'bg-[#19212c]'}`}>
-                            <DialPad width={20} height={20} fill={getmode.fillColor} />
+                            <DialPad width={20} height={20} fill={`${colorScheme === 'light' ? '#ffffff' : '#ffd75b'}`} />
                         </View>
                         <View>
                           <Text  style={className`${getmode.textColorTwo} text-sm font-semibold flex-row items-center`}>Dial <Text  style={className` ${colorScheme === 'light' ? 'text-[#0261ef]' : 'text-[#ffd75b]'} text-sm font-semibold`}>*5573*74*1088#</Text></Text>
@@ -201,11 +203,11 @@ const Verifyphone = () => {
 
                       <View style={className`flex-row items-center my-2  gap-2`}>
                         <View style={className`flex-row rounded-xl justify-center items-center p-2 ${colorScheme === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`}>
-                            <Message width={20} height={20} fill={'gray'} />
+                            <Message width={20} height={20} fill={`${colorScheme === 'light' ? '#ffffff' : '#19212c'}`} />
                         </View>
                         <View>
                           <Text  style={className` text-sm font-semibold flex-row items-center`}>                          
-                            <Text style={className`text-gray-500 text-xs`}>Send via SMS in</Text>
+                            <Text style={className`text-gray-500 text-xs`}>Send via SMS in </Text>
                             <Text style={className` ${colorScheme === 'light' ? 'text-[#0261ef]' : 'text-[#ffd75b]'}` }>9:36</Text>
                           </Text>
                         </View>
@@ -213,7 +215,7 @@ const Verifyphone = () => {
 
                       <View style={className`flex-row items-center my-2  gap-2`}>
                         <View style={className`flex-row rounded-xl justify-center items-center p-2 ${colorScheme === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`}>
-                            <Whatsapp width={20} height={20} fill={getmode.fillColor} />
+                            <Whatsapp width={20} height={20} fill={` ${colorScheme === 'light' ? 'text-[#0261ef]' : 'text-[#ffd75b]'}`} />
                         </View>
                         <View>
                           <Text  style={className`${getmode.textColorTwo} text-sm font-semibold flex-row items-center`}>Send via WhatsApp</Text>

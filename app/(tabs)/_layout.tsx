@@ -38,7 +38,7 @@ const  Tablayout = () => {
   const getmode = useThemeStyles();
   const currentMode = useColorScheme();
   const dispatch = useAppDispatch();
-  const { activeTabs, mainModalActive } = useAppSelector(selectUser);
+  const { activeTabs, mainModalActive, skeletonHome } = useAppSelector(selectUser);
 
   const cancelMainModal = () => {
     dispatch(setMainModalActive(false))
@@ -58,16 +58,16 @@ const  Tablayout = () => {
     <Tabs screenOptions={{
       headerRight: () => {
         return <View style={className`flex-row gap-3 pr-4`}>
-          <Skeleton show height={30} width={40} {...skeletonCommonProps} radius={'round'} >
+          <Skeleton show={skeletonHome} height={30} width={40} {...skeletonCommonProps} radius={'round'} >
             <Bell width={25}  height={25} fill={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`}  />
             </Skeleton>
-            <Skeleton show height={30} width={45} {...skeletonCommonProps} radius={'round'} >
+            <Skeleton show={skeletonHome} height={30} width={45} {...skeletonCommonProps} radius={'round'} >
             <Signal width={25}  height={25} stroke={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`}  />
             </Skeleton>
         </View>
       },
       headerLeft: () => {
-       return     <Skeleton show height={50} width={140} {...skeletonCommonProps} radius={'round'} >
+       return     <Skeleton show={skeletonHome} height={50} width={140} {...skeletonCommonProps} radius={'round'} >
                     <View style={className`flex-row pl-4 gap-3 items-center`}>
                         <Image source={require('../../assets/s14.png')} style={className`w-9 h-9 px-2 rounded-xl`} />
                         <Text style={className`text-sm font-semibold py-1 px-2 rounded-xl ${`${currentMode === 'light' ? `bg-[#fdf3e9] text-[#f3a352]` : `bg-[#312726] text-[#de8d3c]`}`} `}>Level 1</Text>
@@ -173,13 +173,13 @@ const  Tablayout = () => {
                           mainModalActive  ? (
                             <View style={className`${currentMode === 'light' ? `bg-[#0261ef]` : `bg-[#ffd75b]`} p-8 flex-row justify-center items-center rounded-full`}>
                             <TouchableOpacity style={className`flex-row justify-center items-center`} onPress={cancelMainModal}>
-                              <Times width={25} height={25} strokeWidth={2} stroke={`${currentMode === 'light' ? '#ffffff' : 'black' } `} fill={`${currentMode === 'light' ? '#ffffff' : 'black' }`} />
+                              <Times width={25} height={25} strokeWidth={2} stroke={`${currentMode === 'light' ? '#ffffff' : '#000000' } `} fill={`${currentMode === 'light' ? '#ffffff' : '#000000' }`} />
                             </TouchableOpacity>
                             </View>
                           ) : (
                             <View style={className`${currentMode === 'light' ? `bg-[#0261ef]` : `bg-[#ffd75b]`} p-8 flex-row justify-center items-center rounded-full`}>
                             <TouchableOpacity style={className`flex-row justify-center  items-center`}  onPress={openMainModal}>
-                              <Plus width={25} height={25} strokeWidth={2} stroke={`${currentMode === 'light' ? '#ffffff' : 'black' } `} fill={`${currentMode === 'light' ? '#ffffff' : 'black' }`} />
+                              <Plus width={25} height={25} strokeWidth={2} stroke={`${currentMode === 'light' ? '#ffffff' : '#000000' } `} fill={`${currentMode === 'light' ? '#ffffff' : '#000000' }`} />
                             </TouchableOpacity>
                             </View>
                           )

@@ -1,12 +1,14 @@
 import { View, Text, Pressable,TextInput, StyleSheet, useColorScheme, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, TouchableOpacity, Modal, ScrollView } from 'react-native'
 import { Image } from 'expo-image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import className from 'twrnc'
 import Gift from '../assets/gift-card-svgrepo-com.svg';
 import ArrowDown from '../assets/arrow-down-3101.svg';
 import ArrowUp from '../assets/up-arrow-svgrepo-com.svg';
 import { router, useNavigation } from 'expo-router';
 import { useAppDispatch, useAppSelector } from '../features/hooks';
+import useThemeStyles from '../utils/dynamic';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -24,25 +26,24 @@ const  Signup = () => {
   const [selectedCountry, setSelectedCountry] = useState<string>('+234');
   const [ hideFooter, setHideFooter ] = useState<boolean>(false);
   const [ showModal, setShowModal ] = useState<boolean>(false);
-  const [openModal, setOpenModal] = useState(false);
     let colorScheme = useColorScheme();
+    const getmode = useThemeStyles();
     const dispatch = useAppDispatch();
-    const navigation = useNavigation();
     const { showmodal } = useAppSelector((state) => state.auth);
+
+    useEffect(() => {
+      if(btnActive){
+        setIsInputErr(false);
+      }else{
+        setIsInputErr(true);
+      }
+    }, [btnActive])
 
    const handleFocus = () => {
     setIsBlur(false);
       setIsFocus(true);
     }
 
-   const handleFocusRef = () => {
-    setIsBlurRef(false);
-      setIsFocusRef(true);
-    }
-
-  const HandlehideFooter = () => {
-    setHideFooter(true);
-  };
 
   const HandleshowFooter = () => {
     setHideFooter(false);
@@ -57,7 +58,11 @@ const  Signup = () => {
     const formatted = formatNum(textInput);
     setPhone(formatted);
     
-
+    if( phone?.length === 9){
+      setBtnActive(true);
+    }else{
+      setBtnActive(false);
+    }
   };
 
   const handleReferralChange = (textInput: string) => {
@@ -98,25 +103,18 @@ const  Signup = () => {
       
     }
 
-   const handleReferralBlur = () => {
-    console.log('blurahred')
-    HandleshowFooter()
-    setIsFocus(false);
-    Keyboard.dismiss();
-      
-    }
+ 
 
     const handleNext = () => {
+      if(!btnActive || isInputErr) return;
+      if(referral){
+        AsyncStorage.setItem('referral', JSON.stringify(referral))
+      }
+      AsyncStorage.setItem('phone', JSON.stringify(phone))
       setShowModal(true);
-      // dispatch(shouldShowModal(true))
       router.push('verifyphone')
     }
 
-    // npm i  @react-native-async-storage/async-storage@1.23.1 @react-native-picker/picker@2.7.5 react-native-reanimated@3.10.1 typescript@5.3.3
-
-    const handleSelectCountry = (value: string) => {
-      setSelectedCountry(value);
-    };
 
  
   
@@ -151,7 +149,7 @@ const  Signup = () => {
 
                       </View>
                       {
-                        isInputErr &&  <Text style={className`text-[12px] text-red-500 `}>Phone number is required</Text>
+                        isInputErr &&  <Text style={className`text-[12px] text-red-500 `}>Phone number is invalid or incomplete</Text>
                       } 
                     </View>
 
@@ -221,13 +219,13 @@ const  Signup = () => {
                     <View style={className`p-4 mt-1  w-full`}>
               
                       <View style={className`flex-row max-w-sm text-left text-xs py-2`}>
-                      <Text style={className` ${ colorScheme === 'light' ? 'text-black' : 'text-white' } text-[12px] `}>By Clicking on "Create Profile", you agree to Moniepoint's <Text style={className`text-[#0261ef] text-[11px] font-bold dark:text-[#343631]`}>Terms and Conditions </Text>and <Text>Privacy Policy</Text> </Text>
+                      <Text style={className` ${ colorScheme === 'light' ? 'text-black' : 'text-white' } text-[10px] `}>By Clicking on "Create Profile", you agree to Moniepoint's <Text style={className`text-[#0261ef] text-[10px] font-bold dark:text-[#343631]`}>Terms and Conditions </Text>and <Text>Privacy Policy</Text> </Text>
                       </View>
-                      {/* disabled={!btnActive} */}
               
-                      <View style={className`max-w-sm`}>                                                                                         
-                        <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${colorScheme === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`  :   `${colorScheme === 'light' ? 'bg-[#e5e5e5]' : 'bg-[#19222c]'}` } py-6 px-4 flex-row items-center justify-center`}  >
-                          <Text style={className`${btnActive && colorScheme === 'dark' ? 'text-white' : 'text-white'} text-sm font-semibold`}>Next</Text>
+                      <View style={className`max-w-sm`}>    
+                      {/* <TouchableOpacity onPress={handleNext} text-[#0261ef] style={className`rounded-xl w-full ${colorScheme === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}  py-6 px-4 flex-row items-center justify-center`}  >                                                                                      */}
+                        <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${colorScheme === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`  :   `${colorScheme === 'light' ? 'bg-[#e5e5e5]' : 'bg-[#19222c]'}` } py-4 px-4 flex-row items-center justify-center`}  >
+                          <Text style={className` ${colorScheme === 'light' ? `${btnActive ? 'text-white' : 'text-[#999999]'  }` : `${btnActive ? 'text-black' : 'text-[#675e3d]'  }` } text-sm font-semibold`}>Next</Text>
                         </TouchableOpacity>
                       </View>
                     </View>

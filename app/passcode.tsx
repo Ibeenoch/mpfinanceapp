@@ -5,10 +5,12 @@ import { router } from 'expo-router';
 import ArrowForward from '../assets/arrow-forward-svgrepo-com.svg';
 import DeleteIcon from '../assets/backspace-svgrepo-com.svg';
 import useThemeStyles from '../utils/dynamic';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Passcode = () => {
     const [isFocus, setISfocus] = useState<boolean>(false);
     const [currentIndex, setCurrentIndex] = useState<number>();
+    const [passcodeReady, setPasscodeReady] = useState<boolean>(false);
     const [arrNum, setArrNum] = useState<string[]>(Array(6).fill(''));
     const getmode = useThemeStyles();
     const currentMode = useColorScheme();
@@ -18,15 +20,26 @@ const Passcode = () => {
       setCurrentIndex(0);
       inputRefs.current[0].focus();
     }, [])
+
+    useEffect(() => {
+      let newArr = arrNum.filter((t) => t.length > 0);
+      if(newArr.length === 6){
+        console.log('the  ', newArr.length);
+        setPasscodeReady(true);
+      }else{
+        setPasscodeReady(false);
+      }
+    }, [arrNum])
     
     // Update number and focus the next input
     const updateNum = (val: string) => {
-      if(arrNum.length <= 6){
+     
       const nextIndex = arrNum.findIndex(num => num === ''); // Find the first empty index
       if (nextIndex !== -1) {
         const newArrNum = [...arrNum];
         newArrNum[nextIndex] = val;
         setArrNum(newArrNum);
+        
   
         // Focus the next TextInput
         if (inputRefs.current[nextIndex + 1]) {
@@ -34,10 +47,10 @@ const Passcode = () => {
           inputRefs.current[nextIndex + 1].focus();
         }
         }
-      }
+     
     };
 
-   
+  
 
     const deleteLastNum = () => {
       const newArrNum = [...arrNum];
@@ -50,13 +63,15 @@ const Passcode = () => {
       }
     };
 
-    const handleFocus = (index: number) => {
-      Keyboard.dismiss(); 
-      inputRefs.current[index]?.blur();
-      setISfocus(true);
-    };
-    
- // dark '#000e28' : light '#f7f7f7'
+    const handleNext = () => {
+      if(!passcodeReady)return;
+      const passcode = arrNum.join('');
+      AsyncStorage.setItem('passcode', JSON.stringify(passcode));
+      router.push('success')
+    }
+
+ // dark '#000e28' : light '#f7f7f7'        
+
   return (
     <View style={className`flex-1 ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}`}>
 
@@ -114,8 +129,8 @@ const Passcode = () => {
                 </TouchableOpacity>              
                </View>
 
-            <View   style={className`rounded-full p-6 w-[25%]  ${ currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}` }>
-                <TouchableOpacity onPress={() => router.push('success')}>
+            <View   style={className`rounded-full p-6 w-[25%]  ${ currentMode === 'light' ? `${passcodeReady ? 'bg-[#0261ef]' : 'bg-[#e6edfd]'   } ` : `${passcodeReady ? 'bg-[#ffd75b]' : 'bg-[#1a263e]'  }`  }` }>
+                <TouchableOpacity onPress={handleNext}>
                   <ArrowForward  width={30} height={30} fill={currentMode === 'light' ? 'white' : 'white'} stroke={'white'} />
                 </TouchableOpacity> 
             </View>
