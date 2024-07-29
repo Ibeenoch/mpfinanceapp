@@ -84,7 +84,9 @@ const Home = () => {
                 },
               },
             },
-          ])}
+          ], {
+            useNativeDriver: true
+          })}
           scrollEventThrottle={1}>
           {images.map((image, imageIndex) => {
             return (

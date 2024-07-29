@@ -98,7 +98,7 @@ const Verifyphone = () => {
     <GestureHandlerRootView style={{ flex: 1}}> 
       <View style={className`flex-1  ${colorScheme === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'} `}>
       <BottomSheetModalProvider>
-    <View style={className`${ colorScheme === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'} h-screen flex-1 `}>
+    <View style={className`${ colorScheme === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}  flex-1 `}>
 
         <View style={className`flex-row justify-between items-center px-4 mt-10 mb-4`}>
           <TouchableOpacity onPress={() => router.back() }>

@@ -19,7 +19,7 @@ const Processimg = () => {
       const interval = setTimeout(() => {
         console.log('processing...')
         router.push('selfiecapture')
-      }, 6000);
+      }, 4000);
      
       dispatch(setProcessPhoto(false));
 

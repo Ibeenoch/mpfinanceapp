@@ -1,5 +1,16 @@
-import { View, Text, Image, useColorScheme, ImageBackground, StyleSheet, ScrollView } from 'react-native'
-import React from 'react'
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  StyleSheet,
+  View,
+  ImageBackground,
+  Animated,
+  useWindowDimensions,
+  Pressable,
+  useColorScheme,
+} from 'react-native';
+import React, { useEffect, useRef, useState } from 'react'
 import className from 'twrnc';
 import useThemeStyles from '../../utils/dynamic';
 import Copy from '../../assets/copy-svgrepo-com (2).svg';
@@ -8,45 +19,104 @@ import ArrowRight from '../../assets/arrow-forward-simple-svgrepo-com.svg';
 import ArrowDown from '../../assets/arrow-down-3101.svg';
 import TransferLight from '../../assets/telegram-blue.svg';
 import TransferDark from '../../assets/telegram-yellow.svg';
-import Phone from '../../assets/telephone-outgoing-svgrepo-com.svg';
+import Phone from '../../assets/call-189-svgrepo-com.svg';
 import Bookmark from '../../assets/bookmark-multiple-solid-svgrepo-com.svg';
 import NoTransaction from '../../assets/transaction-money-svgrepo-com.svg';
 import Referral from '../../assets/advertising-svgrepo-com.svg';
+import { Skeleton } from 'moti/skeleton';
+import { useAppDispatch } from '../../features/hooks';
+import { setActiveTab } from '../../features/auth/auth';
+import img from '../../assets/img';
+import { Image } from 'expo-image';
+import useInterval from '../../utils/useIntervalHook';
 
 const Home = () => {
+  const [currentIndex, setCurrentIndex ] = useState<number>(0);
   const getmode = useThemeStyles();
   const currentMode = useColorScheme();
+  const scrollX = useRef(new Animated.Value(0)).current;
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    makeHomeActive()
+  }, []);
+
+
+  // Use the custom hook to toggle images
+  useInterval(() => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  }, 3000); // Change image every 3 seconds
+
+  // Update scroll position when currentIndex changes
+  useEffect(() => {
+    Animated.spring(scrollX, {
+      toValue: currentIndex * windowWidth,
+      useNativeDriver: true,
+    }).start();
+  }, [currentIndex]);
+
+  const makeHomeActive = () => {
+    dispatch(setActiveTab('home'));
+  }
+  const skeletonCommonProps = {
+    backgroundColor: currentMode === 'light' ? '#e9eaec' : '#17233b',
+    colorMode: currentMode === 'light' ? 'light' : 'dark'
+  } as const;
+
+  const img1= img.s13, img2 = img.s17;
+
+  const images = [img1, img2];
+  
+
+
+  const {width: windowWidth} = useWindowDimensions();
+
+  
+
   return (
     <ScrollView >
       <View style={className`pl-4 pr-4 pt-4 pb-24 flex-1 ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}`}>
 
           <View style={className`rounded-xl ${getmode.dasboardBackgroundSecondLayerColor} p-4 `}>
+            
             <View style={className`flex-row w-full gap-2 rounded-full mb-3 p-2`}>
-                <View style={className`flex-row w-[80%] items-center gap-1 rounded-full border border-gray-300  border-opacity-50`}>
+              
+                  <Skeleton show height={60} width={300}  
+                  {...skeletonCommonProps}
+                  >
+                <View style={className`flex-row w-[80%] pl-2 items-center gap-1 rounded-full border border-gray-300  border-opacity-50`}>
                   <View style={className`rounded-full py-1 px-2 bg-blue-600`}>
                     <Text style={className`font-bold ${getmode.textColor}`}>M</Text>
                   </View>
+
                   <Text style={className`${getmode.textColorTwo} text-xs`}>John wickton Doe</Text>
                   <View style={className`p-1 border-l border-gray-300`}></View>
+                 
                   <Text style={className`text-gray-500 text-sm`}>709829383</Text>
                 </View>
+             
 
+                  </Skeleton>
                 <View style={className`py-1 px-2 rounded-full border border-gray-300`}>
                     <Copy width={25} height={25} fill={getmode.dasboardSvgButton} />
                 </View>
-
             </View>
+            
 
             <View style={className` px-4 flex-row items-center justify-between rounded-xl ${getmode.dasboardBackgroundButtonColor}`}>
+            <Skeleton show height={30} width={80} {...skeletonCommonProps} >
               <Text style={className`${getmode.textColorTwoInverse} font-bold text-xl`}>₦0.00</Text>
-
+            </Skeleton>
               <View style={className`flex-row items-center gap-1 p-4`}>
                 <Text  style={className`text-xs ${getmode.textColorTwoInverse}`}>History</Text>
                 <ArrowRight width={15} height={15} strokeWidth={3} stroke={getmode.fillColorInverse} />
               </View>
             </View>
-
+            
             <Text  style={className`text-xs text-left py-2 text-gray-500`}>Recent Transactions </Text>
+            <Skeleton show height={60} width={300}  
+                  {...skeletonCommonProps}
+                  >
 
             <View style={className` pb-8 flex-row items-center gap-2`}>
               <View style={className`p-1 rounded-full bg-[#f7f7f7]`}>
@@ -57,14 +127,71 @@ const Home = () => {
 
               </View>
             </View>
+            </Skeleton>
             
           </View>
 
-          <View style={className`my-6 w-full`}>
+          {/* <Skeleton show height={160} width={330} 
+                  {...skeletonCommonProps}
+                  > */}
+          {/* <View style={className`my-6 w-full`}>
             <Image source={require('../../assets/s13.png')}   style={className`rounded-xl w-full h-30`} />
-          </View>
+          </View> */}
+
+          <View style={styles.scrollContainer}>
+        <ScrollView
+          horizontal={true}
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          onScroll={Animated.event([
+            {
+              nativeEvent: {
+                contentOffset: {
+                  x: scrollX,
+                },
+              },
+            },
+          ])}
+          scrollEventThrottle={1}>
+          {images.map((image, imageIndex) => {
+            return (
+              <View style={{width: windowWidth, height: 100, }} key={imageIndex}>
+                <Image source={image} style={styles.card} />
+              </View>
+            );
+          })}
+        </ScrollView>
+       
+
+       
+      </View>
+
+       <View style={styles.indicatorContainer}>
+          {images.map((image, imageIndex) => {
+            const width = scrollX.interpolate({
+              inputRange: [
+                windowWidth * (imageIndex - 1),
+                windowWidth * imageIndex,
+                windowWidth * (imageIndex + 1),
+              ],
+              outputRange: [4, 8, 4],
+              extrapolate: 'clamp',
+            });
+            return (
+              <Animated.View
+                key={imageIndex}
+                style={[styles.normalDot, {width}]}
+              />
+            );
+          })}
+          
+        </View>
+          {/* </Skeleton> */}
 
           <Text style={className`py-3 text-left text-gray-500`}>Make Payment</Text>
+          <Skeleton show height={80} width={300}
+                  {...skeletonCommonProps}
+                  >
           <View style={className`flex-row gap-3 pb-4`}>
             
             <View style={className`flex-col rounded-xl p-2 ${getmode.dasboardBackgroundSecondLayerColor} `}>
@@ -95,7 +222,9 @@ const Home = () => {
             </View>
 
           </View>
+          </Skeleton>
 
+          <Skeleton show height={160} width={330} {...skeletonCommonProps}  >
           <View style={className`relative w-full rounded-xl overflow-hidden`}>
             <Image source={require('../../assets/s16.png')}  style={className`w-full h-30 rounded-3xl`}/>
        
@@ -113,8 +242,10 @@ const Home = () => {
                     </View>
                 </View>
           </View>
+          </Skeleton>
 
           <Text style={className`text-gray-500 text-left my-2`}>Suggested For you</Text>
+          <Skeleton show height={160} width={100} {...skeletonCommonProps}  >
           <View style={className`rounded-xl w-[100px] h-[150px]  mb-4 ${getmode.dasboardBackgroundSecondLayerColor}`}>
             <Text style={className`${getmode.textColorTwo} font-bold px-2 pt-2 text-xs pb-8 w-18`}>Earn from Referrals</Text>
             <View style={className``}>
@@ -128,8 +259,11 @@ const Home = () => {
               
             </View>
           </View>
+          </Skeleton>
 
           <Text style={className`text-gray-500 my-2 `}>Spending Trend</Text>
+          
+          <Skeleton show height={250} width={330} {...skeletonCommonProps}  >
           <View style={className`rounded-xl w-full px-4 pt-4 pb-8 ${getmode.dasboardBackgroundSecondLayerColor}`}>
             <View style={className`flex-row gap-1 mb-2 items-center ${currentMode === 'light' ? 'bg-[#0e1a32]' : 'bg-[#19212c]'}  max-w-[95px] p-2 rounded-lg`}>
               <Text style={className`text-[#ffd75b] text-left text-xs `}>This Week </Text>
@@ -168,7 +302,7 @@ const Home = () => {
               </View>
             </View>
           </View>
-          
+          </Skeleton>
 
       </View>
     </ScrollView>
@@ -188,6 +322,50 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontSize: 24,
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  scrollContainer: {
+    height: 110,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 8
+  },
+  card: {
+    flex: 1,
+    marginVertical: 0,
+    marginHorizontal: 19,
+    borderRadius: 9,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textContainer: {
+    backgroundColor: 'rgba(0,0,0, 0.7)',
+    paddingHorizontal: 24,
+    paddingVertical: 2,
+    borderRadius: 5,
+  },
+  infoText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  normalDot: {
+    height: 8,
+    width: 8,
+    borderRadius: 4,
+    backgroundColor: '#ffd75b',
+    marginHorizontal: 4,
+  },
+  indicatorContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 1,
   },
 });
 

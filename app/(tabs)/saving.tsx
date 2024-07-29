@@ -3,16 +3,23 @@ import React from 'react'
 import className from 'twrnc';
 import useThemeStyles from '../../utils/dynamic';
 import { Image } from 'expo-image';
+import { Skeleton } from 'moti/skeleton';
 
 const Saving = () => {
   const getmode = useThemeStyles();
   const currentMode = useColorScheme();
   // currentMode === 'light' ? 'bg-[#e6eefd] text-[#0361f0]' : 'bg-[#001231] text-[#4f89f3]'
+  const skeletonCommonProps = {
+    backgroundColor: currentMode === 'light' ? '#e9eaec' : '#17233b',
+    colorMode: currentMode === 'light' ? 'light' : 'dark'
+  } as const;
   return (
     <ScrollView style={className`flex-1 ${getmode.backGroundColorTwo}`}>
       <View style={className`pt-4 px-4 pb-8 flex-1 ${getmode.backGroundColorTwo}`}>
+      <Skeleton show height={55} width={250} {...skeletonCommonProps}  >
           <Text style={className` ${ getmode.textColorTwo} font-bold text-2xl text-left my-5`}>Choose a savings Plan</Text>
-
+          </Skeleton>
+          <Skeleton show height={150} width={320} {...skeletonCommonProps}  >
           <View style={className`p-4  my-2 rounded-xl ${getmode.secondLayerBgColor}`}>
             <View style={className`flex-row gap-2 px-2`}>
               <View>
@@ -33,7 +40,9 @@ const Saving = () => {
               
             </View>
           </View>
-
+          </Skeleton>
+          
+          <Skeleton show height={150} width={320} {...skeletonCommonProps}  >
           <View style={className`p-4  my-2 rounded-xl ${getmode.secondLayerBgColor}`}>
             <View style={className`flex-row gap-2 px-2`}>
               <View>
@@ -54,7 +63,9 @@ const Saving = () => {
 
             </View>
           </View>
+          </Skeleton>
 
+          <Skeleton show height={150} width={340} {...skeletonCommonProps}  >
           <View style={className`p-4  my-2 rounded-xl ${getmode.secondLayerBgColor}`}>
             <View style={className`flex-row gap-2 px-2`}>
               <View>
@@ -75,6 +86,7 @@ const Saving = () => {
 
             </View>
           </View>
+          </Skeleton>
       </View>
     </ScrollView>
   )

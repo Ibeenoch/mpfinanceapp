@@ -47,9 +47,17 @@ const  Signup = () => {
   const HandleshowFooter = () => {
     setHideFooter(false);
   };
+  const formatNum = (textInput: string) => {
+    const digits = textInput.replace(/\D/g, '');
+    const formatted = digits.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3').trim();
+    return formatted;
+  }
   
   const handlePhone = (textInput: string) => {
-    setPhone(textInput)
+    const formatted = formatNum(textInput);
+    setPhone(formatted);
+    
+
   };
 
   const handleReferralChange = (textInput: string) => {
@@ -73,36 +81,7 @@ const  Signup = () => {
   };
   
 
-  const handleOutsideClickTwo = () => {
-    console.log('bulth')
-    if (isFocus) {
-      // Check if the input length is less than 10 or empty
-      if (phone && phone.length === 0 || phone && phone.length < 10) {
-        // Show an alert if the condition is not met
-        setIsInputErr(true)
-        Keyboard.dismiss(); // Dismiss the keyboard
-        setIsFocus(false); // Update the focus state
-      }else{
-        setIsInputErr(false);
-        Keyboard.dismiss(); // Dismiss the keyboard
-        setIsFocus(false); // Update the focus state
-      }
-    }
-  };
-  
 
-
-    
-  const enableBtn = () => {
-    if(phone){
-      if(phone.length === 10){
-        setBtnActive(true)
-      }else{
-        setBtnActive(false);
-      }
-    }
-  }
-  
    const handleBlur = () => {
     console.log('blurred')
     HandleshowFooter()
@@ -166,7 +145,7 @@ const  Signup = () => {
                               <Text style={className` px-1 ${colorScheme === 'light' ? 'text-black' : 'text-white'} text-xs`}>+234</Text>
                           </View>
                         
-                          <TextInput cursorColor={colorScheme === 'light' ? '#0261ef' : '#ffd75b'} keyboardType='number-pad' maxLength={10} onFocus={handleFocus} onBlur={handleBlur}  onChangeText={handlePhone} value={phone} placeholder='Phone number'  placeholderTextColor={colorScheme === 'light' ? 'black' : 'gray'} style={className`pl-4 py-2 w-[60%] rounded-tr-xl rounded-br-xl  ${ colorScheme === 'light' ? 'bg-[#f3f5f8] text-black' : 'bg-[#1a263e] text-white'} `} />
+                          <TextInput cursorColor={colorScheme === 'light' ? '#0261ef' : '#ffd75b'} keyboardType='number-pad' maxLength={12} onFocus={handleFocus} onBlur={handleBlur}  onChangeText={handlePhone} value={phone} placeholder='Phone number'  placeholderTextColor={colorScheme === 'light' ? 'black' : 'gray'} style={className`pl-4 py-2 w-[60%] rounded-tr-xl rounded-br-xl  ${ colorScheme === 'light' ? 'bg-[#f3f5f8] text-black' : 'bg-[#1a263e] text-white'} `} />
                         
                     
 

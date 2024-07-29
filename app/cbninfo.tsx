@@ -71,13 +71,15 @@ const CbnInfo = () => {
                 },
               },
             },
-          ])}
+          ], {
+            useNativeDriver: true
+          })}
           scrollEventThrottle={1}>
           {images.map((image, imageIndex) => {
             return (
               <View style={{width: windowWidth, height: 400}} key={imageIndex}>
                 <Image source={image} style={styles.card} />
-                 <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} text-center w-xs font-bold text-xs px-5 mt-4`}>{textBig[imageIndex]}</Text>
+                 <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} text-center font-bold text-xs px-5 mt-4`}>{textBig[imageIndex]}</Text>
               </View>
             );
           })}
