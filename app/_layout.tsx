@@ -129,6 +129,7 @@ const App = () => {
                 <Stack.Screen name='biometrics'  options={{ headerShown: false }} />
                 <Stack.Screen name='cbninfo'  options={{ headerShown: false }} />
                 <Stack.Screen name='cbnlast'  options={{ headerShown: false }} />
+                <Stack.Screen name='profile'  options={{ headerShown: false }} />
                 <Stack.Screen name='nationality'   options={{ headerShown: false }} />
                 <Stack.Screen name='photocapture'  options={{ headerShown: false }} />
                 <Stack.Screen name='selfietake'  options={{ headerShown: false }} />

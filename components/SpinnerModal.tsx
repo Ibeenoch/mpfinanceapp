@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     },
     modalIntensity: {
-        backgroundColor: 'rgba(0, 0, 0, 0.80)', 
+        // backgroundColor: 'rgba(0, 0, 0, 0.80)', 
     },
     tube: {
       width: '60%',

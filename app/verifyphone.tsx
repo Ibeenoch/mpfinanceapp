@@ -123,8 +123,8 @@ const Verifyphone = () => {
           <Text style={className` ${ colorScheme === 'light' ? 'text-black' : 'text-white'} font-bold text-xl text-left pt-5 pb-1`}>Verify Your Phone Number</Text>
           <Text style={className` ${ colorScheme === 'light' ? 'text-black' : 'text-white'} text-xs text-left pb-7`}>we've just sent you a digit code. Check your messages and enter here</Text>
         </View>
-
-        <View style={className`mx-4 p-4 rounded-xl ${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#0e1a32]'}`}>
+        {/* { colorScheme === 'light' ? 'bg-white' : 'bg-[#19212c]'} */}
+        <View style={className`mx-4 p-4 rounded-xl ${ colorScheme === 'light' ? 'bg-white' : 'bg-[#0e1a32]'}`}>
             <View style={className`flex flex-row w-full justify-center gap-1 mb-4`}>
             {arrNum.map((num, index) => (
           <TextInput
@@ -157,8 +157,8 @@ const Verifyphone = () => {
           />
         ))}
             </View>
-
-            <View style={className`${ colorScheme === 'light' ? 'bg-white' : 'bg-[#19212c]'} py-3 px-6 rounded-lg flex-row items-center justify-between`}>
+            {/* { colorScheme === 'light' ? 'bg-white' : 'bg-[#19212c]'} */}
+            <View style={className`${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#19212c]'} py-3 px-6 rounded-lg flex-row items-center justify-between`}>
                 <View style={className`flex-row items-center gap-2`}>
                     <View style={className` ${colorScheme === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]' }  rounded-full p-1`}>
                     <Exclaimation width={11} height={11} strokeWidth={4}   fill={`${colorScheme === 'light' ?  'black' : 'black' }`} />

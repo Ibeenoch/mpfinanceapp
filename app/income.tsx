@@ -40,6 +40,7 @@ const Income = () => {
     }, [showModal])
     
     useEffect(() => {
+        setBtnActive(false);
       dispatch(shouldShowModal(false));
   }, [])
 
@@ -173,7 +174,6 @@ const Income = () => {
     }
 
     const handleNext = () => {
-        console.log(btnActive)
         if(btnActive){
             const income = {
                 selectedIncome, selectedOccupation
@@ -302,7 +302,7 @@ const Income = () => {
             backgroundStyle={className`rounded-3xl w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
             style={className`rounded-3xl w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
             >
-            <Text style={className`${currentMode === 'light'  ? 'text-black' : 'text-white'}  ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} font-bold pl-5 py-6 text-left text-sm`}>Choose Country</Text>
+            <Text style={className`${currentMode === 'light'  ? 'text-black' : 'text-white'}  ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} font-bold pl-5 py-6 text-left text-sm`}>Choose Income</Text>
 
                 {
                     
@@ -311,14 +311,14 @@ const Income = () => {
     keyExtractor={(item, index) => index.toString()} // Use index as a key if items do not have unique IDs
     renderItem={({ item }) => (
 
-        <TouchableOpacity style={styles.container} >
+        <TouchableOpacity onPress={() => handleRadioPress(item.range)} style={styles.container} >
         <View  key={item.range} style={className`w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} flex-row justify-between p-5`}>
         <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} text-sm font-bold`}>{item.range}</Text>
             <View>
             <RadioButton.Android 
                 value={item.range}
                 status={selectedIncome === item.range ? 'checked' : 'unchecked'} 
-                onPress={() => handleRadioPress(item.range)}
+                
                 color={selectedIncome === item.range ? (currentMode === 'light' ? '#0663f0' : '#ffd75b') : 'gray'}
             />
             </View>
@@ -356,14 +356,14 @@ const Income = () => {
             keyExtractor={(item, index) => index.toString()} // Use index as a key if items do not have unique IDs
             renderItem={({ item }) => (
 
-                <TouchableOpacity style={styles.container} >
+                <TouchableOpacity onPress={() => handleRadioOccupationPress(item)} style={styles.container} >
                 <View  key={item} style={className`w-full ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} flex-row justify-between p-5`}>
                 <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} text-sm font-bold`}>{item}</Text>
                     <View>
                     <RadioButton.Android 
                         value={item}
                         status={selectedOccupation === item ? 'checked' : 'unchecked'} 
-                        onPress={() => handleRadioOccupationPress(item)}
+                        
                         color={selectedOccupation === item ? (currentMode === 'light' ? '#0663f0' : '#ffd75b') : 'gray'}
                     />
                     </View>

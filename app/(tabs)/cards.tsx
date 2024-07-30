@@ -5,8 +5,10 @@ import useThemeStyles from '../../utils/dynamic';
 import { Image } from 'expo-image';
 import Shield from '../../assets/fraudprotectmajor-svgrepo-com.svg';
 import CustomerService from '../../assets/customer-service-agent-svgrepo-com.svg';
+import CustomerServiceOrange from '../../assets/customer-service-agent-svgrepo-com (1).svg';
 import Delivery from '../../assets/delivery-svgrepo-com.svg';
 import Globe from '../../assets/global-grid-logo-svgrepo-com.svg';
+import GlobeBlue from '../../assets/global-grid-logo-svgrepo-comblue.svg';
 import { router } from 'expo-router';
 import { Skeleton } from 'moti/skeleton';
 import { useAppDispatch, useAppSelector } from '../../features/hooks';
@@ -77,7 +79,14 @@ const stopCardSkeleton = () => {
               <Skeleton  height={80} width={280} {...skeletonCommonProps}  >
               <View style={className`flex-row items-center gap-2 p-2 ${getmode.backGroundlightYellowColor}`}>
                 <View style={className`flex-row justify-center items-center rounded-lg`}>
-                  <CustomerService width={20} height={20} fill={`${getmode.fillColor}`} />
+                  {
+                    currentMode === 'light' ? (
+                      <CustomerService width={20} height={20}  />
+                    ) : (
+                      <CustomerServiceOrange width={20} height={20}  />
+                    )
+                  }
+                  
                 </View>
 
                 <View style={className`pr-3`}>
@@ -103,7 +112,14 @@ const stopCardSkeleton = () => {
               <Skeleton  height={60} width={280} {...skeletonCommonProps}  >
               <View style={className`flex-row items-center gap-2 p-2 ${getmode.backGroundlightYellowColor}`}>
                 <View style={className`flex-row justify-center items-center rounded-lg `}>
-                  <Globe width={20} height={20} stroke={`${getmode.fillColor}`} />
+                  {
+                    currentMode === 'light' ? (
+                      <GlobeBlue width={20} height={20} strokeWidth={3} />
+                    ) : (
+                      <Globe width={20} height={20} strokeWidth={3} />
+                    )
+                  }
+                  
                 </View>
 
                 <View style={className`pr-3`}>

@@ -32,7 +32,7 @@ const Attestation = () => {
   }, [])
 
   useEffect(() => {
-    if(selectedValue.length > 0){
+    if(selectedValue.length === 6){
         setBtnActive(true)
     }
   }, [selectedValue])
@@ -40,9 +40,12 @@ const Attestation = () => {
     const handleRadioPress = (value: string) => {
       setSelectedValue(value);
     }
+    console.log('selectedValuelength ', selectedValue.length)
 
     const handleNext = () => {
-        setShowModal(true);
+        if(selectedValue.length === 6){
+            setShowModal(true);
+        }
     }
   return (
     <ScrollView style={className`flex-1`}>

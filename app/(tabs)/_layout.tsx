@@ -28,8 +28,6 @@ import Signal from '../../assets/signal-02-svgrepo-com.svg'
 import { Image } from 'expo-image';
 import { useAppDispatch, useAppSelector } from '../../features/hooks'
 import { selectUser, setActiveTab, setMainModalActive } from '../../features/auth/auth'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { BlurView } from 'expo-blur'
 import { Skeleton } from 'moti/skeleton'
 
@@ -53,6 +51,10 @@ const  Tablayout = () => {
     colorMode: currentMode === 'light' ? 'light' : 'dark'
   } as const;
 
+  const viewProfile = () => {
+    router.push('profile')
+  }
+
   return (
     <>
     <Tabs screenOptions={{
@@ -69,7 +71,9 @@ const  Tablayout = () => {
       headerLeft: () => {
        return     <Skeleton show={skeletonHome} height={50} width={140} {...skeletonCommonProps} radius={'round'} >
                     <View style={className`flex-row pl-4 gap-3 items-center`}>
+                      <TouchableOpacity onPress={viewProfile}>
                         <Image source={require('../../assets/s14.png')} style={className`w-9 h-9 px-2 rounded-xl`} />
+                      </TouchableOpacity>
                         <Text style={className`text-sm font-semibold py-1 px-2 rounded-xl ${`${currentMode === 'light' ? `bg-[#fdf3e9] text-[#f3a352]` : `bg-[#312726] text-[#de8d3c]`}`} `}>Level 1</Text>
                     </View>
                   </Skeleton>
@@ -109,9 +113,8 @@ const  Tablayout = () => {
             tabBarButton: (props) => (
               <TouchableOpacity {...props} 
               onPress={() => {
-                console.log('home');
-                dispatch(setActiveTab('home'))
                 router.push('home')
+                dispatch(setActiveTab('home'))
               }}
               />
             ),
@@ -141,9 +144,8 @@ const  Tablayout = () => {
             tabBarButton: (props) => (
               <TouchableOpacity {...props} 
               onPress={() => {
-                console.log('card');
+                router.push('cards');
                 dispatch(setActiveTab('card'));
-                router.push('cards')
               }}
               />
             ),
@@ -157,21 +159,12 @@ const  Tablayout = () => {
             }
         }}/>
         <Tabs.Screen name='main' options={{
-              title: '',
-              // tabBarButton: (props) => (
-              //   <TouchableOpacity {...props} 
-              //   onPress={() => {
-              //     console.log('main');
-              //     dispatch(setMainModalActive(true));
-              //   }}
-              //   />
-              // ),
-           
+              title: '',           
             tabBarIcon: ({ color, size}) => {
               return <View style={className`${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]' } mb-4 p-2 rounded-full`}>
                         {
                           mainModalActive  ? (
-                            <View style={className`${currentMode === 'light' ? `bg-[#0261ef]` : `bg-[#ffd75b]`} p-8 flex-row justify-center items-center rounded-full`}>
+                            <View style={className` ${currentMode === 'light' ? 'bg-[#0261ef]' : `bg-[#ffd75b]`} p-8 flex-row justify-center items-center rounded-full`}>
                             <TouchableOpacity style={className`flex-row justify-center items-center`} onPress={cancelMainModal}>
                               {
                                 currentMode === 'light' ? (
@@ -189,7 +182,6 @@ const  Tablayout = () => {
                             {
                                 currentMode === 'light' ? (
                                   <Plus width={25} height={25} strokeWidth={2} stroke={'#ffffff'} fill={'#ffffff'} />
-
                                 ) : (
                                   <Plus width={25} height={25} strokeWidth={2} stroke={'#000000'} fill={'#000000'} />
                                 )
@@ -220,9 +212,8 @@ const  Tablayout = () => {
             tabBarButton: (props) => (
               <TouchableOpacity {...props} 
               onPress={() => {
-                console.log('saving');
-                dispatch(setActiveTab('saving'))
                 router.push('saving')
+                dispatch(setActiveTab('saving'))
               }}
               />
             ),
@@ -244,9 +235,8 @@ const  Tablayout = () => {
             tabBarButton: (props) => (
               <TouchableOpacity {...props} 
               onPress={() => {
-                console.log('salary');
-                dispatch(setActiveTab('salary'));
                 router.push('salary')
+                dispatch(setActiveTab('salary'));
               }}
               />
             ),
@@ -269,20 +259,20 @@ const  Tablayout = () => {
                     
                     <View style={className`flex-1 absolute bottom-28 rounded-lg w-full z-4  left-0  p-4 ${currentMode === 'light' ? 'bg-[#ffffff]' : 'bg-[#000e28]'}`}>
     
-                        <View style={className`flex-row ${getmode.backGroundlightYellowColor} rounded-xl my-2 items-center justify-between items-center p-2`}>
+                        <View style={className`flex-row rounded-xl my-2 items-center justify-between items-center p-2`}>
                             <View style={className`flex-row items-center gap-2`}>
                                 <View style={className`p-2 rounded-md ${getmode.backGroundlightYellowColor} `}>
                                   <PlusMain width={18} height={18} strokeWidth={2} stroke={getmode.fillColor} />
                                 </View>
-                                <Text style={className`text-sm ${currentMode === 'light' ? `text-[#9eacc7]` : `text-[#b9c1ce]`}`}>Add Money</Text>
+                                <Text style={className`text-xs ${currentMode === 'light' ? `text-black` : `text-[#b9c1ce] font-semibold`}`}>Add Money</Text>
                             </View>
 
                             <View>
-                                <ArrowForward width={18} height={18} strokeWidth={2} stroke={getmode.fillColor} />
+                            <ArrowForward width={15} height={15} strokeWidth={3} stroke={getmode.fillColor}  />
                             </View>
                         </View>
                         
-                        <View style={className`flex-row  ${getmode.backGroundlightYellowColor} rounded-xl my-2 items-center justify-between p-2`}>
+                        <View style={className`flex-row  rounded-xl my-2 items-center justify-between p-2`}>
                             <View style={className`flex-row  items-center gap-2`}>
                                 <View style={className`p-2 rounded-md ${getmode.backGroundlightYellowColor} `}>
                                   {
@@ -294,37 +284,37 @@ const  Tablayout = () => {
                                   }
                                   
                                 </View>
-                                <Text style={className`text-sm ${currentMode === 'light' ? `text-[#9eacc7]` : `text-[#b9c1ce]`}`}>Send Money</Text>
+                                <Text style={className`text-xs ${currentMode === 'light' ? `text-black` : `text-[#b9c1ce] font-semibold`}`}>Send Money</Text>
                             </View>
 
                             <View>
-                                <ArrowForward width={18} height={18} strokeWidth={2} stroke={getmode.fillColor}  />
+                            <ArrowForward width={15} height={15} strokeWidth={3} stroke={getmode.fillColor}  />
                             </View>
                         </View>
                         
-                        <View style={className`flex-row  ${getmode.backGroundlightYellowColor} rounded-xl my-2 items-center justify-between p-2`}>
+                        <View style={className`flex-row rounded-xl my-2 items-center justify-between p-2`}>
                             <View style={className`flex-row items-center gap-2`}>
                                 <View style={className`p-2 rounded-md ${getmode.backGroundlightYellowColor} `}>
                                   <Phone width={18} height={18} fill={getmode.fillColor} />
                                 </View>
-                                <Text style={className`text-sm ${currentMode === 'light' ? `text-[#9eacc7]` : `text-[#b9c1ce]`}`}>Buy Airtime</Text>
+                                <Text style={className`text-xs ${currentMode === 'light' ? `text-black` : `text-[#b9c1ce] font-semibold`}`}>Buy Airtime</Text>
                             </View>
 
                             <View>
-                                <ArrowForward width={18} height={18} strokeWidth={2} stroke={getmode.fillColor}  />
+                            <ArrowForward width={15} height={15} strokeWidth={3} stroke={getmode.fillColor}  />
                             </View>
                         </View>
                         
-                        <View style={className`flex-row  ${getmode.backGroundlightYellowColor} rounded-xl my-2 items-center justify-between p-2`}>
+                        <View style={className`flex-row   rounded-xl my-2 items-center justify-between p-2`}>
                             <View style={className`flex-row items-center gap-2`}>
                                 <View style={className`p-2 rounded-md ${getmode.backGroundlightYellowColor} `}>
                                   <PayBill width={18} height={18} fill={getmode.fillColor} />
                                 </View>
-                                <Text style={className`text-sm ${currentMode === 'light' ? `text-[#9eacc7]` : `text-[#b9c1ce]`}`}>Pay Bills</Text>
+                                <Text style={className`text-xs ${currentMode === 'light' ? `text-black` : `text-[#b9c1ce] font-semibold`}`}>Pay Bills</Text>
                             </View>
 
                             <View>
-                                <ArrowForward width={18} height={18} strokeWidth={2} stroke={getmode.fillColor}  />
+                                <ArrowForward width={15} height={15} strokeWidth={3} stroke={getmode.fillColor}  />
                             </View>
                         </View>
                     </View>

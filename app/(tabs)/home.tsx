@@ -27,6 +27,8 @@ import { Skeleton } from 'moti/skeleton';
 import { useAppDispatch, useAppSelector } from '../../features/hooks';
 import { selectUser, setActiveTab, setSkeletonHome, shouldShowModal } from '../../features/auth/auth';
 import img from '../../assets/img';
+import TopUp from '../../assets/outgoing-call.svg';
+import TopUpBlue from '../../assets/outgoing-callblue.svg';
 import { Image } from 'expo-image';
 
 const Home = () => {
@@ -106,14 +108,14 @@ const stopHomeSkeleton = () => {
             <View style={className`flex-row w-full gap-2 rounded-full mb-3 p-2`}>
               
                 <View style={className`flex-row w-[80%] pl-2 items-center gap-1 rounded-full border border-gray-300  border-opacity-50`}>
-                  <View style={className`rounded-full py-1 px-2 bg-blue-600`}>
-                    <Text style={className`font-bold ${getmode.textColor}`}>M</Text>
+                  <View style={className`rounded-full py-1 px-[6px] bg-blue-600`}>
+                    <Text style={className`font-bold text-xs ${getmode.textColor}`}>M</Text>
                   </View>
 
                   <Text style={className`${getmode.textColorTwo} text-xs`}>John wickton Doe</Text>
-                  <View style={className`p-1 border-l border-gray-300`}></View>
+                  <View style={className`p-1 h-full border-l border-gray-300`}></View>
                  
-                  <Text style={className`text-gray-500 text-sm`}>709829383</Text>
+                  <Text style={className`text-gray-500 text-xs pr-1`}>709829383</Text>
                 </View>
              
 
@@ -178,7 +180,7 @@ const stopHomeSkeleton = () => {
                 },
               },
             },
-          ])}
+          ], { useNativeDriver: false})}
           scrollEventThrottle={1}>
           {images.map((image, imageIndex) => {
             return (
@@ -236,7 +238,13 @@ const stopHomeSkeleton = () => {
 
             <View style={className`flex-col rounded-xl p-2 ${getmode.dasboardBackgroundSecondLayerColor} `}>
                 <View style={className`flex justify-center items-center `}>
-                  <Phone width={25} height={25}  fill={getmode.dasboardSvgButton} stroke={getmode.dasboardSvgButton}  />
+                  {
+                    currentMode === 'light' ? (
+                      <TopUpBlue width={25} height={25}  fill={getmode.dasboardSvgButton} stroke={getmode.dasboardSvgButton}  />
+                    ) : (
+                      <TopUp width={25} height={25}  fill={getmode.dasboardSvgButton} stroke={getmode.dasboardSvgButton}  />
+                    )
+                  }
                 </View>
                 <Text style={className`text-gray-500 text-md`}>Top-Up</Text>
             </View>
