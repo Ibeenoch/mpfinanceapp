@@ -40,7 +40,6 @@ const Attestation = () => {
     const handleRadioPress = (value: string) => {
       setSelectedValue(value);
     }
-    console.log('selectedValuelength ', selectedValue.length)
 
     const handleNext = () => {
         if(selectedValue.length === 6){
@@ -183,9 +182,7 @@ const Attestation = () => {
                 <Text style={className` ${currentMode === 'light' ? `${btnActive ? 'text-white' : 'text-[#999999]'  }` : `${btnActive ? 'text-black' : 'text-[#675e3d]'  }` } text-sm font-semibold`}>Next</Text>
             </TouchableOpacity>
 
-            {/* <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${getmode.backGroundColor}  py-6 px-4 flex-row items-center justify-center`}  >
-            <Text style={className`${ getmode.textColorTwo} text-sm font-semibold`}>Next</Text>
-            </TouchableOpacity> */}
+           
         </View>
 
 

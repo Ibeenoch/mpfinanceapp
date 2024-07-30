@@ -89,6 +89,20 @@ const App = () => {
                 
                 }} />
                 <Stack.Screen name='address'  options={{  headerShown: false, }} />
+                <Stack.Screen name='requestcard'  options={{ 
+                headerShown: true, 
+                headerTitle: 'Card Request', 
+                headerTitleAlign: 'center',
+                headerStyle: {
+                    backgroundColor:  colorScheme === 'dark' ? '#000e28' : '#f7f7f7',
+                }, 
+                headerTintColor: colorScheme === 'dark' ? '#ffd75b' : '#0261ef', 
+                headerTitleStyle: {
+                    fontSize: 15,
+                },
+                headerRight: () => <HeaderStatus progress={0.1} leftNum={1} rightNum={6} /> ,
+                
+                }} />
                 <Stack.Screen name='login'  options={{ 
                 headerShown: true, 
                 headerTitle: '', 

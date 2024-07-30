@@ -131,14 +131,12 @@ const stopHomeSkeleton = () => {
             <Skeleton  height={30} width={80} {...skeletonCommonProps} >
               <Text style={className`${getmode.textColorTwoInverse} font-bold text-xl`}>₦0.00</Text>
             </Skeleton>
+            <Skeleton  height={35} width={100} {...skeletonCommonProps} >
               <View style={className`flex-row items-center gap-1 p-4`}>
-            <Skeleton  height={30} width={80} {...skeletonCommonProps} >
                 <Text  style={className`text-xs ${getmode.textColorTwoInverse}`}>History</Text>
-              </Skeleton>
-              <Skeleton  height={30} width={40} {...skeletonCommonProps} >
                 <ArrowRight width={15} height={15} strokeWidth={3} stroke={getmode.fillColorInverse} />
-                </Skeleton>
               </View>
+              </Skeleton>
             </View>
             
             <Text  style={className`text-xs text-left py-2 text-gray-500`}>Recent Transactions </Text>
