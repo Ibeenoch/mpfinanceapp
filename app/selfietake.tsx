@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, useColorScheme } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import className from 'twrnc';
 import useThemeStyles from '../utils/dynamic';
 import { Image } from 'expo-image';
@@ -8,9 +8,11 @@ import { useAppSelector, useAppDispatch } from '../features/hooks';
 import { selectUser, setProcessPhoto } from '../features/auth/auth';
 import * as ImagePicker from 'expo-image-picker'
 import { saveImageCaptured } from '../features/auth/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Selfietake = () => {
+    const [img, setImg] = useState<string>('');
     const getmode = useThemeStyles();
     const currentMode = useColorScheme();
     const dispatch = useAppDispatch();
@@ -28,12 +30,14 @@ const Selfietake = () => {
           if(!result.canceled){
             console.log('results ',  result.assets[0].uri);
             let url =  result.assets[0].uri;
+            setImg(url);
             dispatch(saveImageCaptured(url));
             
           }
     };
 
     const handleProcessing = () => {
+        AsyncStorage.setItem('photo', JSON.stringify(img));
         dispatch(setProcessPhoto(true))
         router.push('processimg');
     }

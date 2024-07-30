@@ -13,9 +13,10 @@ import { router } from 'expo-router';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { BlurView } from 'expo-blur';
 import useThemeStyles from '../utils/dynamic';
+import { delayNavigation } from '../utils/useIntervalHook';
 
 const Verifyphone = () => {
-  const [isFocus, setISfocus] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [resend, setResend] = useState<boolean>(false);
   const [onchangeHasUpdate, setOnChangeHasUpdate] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>();
@@ -37,6 +38,17 @@ const Verifyphone = () => {
     useEffect(() => {
      resend && resendModalRef.current?.present();
     }, [resend])
+
+    useEffect(() => {
+      dispatch(shouldShowModal(false));
+    }, [])
+
+    useEffect(() => {
+      if(showModal){
+        dispatch(shouldShowModal(true));
+        delayNavigation('signupemail');
+      }
+    }, [showModal])
 
     const { showmodal } = useAppSelector((state) => state.auth );
 
@@ -78,7 +90,7 @@ const Verifyphone = () => {
       }
     };
     const handleNext = () => {
-        router.push('signupemail')
+        setShowModal(true)
     }
 
     const handleResendModal = () => {

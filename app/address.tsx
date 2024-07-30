@@ -12,13 +12,17 @@ import { ScrollView, FlatList } from 'react-native-gesture-handler';
 import HeaderStatus from '../components/HeaderStatus';
 import { BlurView } from 'expo-blur';
 import { useAppDispatch, useAppSelector } from '../features/hooks';
-import { selectUser, setSelectionModal } from '../features/auth/auth';
+import { selectUser, setSelectionModal, shouldShowModal } from '../features/auth/auth';
+import { delayNavigation } from '../utils/useIntervalHook';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Address = () => {
   const [stateActive, setStateActive] = useState<boolean>(false);
   const [lgaActive, setLgaActive] = useState<boolean>(false);
   const [selectedState, setSelectedState] = useState<string>('');
+  const [house, setHouse] = useState<string>('');
+  const [street, setStreet] = useState<string>('');
   const [selectedLga, setSelectedLga] = useState<string[]>([]);
   const [stateLga, setStateLga] = useState<string>('');
   const [selectedValue, setSelectedValue] = useState(''); 
@@ -26,9 +30,27 @@ const Address = () => {
     const currentMode = useColorScheme()
     const bottomModalInputRef = useRef<BottomSheetModal>(null);
     const bottomModalLgaInputRef = useRef<BottomSheetModal>(null);
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const [btnActive, setBtnActive] = useState<boolean>(false);
     const dispatch = useAppDispatch();
     const { selectionmodal } = useAppSelector(selectUser);
 
+    useEffect(() => {
+      if(showModal){
+        dispatch(shouldShowModal(true));
+        delayNavigation('pepstatus');
+      }
+    }, [showModal])
+    
+    useEffect(() => {
+      dispatch(shouldShowModal(false));
+  }, [])
+
+  useEffect(() => {
+    if(selectedState.length > 0 && selectedLga.length > 0 && house.length > 0 && street.length > 0  ){
+      setBtnActive(true);
+    }
+  }, [selectedState, selectedLga, house, street])
         
    useEffect(() => {
     stateActive && bottomModalInputRef.current?.present();
@@ -38,6 +60,21 @@ const Address = () => {
     lgaActive && bottomModalLgaInputRef.current?.present();
    }, [lgaActive])
     
+   useEffect(() => {
+    if(selectedState){
+        setSelectedLga(LGAEachState.Nigeria[`${selectedState}`]);
+        setLgaActive(true);
+        bottomModalInputRef.current?.close();
+        setStateActive(false);
+    }
+}, [selectedState]);
+
+useEffect(() => {
+    if(stateLga){
+        bottomModalLgaInputRef.current?.close();
+        setLgaActive(false);
+    }
+}, [stateLga]);
 
   const handleRadioPress = (value: string) => {
      setSelectedValue(value);
@@ -61,7 +98,6 @@ const Address = () => {
         dispatch(setSelectionModal(true))
     };
 
-console.log('lgaActive ', lgaActive , 'stateActive ', stateActive, 'selectedLga ', 'selectionmodal ', selectionmodal)
 
     const handleLgaModal = () => {
       setLgaActive(true);
@@ -109,21 +145,7 @@ console.log('lgaActive ', lgaActive , 'stateActive ', stateActive, 'selectedLga 
         'Abuja'
     ];
 
-    useEffect(() => {
-        if(selectedState){
-            setSelectedLga(LGAEachState.Nigeria[`${selectedState}`]);
-            setLgaActive(true);
-            bottomModalInputRef.current?.close();
-            setStateActive(false);
-        }
-    }, [selectedState]);
 
-    useEffect(() => {
-        if(stateLga){
-            bottomModalLgaInputRef.current?.close();
-            setLgaActive(false);
-        }
-    }, [stateLga]);
 
     const LGAEachState: any = {
         "Nigeria": {
@@ -771,8 +793,19 @@ console.log('lgaActive ', lgaActive , 'stateActive ', stateActive, 'selectedLga 
       setLgaActive(false);
       bottomModalLgaInputRef.current?.dismiss();
     }
-      
 
+    const handleNext = () => {
+      if(btnActive){
+        const address = {
+          house, street, selectedLga, selectedState
+        };
+        
+        AsyncStorage.setItem('address', JSON.stringify(address));
+        setShowModal(true)
+      }
+    }
+      
+console.log(btnActive,  house, street, selectedLga, selectedState)
   return (
    <GestureHandlerRootView style={{ flex: 1}}>
             <View style={className`flex-1 p-4 ${getmode.backGroundColorTwo}`}>
@@ -794,11 +827,11 @@ console.log('lgaActive ', lgaActive , 'stateActive ', stateActive, 'selectedLga 
             <View style={className`${getmode.firstLayerBgColor} rounded-xl mb-3 p-4`}>
                 
                 <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
-                    <TextInput  cursorColor={currentMode === 'light' ? '#0261ef' : '#ffd75b'} style={className`${getmode.textColorTwo} `} placeholder='House Number'  placeholderTextColor={currentMode === 'light' ? 'black' : 'white'} />
+                    <TextInput  cursorColor={currentMode === 'light' ? '#0261ef' : '#ffd75b'} style={className`${getmode.textColorTwo} `} onChangeText={(e) => setHouse(e)} placeholder='House Number'  placeholderTextColor={currentMode === 'light' ? 'black' : 'white'} />
                 </View>
 
                 <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
-                    <TextInput  cursorColor={currentMode === 'light' ? '#0261ef' : '#ffd75b'} style={className`${getmode.textColorTwo} `} placeholder='Street Name'  placeholderTextColor={currentMode === 'light' ? 'black' : 'white'} />
+                    <TextInput  cursorColor={currentMode === 'light' ? '#0261ef' : '#ffd75b'} style={className`${getmode.textColorTwo} `}  onChangeText={(e) => setStreet(e)} placeholder='Street Name'  placeholderTextColor={currentMode === 'light' ? 'black' : 'white'} />
                 </View>
 
                 <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
@@ -908,9 +941,13 @@ console.log('lgaActive ', lgaActive , 'stateActive ', stateActive, 'selectedLga 
             }
 
             <View style={className`w-full mt-[200px]`}>
-                <TouchableOpacity onPress={() => router.push('pepstatus')}  style={className`rounded-xl w-full ${getmode.backGroundColor}  py-6 px-4 flex-row items-center justify-center`}  >
-                <Text style={className`${ getmode.textColor} text-sm font-semibold`}>Next</Text>
+                <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`  :   `${currentMode === 'light' ? 'bg-[#e5e5e5]' : 'bg-[#19222c]'}` } py-4 px-4 flex-row items-center justify-center`}  >
+                  <Text style={className` ${currentMode === 'light' ? `${btnActive ? 'text-white' : 'text-[#999999]'  }` : `${btnActive ? 'text-black' : 'text-[#675e3d]'  }` } text-sm font-semibold`}>Next</Text>
                 </TouchableOpacity>
+
+                {/* <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${getmode.backGroundColor}  py-6 px-4 flex-row items-center justify-center`}  >
+                <Text style={className`${ getmode.textColor} text-sm font-semibold`}>Next</Text>
+                </TouchableOpacity> */}
             </View>
             
             

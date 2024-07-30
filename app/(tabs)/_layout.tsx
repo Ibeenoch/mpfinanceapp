@@ -173,13 +173,27 @@ const  Tablayout = () => {
                           mainModalActive  ? (
                             <View style={className`${currentMode === 'light' ? `bg-[#0261ef]` : `bg-[#ffd75b]`} p-8 flex-row justify-center items-center rounded-full`}>
                             <TouchableOpacity style={className`flex-row justify-center items-center`} onPress={cancelMainModal}>
-                              <Times width={25} height={25} strokeWidth={2} stroke={`${currentMode === 'light' ? '#ffffff' : '#000000' } `} fill={`${currentMode === 'light' ? '#ffffff' : '#000000' }`} />
+                              {
+                                currentMode === 'light' ? (
+                                  <Times width={25} height={25} strokeWidth={2} stroke={'#ffffff'} fill={'#ffffff'} />
+
+                                ) : (
+                                  <Times width={25} height={25} strokeWidth={2} stroke={'#000000'} fill={'#000000'} />
+                                )
+                              }
                             </TouchableOpacity>
                             </View>
                           ) : (
                             <View style={className`${currentMode === 'light' ? `bg-[#0261ef]` : `bg-[#ffd75b]`} p-8 flex-row justify-center items-center rounded-full`}>
                             <TouchableOpacity style={className`flex-row justify-center  items-center`}  onPress={openMainModal}>
-                              <Plus width={25} height={25} strokeWidth={2} stroke={`${currentMode === 'light' ? '#ffffff' : '#000000' } `} fill={`${currentMode === 'light' ? '#ffffff' : '#000000' }`} />
+                            {
+                                currentMode === 'light' ? (
+                                  <Plus width={25} height={25} strokeWidth={2} stroke={'#ffffff'} fill={'#ffffff'} />
+
+                                ) : (
+                                  <Plus width={25} height={25} strokeWidth={2} stroke={'#000000'} fill={'#000000'} />
+                                )
+                              }
                             </TouchableOpacity>
                             </View>
                           )

@@ -1,15 +1,23 @@
 import { View, Text, TouchableOpacity, useColorScheme } from 'react-native'
-import React from 'react'
+import React, { useEffect, useLayoutEffect } from 'react'
 import className from 'twrnc';
 import useThemeStyles from '../utils/dynamic';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import Exclaimation from '../assets/exclamation-mark-sign-alert-warning-important-svgrepo-com.svg'
+import { shouldShowModal } from '../features/auth/auth';
+import { useAppDispatch } from '../features/hooks';
 
 
 const PepStatus = () => {
     const getmode = useThemeStyles();
     const currentMode = useColorScheme();
+    const dispatch = useAppDispatch();
+
+    useLayoutEffect(() => {
+      dispatch(shouldShowModal(false));
+  }, [])
+
   return (
     <View style={className`bg-black flex-1 py-6 `}>
     <View style={className`${getmode.backGroundColorTwo} flex-1 justify-center items-center my-4 rounded-3xl p-4`}>

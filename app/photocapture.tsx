@@ -1,5 +1,5 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import className from 'twrnc';
 import useThemeStyles from '../utils/dynamic';
 import Bulb from '../assets/light_bulb_icon_152593.svg'
@@ -7,13 +7,18 @@ import Glass from '../assets/spectacles-icon.svg'
 import { router } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker'
 import { useAppDispatch } from '../features/hooks';
-import { saveImageCaptured } from '../features/auth/auth';
+import { saveImageCaptured, shouldShowModal } from '../features/auth/auth';
 
 
 
 const Photocapture = () => {
     const getmode = useThemeStyles();
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+      dispatch(shouldShowModal(false));
+  }, [])
+
     const handleCamera = async() => {
     let result =  await ImagePicker.launchCameraAsync({
         quality: 1,

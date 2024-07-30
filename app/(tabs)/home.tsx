@@ -10,7 +10,7 @@ import {
   Pressable,
   useColorScheme,
 } from 'react-native';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import className from 'twrnc';
 import useThemeStyles from '../../utils/dynamic';
 import Copy from '../../assets/copy-svgrepo-com (2).svg';
@@ -25,10 +25,9 @@ import NoTransaction from '../../assets/transaction-money-svgrepo-com.svg';
 import Referral from '../../assets/advertising-svgrepo-com.svg';
 import { Skeleton } from 'moti/skeleton';
 import { useAppDispatch, useAppSelector } from '../../features/hooks';
-import { selectUser, setActiveTab, setSkeletonHome } from '../../features/auth/auth';
+import { selectUser, setActiveTab, setSkeletonHome, shouldShowModal } from '../../features/auth/auth';
 import img from '../../assets/img';
 import { Image } from 'expo-image';
-import useInterval from '../../utils/useIntervalHook';
 
 const Home = () => {
   const [currentIndex, setCurrentIndex ] = useState<number>(0);
@@ -37,6 +36,10 @@ const Home = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const dispatch = useAppDispatch();
   const { skeletonHome } = useAppSelector(selectUser);
+
+  useLayoutEffect(() => {
+    dispatch(shouldShowModal(false));
+}, [])
 
   useEffect(() => {
     makeHomeActive()
@@ -270,8 +273,8 @@ const stopHomeSkeleton = () => {
           
           <Skeleton  height={250} width={330} {...skeletonCommonProps}  >
           <View style={className`rounded-xl w-full px-4 pt-4 pb-8 ${getmode.dasboardBackgroundSecondLayerColor}`}>
-            <View style={className`flex-row gap-1 mb-2 items-center ${currentMode === 'light' ? 'bg-[#0e1a32]' : 'bg-[#19212c]'}  max-w-[95px] p-2 rounded-lg`}>
-              <Text style={className`text-[#ffd75b] text-left text-xs `}>This Week </Text>
+            <View style={className`flex-row gap-1 mb-2 items-center ${currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#19212c]'}  max-w-[95px] p-2 rounded-lg`}>
+              <Text style={className`${currentMode === 'light' ? 'text-[#5f9af6]' :'text-[#ffd75b]'  } text-left text-xs `}>This Week </Text>
               <ArrowDown width={8} height={8} strokeWidth={6} fill={'#ffd75b'} />
             </View>
 

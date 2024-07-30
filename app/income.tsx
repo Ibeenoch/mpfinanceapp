@@ -9,21 +9,39 @@ import { RadioButton } from 'react-native-paper'
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { BlurView } from 'expo-blur'
+import { useAppDispatch } from '../features/hooks'
+import { shouldShowModal } from '../features/auth/auth'
+import { delayNavigation } from '../utils/useIntervalHook'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Income = () => {
     //custom hooks
-    const getmode = useThemeStyles();
-    const currentMode = useColorScheme();
-
-    // state hooks
     const [selectedValue, setSelectedValue] = useState<string>(''); 
     const [selectedIncome, setSelectedIncome] = useState<string>(''); 
     const [selectedOccupation, setSelectedOccupation] = useState<string>(''); 
     const [incomeActive, setIncomeActive] = useState<boolean>(false);
+    const [showModal, setShowModal] = useState<boolean>(false);
     const [occupationActive, setOccupationActive] = useState<boolean>(false);
+    const [btnActive, setBtnActive] = useState<boolean>(false);
+    const getmode = useThemeStyles();
+    const currentMode = useColorScheme();
+
+    // state hooks
     //ref hooks
     const incomeModalRef = useRef<BottomSheetModal>(null);
     const occupationModalRef = useRef<BottomSheetModal>(null);
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+      if(showModal){
+        dispatch(shouldShowModal(true));
+        delayNavigation('attestation');
+      }
+    }, [showModal])
+    
+    useEffect(() => {
+      dispatch(shouldShowModal(false));
+  }, [])
 
     // effect hook
     useEffect(() => {
@@ -33,6 +51,12 @@ const Income = () => {
     useEffect(() => {
         occupationActive && occupationModalRef.current?.present(); 
     }, [occupationActive])
+
+    useEffect(() => {
+        if(selectedIncome.length > 0 && selectedOccupation.length > 0 && selectedValue.length > 0){
+            setBtnActive(true);
+        }
+    }, [selectedIncome, selectedOccupation, selectedValue])
     
     const snapPoints = [ '70%', '90%'];
 
@@ -148,6 +172,16 @@ const Income = () => {
         occupationModalRef.current?.dismiss()
     }
 
+    const handleNext = () => {
+        console.log(btnActive)
+        if(btnActive){
+            const income = {
+                selectedIncome, selectedOccupation
+            };
+            AsyncStorage.setItem('income', JSON.stringify(income))
+            setShowModal(true);
+        }
+    }
   return (
     <GestureHandlerRootView style={{ flex: 1}}>
     <View style={className`flex-1  ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'} `}>
@@ -240,14 +274,14 @@ const Income = () => {
         </View>
     </View>
 
-      
-
-
-
         <View style={className`absolute bottom-4 right-4 left-4`}>
-        <TouchableOpacity onPress={() => router.push('attestation')}  style={className`rounded-xl w-full ${getmode.backGroundColor}  py-6 px-4 flex-row items-center justify-center`}  >
+            <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`  :   `${currentMode === 'light' ? 'bg-[#e5e5e5]' : 'bg-[#19222c]'}` } py-4 px-4 flex-row items-center justify-center`}  >
+                <Text style={className` ${currentMode === 'light' ? `${btnActive ? 'text-white' : 'text-[#999999]'  }` : `${btnActive ? 'text-black' : 'text-[#675e3d]'  }` } text-sm font-semibold`}>Next</Text>
+            </TouchableOpacity>
+
+        {/* <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${getmode.backGroundColor}  py-6 px-4 flex-row items-center justify-center`}  >
           <Text style={className`${ getmode.textColor} text-sm font-semibold`}>Next</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       

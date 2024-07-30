@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { router } from "expo-router";
 
-const useInterval = (callback: () => void, delay: number | undefined) => {
-  useEffect(() => {
-    const id = setInterval(callback, delay);
-    return () => clearInterval(id);
-  }, [callback, delay]);
-};
+export const delayNavigation = (path: string) => {
+    const interval= setTimeout(() => {
+      router.push(path)
+    }, 2000);
 
-export default useInterval;
+    return () => clearTimeout(interval);
+
+  }

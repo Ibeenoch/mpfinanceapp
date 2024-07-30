@@ -1,14 +1,24 @@
 import { View, Text, useColorScheme, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CheckMark from '../assets/check-mark-10126.svg';
 import className from 'twrnc'
 import { router } from 'expo-router';
+import { useAppDispatch } from '../features/hooks';
+import { shouldShowModal } from '../features/auth/auth';
+import { delayNavigation } from '../utils/useIntervalHook';
 
 const Success = () => {
     const currentMode = useColorScheme();
+    const dispatch = useAppDispatch()
+    
+    useEffect(() => {
+      dispatch(shouldShowModal(false));
+  }, [])
+
     const handleNext = () => {
         router.push('biometrics')
     }
+
   return (
     <View style={className`${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} h-screen flex-1  `}>
 

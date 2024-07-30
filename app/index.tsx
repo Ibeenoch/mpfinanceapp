@@ -126,7 +126,7 @@ const Home = () => {
 
         
         <View style={className`flex-row gap-4 justify-center absolute bottom-7`}>
-          <Pressable style={className`px-2 py-4 w-[45%] ${getmode.backGroundColor} rounded-lg flex-row justify-center items-center`}>
+          <Pressable onPress={() => router.push('login')} style={className`px-2 py-4 w-[45%] ${getmode.backGroundColor} rounded-lg flex-row justify-center items-center`}>
             <Text style={className`text-xs font-bold ${getmode.textColor}`}>Login</Text>
           </Pressable>
           <Pressable onPress={() => router.push('signup')} style={className`px-2 py-4 w-[45%] ${getmode.backGroundColor} rounded-lg flex-row justify-center items-center`}>

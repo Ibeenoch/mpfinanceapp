@@ -1,23 +1,37 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import className from 'twrnc';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import Exclaimation from '../assets/exclamation-mark-sign-alert-warning-important-svgrepo-com.svg'
 import useThemeStyles from '../utils/dynamic';
 import { useAppDispatch } from '../features/hooks';
-import { setSkeletonCard, setSkeletonHome, setSkeletonSaving } from '../features/auth/auth';
+import { setSkeletonCard, setSkeletonHome, setSkeletonSaving, shouldShowModal } from '../features/auth/auth';
+import { delayNavigation } from '../utils/useIntervalHook';
 
 
 const Congrats = () => {
+    const [showModal, setShowModal] = useState<boolean>(false);
     const getmode = useThemeStyles();
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+      if(showModal){
+        dispatch(shouldShowModal(true));
+        delayNavigation('(tabs)/home');
+      }
+    }, [showModal])
+    
+    useLayoutEffect(() => {
+      dispatch(shouldShowModal(false));
+  }, [])
+
 
     const handleTabs = () => {
         dispatch(setSkeletonHome(true));
         dispatch(setSkeletonCard(true));
         dispatch(setSkeletonSaving(true));
-        router.push('(tabs)/home')
+        setShowModal(true);
     }
 
   return (

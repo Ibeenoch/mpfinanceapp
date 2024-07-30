@@ -9,6 +9,8 @@ import { router, useNavigation } from 'expo-router';
 import { useAppDispatch, useAppSelector } from '../features/hooks';
 import useThemeStyles from '../utils/dynamic';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { shouldShowModal } from '../features/auth/auth';
+import { delayNavigation } from '../utils/useIntervalHook';
 
 
 
@@ -23,7 +25,6 @@ const  Signup = () => {
   const [btnActive, setBtnActive] = useState<boolean>(false);
   const [phone, setPhone] = useState<string>();
   const [referral, setreferral] = useState<string>('');
-  const [selectedCountry, setSelectedCountry] = useState<string>('+234');
   const [ hideFooter, setHideFooter ] = useState<boolean>(false);
   const [ showModal, setShowModal ] = useState<boolean>(false);
     let colorScheme = useColorScheme();
@@ -35,19 +36,28 @@ const  Signup = () => {
       if(btnActive){
         setIsInputErr(false);
       }else{
-        setIsInputErr(true);
+        if(phone && phone?.length > 0){
+          setIsInputErr(true);
+        }
       }
     }, [btnActive])
+
+
+    useEffect(() => {
+      if(showModal){
+        dispatch(shouldShowModal(true));
+        delayNavigation('verifyphone')
+      }
+    }, [showModal])
+  
 
    const handleFocus = () => {
     setIsBlur(false);
       setIsFocus(true);
+      setIsInputErr(false);
     }
 
 
-  const HandleshowFooter = () => {
-    setHideFooter(false);
-  };
   const formatNum = (textInput: string) => {
     const digits = textInput.replace(/\D/g, '');
     const formatted = digits.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3').trim();
@@ -88,21 +98,15 @@ const  Signup = () => {
 
 
    const handleBlur = () => {
-    console.log('blurred')
-    HandleshowFooter()
+    console.log('blurred', phone?.length)
     setIsFocus(false);
     Keyboard.dismiss();
-    if(phone){
-      if(phone?.length <= 9){
-        setIsInputErr(true)
-      }else{
-        setIsInputErr(false)
-      }
+    if(phone?.length !== 12){
+      setIsInputErr(true)
     }
-    
+      
       
     }
-
  
 
     const handleNext = () => {
@@ -112,8 +116,9 @@ const  Signup = () => {
       }
       AsyncStorage.setItem('phone', JSON.stringify(phone))
       setShowModal(true);
-      router.push('verifyphone')
+      // delayNavigation();
     }
+
 
 
  
@@ -144,9 +149,6 @@ const  Signup = () => {
                           </View>
                         
                           <TextInput cursorColor={colorScheme === 'light' ? '#0261ef' : '#ffd75b'} keyboardType='number-pad' maxLength={12} onFocus={handleFocus} onBlur={handleBlur}  onChangeText={handlePhone} value={phone} placeholder='Phone number'  placeholderTextColor={colorScheme === 'light' ? 'black' : 'gray'} style={className`pl-4 py-2 w-[60%] rounded-tr-xl rounded-br-xl  ${ colorScheme === 'light' ? 'bg-[#f3f5f8] text-black' : 'bg-[#1a263e] text-white'} `} />
-                        
-                    
-
                       </View>
                       {
                         isInputErr &&  <Text style={className`text-[12px] text-red-500 `}>Phone number is invalid or incomplete</Text>
@@ -223,7 +225,6 @@ const  Signup = () => {
                       </View>
               
                       <View style={className`max-w-sm`}>    
-                      {/* <TouchableOpacity onPress={handleNext} text-[#0261ef] style={className`rounded-xl w-full ${colorScheme === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}  py-6 px-4 flex-row items-center justify-center`}  >                                                                                      */}
                         <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${colorScheme === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`  :   `${colorScheme === 'light' ? 'bg-[#e5e5e5]' : 'bg-[#19222c]'}` } py-4 px-4 flex-row items-center justify-center`}  >
                           <Text style={className` ${colorScheme === 'light' ? `${btnActive ? 'text-white' : 'text-[#999999]'  }` : `${btnActive ? 'text-black' : 'text-[#675e3d]'  }` } text-sm font-semibold`}>Next</Text>
                         </TouchableOpacity>

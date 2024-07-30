@@ -1,13 +1,22 @@
 import { View, Text, useColorScheme, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import FingerPrint from '../assets/fingerprint-5.svg';
 import className from 'twrnc'
 import { router } from 'expo-router';
 import useThemeStyles from '../utils/dynamic';
+import { useAppDispatch } from '../features/hooks';
+import { shouldShowModal } from '../features/auth/auth';
 
 const Biometrics = () => {
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const dispatch = useAppDispatch()
     const getmode = useThemeStyles();
     const currentMode = useColorScheme();
+
+    
+    useEffect(() => {
+      dispatch(shouldShowModal(false));
+  }, [])
     const handleEnableBioMetrics = () => {
         router.push('cbninfo')
     }

@@ -9,8 +9,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAppDispatch } from '../features/hooks';
 import { shouldShowModal } from '../features/auth/auth';
 import { delayNavigation } from '../utils/useIntervalHook';
+import Phone from '../assets/call-answer-svgrepo-com.svg'
+import { Image } from 'expo-image';
 
-const Passcode = () => {
+const Login = () => {
     const [isFocus, setISfocus] = useState<boolean>(false);
     const [currentIndex, setCurrentIndex] = useState<number>();
     const [passcodeReady, setPasscodeReady] = useState<boolean>(false);
@@ -39,7 +41,7 @@ const Passcode = () => {
     useEffect(() => {
       if(showModal){
         dispatch(shouldShowModal(true));
-        delayNavigation('success');
+        delayNavigation('(tabs)/home');
       }
     }, [showModal])
     
@@ -82,7 +84,7 @@ const Passcode = () => {
     const handleNext = () => {
       if(!passcodeReady)return;
       const passcode = arrNum.join('');
-      AsyncStorage.setItem('passcode', JSON.stringify(passcode));
+    //   AsyncStorage.setItem('passcode', JSON.stringify(passcode));
       setShowModal(true);
     }
 
@@ -90,14 +92,23 @@ const Passcode = () => {
 
   return (
     <View style={className`flex-1 ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}`}>
+        <View style={className`flex-row justify-center  items-center w-full rounded-xl`}>
+        <View style={className`flex-col gap-1 justify-center mt-3 items-center w-full rounded-xl`}>
+            <Image source={require('../assets/s13.png')} style={className`w-15 h-15 py-1 px-2 rounded-xl`} />
+            <View style={className` ${currentMode === 'light' ? '#0261ef' : '#ffd75b'} flex-row items-center gap-1 `}>
+                <Phone width={10} height={10} fill={`${currentMode === 'light' ? '#0261ef' : 'white'}`} />
+                <Text style={{ color: currentMode === 'dark' ? '#ffd75b' : '#0261ef'  }}>***5566</Text>
+            </View>
+        </View>
+        </View>
 
         <View>
-            <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} font-bold text-xl text-center pt-5 pb-1`}>Setup your Passcode</Text>
-            <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} text-[15px] text-center pb-7`}>Enter a 6 digit passcode</Text>
+            <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} font-bold text-xl text-center pt-5 pb-1`}>Welcome back!</Text>
+            <Text style={className` ${ currentMode === 'light' ? 'text-black' : 'text-white'} text-[15px] text-center pb-7`}>Enter your 6 digit passcode</Text>
         </View>
 
         <View style={className`mx-6 p-4 rounded-xl ${ currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}`}>
-             <View style={className`flex flex-row w-full justify-center gap-1 mb-4`}>
+             <View style={className`flex flex-row w-full justify-center gap-1`}>
         {arrNum.map((num, index) => (
           <TextInput
             key={index}
@@ -122,7 +133,7 @@ const Passcode = () => {
         </View>
 
 
-        <View style={className`mx-4 my-6 p-4 rounded-xl ${currentMode === 'light' ? '' : ''}`}>
+        <View style={className`mx-4 my-2 p-4 rounded-xl ${currentMode === 'light' ? '' : ''}`}>
         <View style={className`flex-row flex-wrap w-full justify-between gap-2 mb-2`}>
           {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(num => (
             <View key={num} style={className`rounded-full p-6 w-[25%] ${currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]'}`}>
@@ -162,4 +173,4 @@ const Passcode = () => {
   )
 }
 
-export default Passcode
+export default Login

@@ -89,7 +89,23 @@ const App = () => {
                 
                 }} />
                 <Stack.Screen name='address'  options={{  headerShown: false, }} />
-                    <Stack.Screen name='passcode'  options={{ 
+                <Stack.Screen name='login'  options={{ 
+                headerShown: true, 
+                headerTitle: '', 
+                headerStyle: {
+                    backgroundColor:  colorScheme === 'dark' ? '#000e28' : '#f7f7f7',
+                }, 
+                headerTintColor: colorScheme === 'dark' ? '#ffd75b' : '#0261ef', 
+                headerTitleStyle: {
+                    fontSize: 15,
+                },
+                headerRight: () => <View style={className` ${colorScheme === 'light' ? '#0261ef' : '#ffd75b'} flex-row items-center gap-1 `}>
+                                        <Phone width={10} height={10} fill={`${colorScheme === 'light' ? '#0261ef' : 'white'}`} />
+                                        <Text style={{ color: colorScheme === 'dark' ? '#ffd75b' : '#0261ef'  }}>***5566</Text>
+                                    </View> ,
+                
+                }} />
+                <Stack.Screen name='passcode'  options={{ 
                 headerShown: true, 
                 headerTitle: '', 
                 headerStyle: {
@@ -109,6 +125,7 @@ const App = () => {
                         backgroundColor:  `${colorScheme === 'dark' ?  '#000e28' : '#f7f7f7'}`
                 } }} />
                 <Stack.Screen name='success'  options={{ headerShown: false }} />
+                <Stack.Screen name='userexist'  options={{ headerShown: false }} />
                 <Stack.Screen name='biometrics'  options={{ headerShown: false }} />
                 <Stack.Screen name='cbninfo'  options={{ headerShown: false }} />
                 <Stack.Screen name='cbnlast'  options={{ headerShown: false }} />

@@ -1,5 +1,5 @@
 import { View, Text, useColorScheme, TouchableOpacity, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import className  from 'twrnc';
 import News from '../assets/news-svgrepo-com.svg';
 import BAnk from '../assets/bank-symbol-svgrepo-com.svg';
@@ -7,15 +7,35 @@ import Exclaimation from '../assets/exclamation-mark-sign-alert-warning-importan
 import { RadioButton } from 'react-native-paper'; 
 import { router } from 'expo-router';
 import useThemeStyles from '../utils/dynamic';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAppDispatch } from '../features/hooks';
+import { shouldShowModal } from '../features/auth/auth';
 
 const Verification = () => {
   const [selectedValue, setSelectedValue] = useState(''); 
   const getmode = useThemeStyles();
   const currentMode = useColorScheme();
+  const [btnActive, setBtnActive ] = useState<boolean>(false);
+  const dispatch = useAppDispatch()
+    
+  useEffect(() => {
+    dispatch(shouldShowModal(false));
+}, [])
 
   const handleRadioPress = (value: string) => {
     setSelectedValue(value);
-    console.log('selected val ', value);
+    setBtnActive(true);
+  }
+
+  const handleNext = () => {
+    if(selectedValue === 'nin'){
+      router.push('nindocument')
+      return;
+    }
+    if(selectedValue === 'bvn'){
+      router.push('bvndocument')
+      return;
+    }
   }
 
 // yellow #ffd75b   blue #0663f0 white  #ffffff
@@ -120,19 +140,24 @@ const Verification = () => {
         {
           selectedValue === 'nin' ? (
        
-        <TouchableOpacity onPress={() => router.push('nindocument')}  style={className`rounded-xl w-full ${currentMode === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black'}  py-6 px-4 flex-row items-center justify-center`}  >
+        <TouchableOpacity onPress={handleNext}   style={className`rounded-xl w-full ${ btnActive ? `${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`  :   `${currentMode === 'light' ? 'bg-[#e5e5e5]' : 'bg-[#19222c]'}` } py-4 px-4 flex-row items-center justify-center`}  >
           <Text style={className`${ currentMode === 'dark' ? 'text-white' : 'text-white'} text-sm font-semibold`}>Proceed</Text>
         </TouchableOpacity>     
           ) : selectedValue === 'bvn' ? (
-            <TouchableOpacity onPress={() => router.push('bvndocument')}  style={className`rounded-xl w-full ${currentMode === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black'}  py-6 px-4 flex-row items-center justify-center`}  >
+            <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`  :   `${currentMode === 'light' ? 'bg-[#e5e5e5]' : 'bg-[#19222c]'}` } py-4 px-4 flex-row items-center justify-center`}  >
             <Text style={className`${ currentMode === 'dark' ? 'text-white' : 'text-white'} text-sm font-semibold`}>Proceed</Text>
           </TouchableOpacity>    
           ) : (
-            <TouchableOpacity  style={className`rounded-xl w-full ${currentMode === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black'}  py-6 px-4 flex-row items-center justify-center`}  >
+            <TouchableOpacity   style={className`rounded-xl w-full ${ btnActive ? `${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`  :   `${currentMode === 'light' ? 'bg-[#e5e5e5]' : 'bg-[#19222c]'}` } py-4 px-4 flex-row items-center justify-center`} >
             <Text style={className`${ currentMode === 'dark' ? 'text-white' : 'text-white'} text-sm font-semibold`}>Proceed</Text>
           </TouchableOpacity>    
           )
         }
+
+                        {/* <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${colorScheme === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`  :   `${colorScheme === 'light' ? 'bg-[#e5e5e5]' : 'bg-[#19222c]'}` } py-4 px-4 flex-row items-center justify-center`}  >
+                          <Text style={className` ${colorScheme === 'light' ? `${btnActive ? 'text-white' : 'text-[#999999]'  }` : `${btnActive ? 'text-black' : 'text-[#675e3d]'  }` } text-sm font-semibold`}>Next</Text>
+                        </TouchableOpacity> */}
+
       </View>
     </View>
 

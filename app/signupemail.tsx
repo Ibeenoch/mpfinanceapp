@@ -1,28 +1,46 @@
 import { View, Text, useColorScheme, TextInput, Keyboard, TouchableWithoutFeedback } from 'react-native'
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import className from 'twrnc'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Envelope from '../assets/letter-svgrepo-com.svg'
 import { router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAppDispatch } from '../features/hooks';
+import { delayNavigation } from '../utils/useIntervalHook';
+import { shouldShowModal } from '../features/auth/auth';
 
 const SignUpEmail = () => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [btnActive, setIsBtnActive] = useState<boolean>(false);
   const [isInputErr, setIsInputErr] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
     const colorScheme = useColorScheme();
+    const dispatch = useAppDispatch()
 
     useLayoutEffect(() => {
       Keyboard.dismiss();
     }, [])
+
+
+    useEffect(() => {
+      if(showModal){
+        dispatch(shouldShowModal(true));
+        delayNavigation('passcode');
+      }
+    }, [showModal])
+
+    useEffect(() => {
+        dispatch(shouldShowModal(false));
+    }, [])
+
 
     const handleNext = () => {
       if(!validateEmail(email)){
         return;
       }
       AsyncStorage.setItem('email', JSON.stringify(email));
-      router.push('passcode')
+      setShowModal(true);
     }
     const handleText = (e: string) => {
       setEmail(e);

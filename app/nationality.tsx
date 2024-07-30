@@ -3,31 +3,23 @@ import { Image } from 'expo-image';
 import className from 'twrnc';
 import {
   SafeAreaView,
-  ScrollView,
   Text,
   StyleSheet,
   View,
-  ImageBackground,
-  Animated,
-  useWindowDimensions,
-  Pressable,
   TouchableOpacity,
   useColorScheme,
 } from 'react-native';
-import image from '../assets/img.js';
-import ArrowLeft from '../assets/arrow-back-svgrepo-com.svg'
-import ArrowRight from '../assets/arrow-forward-svgrepo-com.svg'
 import { router } from 'expo-router';
-import { Picker } from '@react-native-picker/picker';
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import BottomSheet from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheet/BottomSheet.js';
 import { RadioButton } from 'react-native-paper';
 import { BlurView } from 'expo-blur';
 import { useAppDispatch, } from '../features/hooks';
 import { setSelectionModal, shouldShowModal } from '../features/auth/auth';
 import HeaderStatus from '../components/HeaderStatus';
 import useThemeStyles from '../utils/dynamic';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { delayNavigation } from '../utils/useIntervalHook';
 
 
 const Nationality = () => {
@@ -36,10 +28,24 @@ const Nationality = () => {
     const [countryLists, setcountryLists] = useState<string[]>([]);
     const [selectedState, setSelectedState] = useState<string>('');
     const [selectedflag, setSelectedFlag] = useState<string>('');
+    const [showModal, setShowModal] = useState<boolean>(false);
     const countryModalRef = useRef<BottomSheetModal>(null);
     const getmode = useThemeStyles();
     const currentMode = useColorScheme();
     const dispatch = useAppDispatch();
+
+    
+
+    useEffect(() => {
+      if(showModal){
+        dispatch(shouldShowModal(true));
+        delayNavigation('verification');
+      }
+    }, [showModal])
+    
+    useEffect(() => {
+      dispatch(shouldShowModal(false));
+  }, [])
 
   useEffect(() => {
     if(selectedflag){
@@ -59,7 +65,6 @@ const Nationality = () => {
     setSelectedFlag(f);
    
   }
-
 
 
   const chooseCountry = () => {
@@ -852,6 +857,10 @@ const closeModal = () => {
     countryModalRef.current?.dismiss();
 }
 
+const handleNext = () => {
+    AsyncStorage.setItem('nationality', JSON.stringify(selectedValue));
+    setShowModal(true);
+}
 
   const snapPoints = [ '60%', '80%']
 
@@ -888,7 +897,7 @@ const closeModal = () => {
 
           
           <View style={className`flex-row gap-4 justify-center absolute bottom-7`}>
-            <TouchableOpacity onPress={() => router.push('verification')} style={className`px-2 py-6 w-full ${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'} rounded-xl flex-row justify-center items-center`}>
+            <TouchableOpacity onPress={handleNext} style={className`px-2 py-6 w-full ${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'} rounded-xl flex-row justify-center items-center`}>
               <Text style={className`text-xs font-bold ${currentMode === 'light' ? 'text-white' : 'text-white'} `}>Proceed</Text>
             </TouchableOpacity>
           </View>
@@ -913,27 +922,27 @@ const closeModal = () => {
 
                         {
                         
-        <FlatList
-        data={countries}
-        keyExtractor={(item, index) => index.toString()} // Use index as a key if items do not have unique IDs
-        renderItem={({ item }) => (
-        
-                <TouchableOpacity style={styles.container} >
-            <View style={className`w-full ${currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#162640]'} flex-row justify-between p-5`}>
-                <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} text-sm font-bold`}>{item.name}</Text>
-                <View>
-                    <RadioButton.Android 
-                    value={item.name}
-                    status={selectedValue === item.name ? 'checked' : 'unchecked'} 
-                    onPress={() => handleRadioPress(item.name, item.flag)}
-                    color={selectedValue === item.name ? (currentMode === 'light' ? '#0663f0' : '#ffd75b') : 'gray'}
-                    />
-                </View>
-            
-            </View>
-        </TouchableOpacity>
-        )}
-        />
+                        <FlatList
+                        data={countries}
+                        keyExtractor={(item, index) => index.toString()} // Use index as a key if items do not have unique IDs
+                        renderItem={({ item }) => (
+                        
+                                <TouchableOpacity style={styles.container} >
+                            <View style={className`w-full ${currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#162640]'} flex-row justify-between p-5`}>
+                                <Text style={className`${currentMode === 'light' ? 'text-black' : 'text-white'} text-sm font-bold`}>{item.name}</Text>
+                                <View>
+                                    <RadioButton.Android 
+                                    value={item.name}
+                                    status={selectedValue === item.name ? 'checked' : 'unchecked'} 
+                                    onPress={() => handleRadioPress(item.name, item.flag)}
+                                    color={selectedValue === item.name ? (currentMode === 'light' ? '#0663f0' : '#ffd75b') : 'gray'}
+                                    />
+                                </View>
+                            
+                            </View>
+                        </TouchableOpacity>
+                        )}
+                        />
                         } 
                     </BottomSheetModal>
                 </BlurView>

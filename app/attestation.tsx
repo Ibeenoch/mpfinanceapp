@@ -1,20 +1,48 @@
 import { View, Text, TouchableOpacity, ScrollView, useColorScheme, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import className from 'twrnc'
 import useThemeStyles from '../utils/dynamic'
 import { Image } from 'expo-image';
 import EditLogo from '../assets/edit-box-svgrepo-com.svg'
 import { router } from 'expo-router';
 import { RadioButton } from 'react-native-paper'; 
+import { useAppDispatch } from '../features/hooks';
+import { shouldShowModal } from '../features/auth/auth';
+import { delayNavigation } from '../utils/useIntervalHook';
 
 
 const Attestation = () => {
     const [selectedValue, setSelectedValue] = useState(''); 
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const [btnActive, setBtnActive] = useState<boolean>(false);
     const getmode = useThemeStyles();
     const currentMode = useColorScheme();
+    const dispatch = useAppDispatch()
+
+
+    useEffect(() => {
+      if(showModal){
+        dispatch(shouldShowModal(true));
+        delayNavigation('congrat');
+      }
+    }, [showModal])
+    
+    useEffect(() => {
+      dispatch(shouldShowModal(false));
+  }, [])
+
+  useEffect(() => {
+    if(selectedValue.length > 0){
+        setBtnActive(true)
+    }
+  }, [selectedValue])
   
     const handleRadioPress = (value: string) => {
       setSelectedValue(value);
+    }
+
+    const handleNext = () => {
+        setShowModal(true);
     }
   return (
     <ScrollView style={className`flex-1`}>
@@ -148,9 +176,13 @@ const Attestation = () => {
             </View>
 
             <View style={className`max-w-sm`}>
-            <TouchableOpacity onPress={() => router.push('congrat')}  style={className`rounded-xl w-full ${getmode.backGroundColor}  py-6 px-4 flex-row items-center justify-center`}  >
-            <Text style={className`${ getmode.textColorTwo} text-sm font-semibold`}>Next</Text>
+            <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`  :   `${currentMode === 'light' ? 'bg-[#e5e5e5]' : 'bg-[#19222c]'}` } py-4 px-4 flex-row items-center justify-center`}  >
+                <Text style={className` ${currentMode === 'light' ? `${btnActive ? 'text-white' : 'text-[#999999]'  }` : `${btnActive ? 'text-black' : 'text-[#675e3d]'  }` } text-sm font-semibold`}>Next</Text>
             </TouchableOpacity>
+
+            {/* <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${getmode.backGroundColor}  py-6 px-4 flex-row items-center justify-center`}  >
+            <Text style={className`${ getmode.textColorTwo} text-sm font-semibold`}>Next</Text>
+            </TouchableOpacity> */}
         </View>
 
 
