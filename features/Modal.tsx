@@ -25,8 +25,8 @@ const AppModal = ({ modalOn } : ModalProps) => {
         animationType="slide"
       >
         <View  style={className`relative h-full flex items-center justify-center`}>
-          <ActivityIndicator size={100} color={currentMode === 'light' ? '#f2f7fe' : '#ffd75b'} />
-          <Text style={className`text-3xl font-bold absolute ${getmode.textColorTwo}`}>M</Text>
+          <ActivityIndicator size={80} color={currentMode === 'light' ? '#f2f7fe' : '#ffd75b'} />
+          <Text style={className`text-3xl z-4 font-bold absolute ${getmode.textColorTwo}`}>M</Text>
         </View>
       </Modal>
      

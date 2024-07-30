@@ -72,7 +72,7 @@ const CbnInfo = () => {
               },
             },
           ], {
-            useNativeDriver: true
+            useNativeDriver: false
           })}
           scrollEventThrottle={1}>
           {images.map((image, imageIndex) => {

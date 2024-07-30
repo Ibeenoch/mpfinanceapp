@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import image from '../assets/image';
 import { router } from 'expo-router';
-import Spinner from '../assets/tube-spinner.svg'
+import MoniePoint from '../assets/monieLogo.svg'
 import useThemeStyles from '../utils/dynamic';
 import { useAppDispatch } from '../features/hooks';
 import { setSelectionModal, shouldShowModal } from '../features/auth/auth';
@@ -67,8 +67,12 @@ const Home = () => {
   return (
     <SafeAreaView style={className`flex-1 justify-center items-center  ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}`}>
 
-        <View style={className`text-center text-2xl font-bold -mt-38 pb-6`}>
-          <Text style={[className`text-center text-2xl font-bold  ${currentMode === 'light' ? 'text-black' : 'text-white'}`]}>MoniePoint</Text>
+        <View style={className`flex-row items-center  justify-center items-center text-center text-2xl font-bold -mt-48 pb-6`}>
+          <MoniePoint width={100} height={100} />
+          <View style={className`flex-row justify-center -ml-4 items-center`}>
+          <Text style={[className`text-center text-2xl font-bold  ${currentMode === 'light' ? 'text-black' : 'text-white'}`]}>Monie</Text>
+          <Text style={[className`text-center text-xl   ${currentMode === 'light' ? 'text-black' : 'text-white'}`]}>point</Text>
+          </View>
         </View>
     
       <View style={styles.scrollContainer}>
@@ -85,7 +89,7 @@ const Home = () => {
               },
             },
           ], {
-            useNativeDriver: true
+            useNativeDriver: false
           })}
           scrollEventThrottle={1}>
           {images.map((image, imageIndex) => {

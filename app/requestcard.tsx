@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, useColorScheme } from 'react-native'
 import React from 'react'
 import className from 'twrnc';
 import { Image } from 'expo-image';
@@ -6,8 +6,9 @@ import useThemeStyles from '../utils/dynamic';
 
 const Requestcard = () => {
     const getmode = useThemeStyles();
+    const currentMode = useColorScheme();
   return (
-    <View style={className`flex-1 p-4`}>
+    <View style={className`flex-1 p-4 ${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}`}>
         <View style={className`mb-4`}>
             <Text style={className` ${ getmode.textColorTwo} font-bold text-2xl text-left pt-5 pb-1`}>Card Type</Text>
             <Text style={className` ${ getmode.textColorTwo} text-xs text-left pb-7`}>Select a Card type</Text>

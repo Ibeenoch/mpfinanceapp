@@ -33,13 +33,35 @@ const Home = () => {
   const [currentIndex, setCurrentIndex ] = useState<number>(0);
   const getmode = useThemeStyles();
   const currentMode = useColorScheme();
+  const [intervalId, setIntervalId] = useState<NodeJS.Timer | null>(null);
   const scrollX = useRef(new Animated.Value(0)).current;
+  const scrollRef = useRef<ScrollView>(null);
   const dispatch = useAppDispatch();
   const { skeletonHome } = useAppSelector(selectUser);
 
   useLayoutEffect(() => {
     dispatch(shouldShowModal(false));
 }, [])
+
+const {width: windowWidth} = useWindowDimensions();
+
+
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     if (scrollRef.current) {
+  //       // const currentOffset = scrollRef.current?.contentOffset.x;
+  //       const currentOffset = scrollRef.current?.scrollTo;
+  //       const nextOffset = currentOffset + windowWidth;
+  //       scrollRef.current.scrollTo({ x: nextOffset, animated: true });
+  //     }
+  //   }, 3000); // Adjust the interval time as needed
+
+  //   setIntervalId(intervalId);
+  //   return () => clearInterval(intervalId);
+  // }, [windowWidth]);
+
+
+
 
   useEffect(() => {
     makeHomeActive()
@@ -69,10 +91,6 @@ const stopHomeSkeleton = () => {
 
   const images = [img1, img2];
   
-
-
-  const {width: windowWidth} = useWindowDimensions();
-
   
 
   return (
@@ -148,6 +166,7 @@ const stopHomeSkeleton = () => {
 
           <View style={styles.scrollContainer}>
         <ScrollView
+          ref={scrollRef}
           horizontal={true}
           pagingEnabled
           showsHorizontalScrollIndicator={false}

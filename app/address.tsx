@@ -827,7 +827,7 @@ console.log(btnActive,  house, street, selectedLga, selectedState)
             <View style={className`${getmode.firstLayerBgColor} rounded-xl mb-3 p-4`}>
                 
                 <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
-                    <TextInput  cursorColor={currentMode === 'light' ? '#0261ef' : '#ffd75b'} style={className`${getmode.textColorTwo} `} onChangeText={(e) => setHouse(e)} placeholder='House Number'  placeholderTextColor={currentMode === 'light' ? 'black' : 'white'} />
+                    <TextInput  cursorColor={currentMode === 'light' ? '#0261ef' : '#ffd75b'} keyboardType='number-pad' style={className`${getmode.textColorTwo} `} onChangeText={(e) => setHouse(e)} placeholder='House Number'  placeholderTextColor={currentMode === 'light' ? 'black' : 'white'} />
                 </View>
 
                 <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
@@ -909,7 +909,7 @@ console.log(btnActive,  house, street, selectedLga, selectedState)
                 backgroundStyle={className`rounded-3xl ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} `}
                 style={className`rounded-3xl ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'}`}
                 >
-                <Text style={className`${getmode.textColorTwo} ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} font-bold px-3 py-6 text-left text-md`}>LGA</Text>
+                <Text style={className`${getmode.textColorTwo} ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'} font-bold px-3 py-6 text-left text-[18px] `}>LGA</Text>
 
                     {
                        
