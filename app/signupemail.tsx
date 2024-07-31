@@ -7,7 +7,7 @@ import { router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAppDispatch } from '../features/hooks';
 import { delayNavigation } from '../utils/useIntervalHook';
-import { shouldShowModal } from '../features/auth/auth';
+import { setEmailAddress, shouldShowModal } from '../features/auth/auth';
 
 const SignUpEmail = () => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -23,33 +23,38 @@ const SignUpEmail = () => {
     }, [])
 
 
-    useEffect(() => {
-      if(showModal){
-        dispatch(shouldShowModal(true));
-        delayNavigation('passcode');
-      }
-    }, [showModal])
+    // useEffect(() => {
+    //   if(showModal){
+    //     dispatch(shouldShowModal(true));
+    //     delayNavigation('passcode');
+    //   }
+    // }, [showModal])
+    const validateEmail = (email: string) => {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return emailRegex.test(email);
+    };
 
     useEffect(() => {
         dispatch(shouldShowModal(false));
     }, [])
 
 
-    const handleNext = () => {
+
+    const handleNext = async() => {
       if(!validateEmail(email)){
         return;
       }
-      AsyncStorage.setItem('email', JSON.stringify(email));
+      email && dispatch(setEmailAddress(email));
       setShowModal(true);
+      dispatch(shouldShowModal(true));
+      delayNavigation('passcode');
     }
+
     const handleText = (e: string) => {
       setEmail(e);
       handleBlurEvent()
     }
-    const validateEmail = (email: string) => {
-      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      return emailRegex.test(email);
-    };
+  
     
     const handleBlurEvent = () => {
       if(!validateEmail(email)){
@@ -77,7 +82,7 @@ const SignUpEmail = () => {
     }
     return (
     <TouchableWithoutFeedback onPress={noInput}>
-    <View style={className` ${ colorScheme === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} h-screen flex-1`}>
+    <View style={className` ${ colorScheme === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'}  flex-1`}>
          <View style={className` ${colorScheme === 'light' ? 'bg-[#f7f7f7] border-t-[#0261ef]' : 'bg-[#0e1a32] border-t-[#ffd75b]'}  border-t-[3px] w-[100%] `}>
          </View>
 
@@ -88,7 +93,7 @@ const SignUpEmail = () => {
         </View>
 
       <View style={className`px-4`}>
-      {/* [#ffd75b]' : 'text-[#0261ef]' */}
+
         <View style={className` flex-row items-center overflow-hidden rounded-xl  py-3  ${ colorScheme === 'light' ? ` bg-[#fff]` : ` bg-[#1a263e] `}`}>
           <View style={className` flex-row ml-3  p-2 items-center overflow-hidden rounded-xl  ${ colorScheme === 'light' ? `${isFocused ? 'bg-white border border-[#0261ef]' : 'bg-[#e5e5e5]' } text-black` :    `${isFocused ? 'border border-[#ffd75b]' : 'bg-[#1a263e]' }` }`}>
             <View style={className``}>

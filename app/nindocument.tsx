@@ -8,7 +8,7 @@ import useThemeStyles from '../utils/dynamic';
 import HeaderStatus from '../components/HeaderStatus';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAppDispatch } from '../features/hooks';
-import { shouldShowModal } from '../features/auth/auth';
+import { setId, shouldShowModal } from '../features/auth/auth';
 import { delayNavigation } from '../utils/useIntervalHook';
 
 const DocumentVerification = () => {
@@ -22,13 +22,6 @@ const DocumentVerification = () => {
   const getmode = useThemeStyles();
   const currentMode = useColorScheme();
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if(showModal){
-      dispatch(shouldShowModal(true));
-      delayNavigation('photocapture');
-    }
-  }, [showModal])
   
   useEffect(() => {
     dispatch(shouldShowModal(false));
@@ -66,10 +59,11 @@ const DocumentVerification = () => {
         Keyboard.dismiss();
       }
 
-const  handleNext = () => {
-  if(!btnActive)return;
-  AsyncStorage.setItem('id', JSON.stringify(number))
-    setShowModal(true);
+const  handleNext = async() => {
+  if(!btnActive )return;
+ number && dispatch(setId(number))
+    dispatch(shouldShowModal(true));
+    delayNavigation('photocapture');
   }
 // yellow #ffd75b   blue #0663f0 white  #ffffff
   return (

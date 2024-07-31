@@ -17,7 +17,6 @@ const Saving = () => {
   useEffect(() => {
     stopSavingSkeleton()
   }, []);
-  console.log('skeletonSaving ', skeletonSaving)
 
 const stopSavingSkeleton = () => {
   const stopSkeletonInterval = setTimeout(() => {

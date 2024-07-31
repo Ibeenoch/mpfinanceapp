@@ -1,32 +1,57 @@
 import { View, Text, TouchableOpacity, ScrollView, useColorScheme, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import className from 'twrnc'
 import useThemeStyles from '../utils/dynamic'
 import { Image } from 'expo-image';
 import EditLogo from '../assets/edit-box-svgrepo-com.svg'
 import { router } from 'expo-router';
 import { RadioButton } from 'react-native-paper'; 
-import { useAppDispatch } from '../features/hooks';
-import { shouldShowModal } from '../features/auth/auth';
+import { useAppDispatch, useAppSelector } from '../features/hooks';
+import { selectUser, shouldShowModal } from '../features/auth/auth';
 import { delayNavigation } from '../utils/useIntervalHook';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+interface Address {
+    house: string;
+    street: string;
+    stateLga: string;
+    selectedState: string;
+}
+
+interface Income {
+    selectedIncome: string;
+    selectedOccupation: string;
+    selectedValue: string;
+}
+
+interface Info {
+    email: string;
+    phone: string;
+    passcode: string;
+    nationality: string;
+    id: string;
+    address: any;
+    image: string;
+    pep: string;
+    income: any;
+  }
 
 const Attestation = () => {
     const [selectedValue, setSelectedValue] = useState(''); 
     const [showModal, setShowModal] = useState<boolean>(false);
     const [btnActive, setBtnActive] = useState<boolean>(false);
+    const [info, setInfo] = useState<Info>({
+        email: '', phone: '', passcode: '', nationality: '', id: '', address: {
+            selectedState: '', stateLga: '', street: '', house: '',
+        }, image: '',pep: '', income: {
+            selectedIncome: '', selectedOccupation: '', selectedValue: ''
+        }
+    })
     const getmode = useThemeStyles();
     const currentMode = useColorScheme();
-    const dispatch = useAppDispatch()
-
-
-    useEffect(() => {
-      if(showModal){
-        dispatch(shouldShowModal(true));
-        delayNavigation('congrat');
-      }
-    }, [showModal])
-    
+    const dispatch = useAppDispatch();
+    const { email, passcode, pep, address, phone, id, nationality, income, image  } = useAppSelector(selectUser)
+    console.log(address, nationality)
     useEffect(() => {
       dispatch(shouldShowModal(false));
   }, [])
@@ -36,14 +61,21 @@ const Attestation = () => {
         setBtnActive(true)
     }
   }, [selectedValue])
+
+ 
+
   
+
+
+ 
     const handleRadioPress = (value: string) => {
       setSelectedValue(value);
     }
 
     const handleNext = () => {
         if(selectedValue.length === 6){
-            setShowModal(true);
+            dispatch(shouldShowModal(true));
+            delayNavigation('congrat');
         }
     }
   return (
@@ -59,7 +91,7 @@ const Attestation = () => {
             <View style={className`w-full flex-col rounded-xl p-2  ${ getmode.secondLayerBgColorblue}  `}>
                     <View style={className`flex-row rounded-tl-xl rounded-bl-xl items-center p-2 `}>
                         <Image source={require('../assets/flag.png')} style={className`w-8 h-8`} />
-                        <Text style={className` px-1 ${getmode.textColorTwo}`}>Nigeria</Text>
+                        <Text style={className` px-1 ${getmode.textColorTwo}`}>{nationality}</Text>
                     </View>
 
                     <View style={className`flex-row justify-center items-center`}>
@@ -80,22 +112,22 @@ const Attestation = () => {
                     
                     <View style={className`p-2 `}>
                         <Text style={className` px-1 text-left text-[11px] font-bold text-gray-500`}>Address</Text>
-                        <Text style={className` px-1 py-1 font-bold text-left text-[12px] ${getmode.textColorTwo}`}>25</Text>
+                        <Text style={className` px-1 py-1 font-bold text-left text-[12px] ${getmode.textColorTwo}`}>{address && address.house}</Text>
                     </View>
                     
                     <View style={className`p-2 `}>
                         <Text style={className` px-1 font-bold text-left text-[11px] text-gray-500`}>Street Name</Text>
-                        <Text style={className` px-1 py-1 font-bold text-left text-[12px] ${getmode.textColorTwo}`}>olowo street, ladipo</Text>
+                        <Text style={className` px-1 py-1 font-bold text-left text-[12px] ${getmode.textColorTwo}`}>{address && address.street}</Text>
                     </View>
                     
                     <View style={className`p-2 `}>
                         <Text style={className` px-1 font-bold text-left text-[11px] text-gray-500`}>State</Text>
-                        <Text style={className` px-1 py-1 font-bold text-left text-[12px] ${getmode.textColorTwo}`}>Lagos</Text>
+                        <Text style={className` px-1 py-1 font-bold text-left text-[12px] ${getmode.textColorTwo}`}>{address && address.selectedState}</Text>
                     </View>
                     
                     <View style={className`p-2 `}>
                         <Text style={className` px-1 font-bold text-left text-[11px] text-gray-500`}>LGA</Text>
-                        <Text style={className` px-1 py-1 font-bold text-left text-[12px] ${getmode.textColorTwo}`}>OSHODI/ISOLO</Text>
+                        <Text style={className` px-1 py-1 font-bold text-left text-[12px] ${getmode.textColorTwo}`}>{address && address.stateLga}</Text>
                     </View>
 
                     
@@ -112,7 +144,7 @@ const Attestation = () => {
             <View style={className`w-full flex-col rounded-xl p-2  ${ getmode.secondLayerBgColorblue}  `}>
                     <View style={className`p-2 `}>
                         <Text style={className` px-1 font-bold text-left text-xs max-w-xs text-gray-500`}>Are you a politically exposed person or are you related to one</Text>
-                        <Text style={className` px-1 py-1 font-bold py-1 text-left text-xs ${getmode.textColorTwo}`}>No, i'm not</Text>
+                        <Text style={className` px-1 py-1 font-bold py-1 text-left text-xs ${getmode.textColorTwo}`}>{pep}</Text>
                     </View>
 
                     <View style={className`flex-row justify-center items-center`}>
@@ -127,17 +159,17 @@ const Attestation = () => {
             <View style={className`w-full rounded-xl p-2  ${ getmode.secondLayerBgColorblue}  `}>
                     <View style={className`p-2 `}>
                     <Text style={className` px-1 text-left font-bold text-[11px] max-w-xs text-gray-500`}>What is your occupation?</Text>
-                        <Text style={className` px-1 text-left py-1 font-bold text-[12px] ${getmode.textColorTwo}`}>Software Developer</Text>
+                        <Text style={className` px-1 text-left py-1 font-bold text-[12px] ${getmode.textColorTwo}`}>{income && income.selectedOccupation}</Text>
                     </View>
 
                     <View style={className`p-2 `}>
                         <Text style={className` px-1 text-left text-[11px] font-bold max-w-xs text-gray-500`}>What is your annual income?</Text>
-                        <Text style={className` px-1 text-left text-[12px] py-1 font-bold ${getmode.textColorTwo}`}>N51,000 - 250,000</Text>
+                        <Text style={className` px-1 text-left text-[12px] py-1 font-bold ${getmode.textColorTwo}`}>{income && income.selectedIncome}</Text>
                     </View>
 
                     <View style={className`p-2 `}>
                         <Text style={className` px-1 text-left text-[11px] font-bold max-w-xs text-gray-500`}>Do you have other source of income different from your occupation?</Text>
-                        <Text style={className` px-1 text-left text-[12px] py-1 font-bold ${getmode.textColorTwo}`}>No</Text>
+                        <Text style={className` px-1 text-left text-[12px] py-1 font-bold ${getmode.textColorTwo}`}>{income && income.selectedValue}</Text>
                     </View>
 
                     <View style={className`flex-row  justify-center items-center`}>

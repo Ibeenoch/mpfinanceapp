@@ -43,12 +43,7 @@ const Verifyphone = () => {
       dispatch(shouldShowModal(false));
     }, [])
 
-    useEffect(() => {
-      if(showModal){
-        dispatch(shouldShowModal(true));
-        delayNavigation('signupemail');
-      }
-    }, [showModal])
+   
 
     const { showmodal } = useAppSelector((state) => state.auth );
 
@@ -90,7 +85,9 @@ const Verifyphone = () => {
       }
     };
     const handleNext = () => {
-        setShowModal(true)
+        // setShowModal(true)
+        dispatch(shouldShowModal(true));
+        delayNavigation('signupemail');
     }
 
     const handleResendModal = () => {

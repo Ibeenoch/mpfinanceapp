@@ -54,7 +54,7 @@ const Verification = () => {
               </View>
             </View>
             <View style={className`flex-row justify-between items-center px-1`}>
-              <Text style={className`font-semibold text-left ${currentMode === 'light' ? 'text-blue' : 'text-white'} `}>National Identification Number (NIN) </Text>
+              <Text style={className`font-semibold text-left ${currentMode === 'light' ? 'text-black' : 'text-white'} `}>National Identification Number (NIN) </Text>
 
               <TouchableOpacity style={styles.container} >
               <View > 
@@ -63,7 +63,6 @@ const Verification = () => {
                     <RadioButton.Android 
                         value="nin"
                         status={selectedValue === 'nin' ?   'checked' : 'unchecked'} 
-                        // yellow #ffd75b   blue #0663f0 white  #ffffff
                         onPress={() => handleRadioPress('nin')} 
                         color={selectedValue === 'nin' ? '#0663f0' : 'gray'}
                     /> 
@@ -90,7 +89,7 @@ const Verification = () => {
             </View>
             </View>
             <View style={className`flex-row justify-between items-center px-1`}>
-              <Text style={className`font-semibold text-left ${currentMode === 'light' ? 'text-blue' : 'text-white'} `}>Bank Verfication Number (BVN) </Text>
+              <Text style={className`font-semibold text-left ${currentMode === 'light' ? 'text-black' : 'text-white'} `}>Bank Verfication Number (BVN) </Text>
 
               <TouchableOpacity style={styles.container} >
               <View > 
@@ -100,7 +99,6 @@ const Verification = () => {
                         value="bvn"
                         status={selectedValue === 'bvn' ?  
                                 'checked' : 'unchecked'} 
-                        // onPress={() => setSelectedValue('bvn')}  // yellow #ffd75b   blue #0663f0 white  #ffffff
                         onPress={() => handleRadioPress('bvn')} 
                         color={selectedValue === 'bvn' ? `#0663f0` : 'gray'}
                     /> 

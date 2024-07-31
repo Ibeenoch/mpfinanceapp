@@ -101,10 +101,23 @@ const CbnInfo = () => {
               outputRange: [8, 16, 8],
               extrapolate: 'clamp',
             });
+            const backgroundColor = scrollX.interpolate({
+              inputRange: [
+                windowWidth * (imageIndex - 1),
+                windowWidth * imageIndex,
+                windowWidth * (imageIndex + 1),
+              ],
+              outputRange: [
+                `${currentMode === 'light' ? 'gray' : 'rgba(255, 255, 255, 0.5)'}`, // Inactive color
+                `${currentMode === 'light' ? '#0261ef' : '#ffd75b'}`, // Active color
+                `${currentMode === 'light' ? 'gray' : 'rgba(255, 255, 255, 0.5)'}`, // Inactive color
+              ],
+              extrapolate: 'clamp',
+            });
             return (
                     <Animated.View
                       key={imageIndex}
-                      style={[styles.normalDot, {width}]}
+                      style={[styles.normalDot, {width, backgroundColor}]}
                     />
             );
           })}

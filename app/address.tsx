@@ -12,7 +12,7 @@ import { ScrollView, FlatList } from 'react-native-gesture-handler';
 import HeaderStatus from '../components/HeaderStatus';
 import { BlurView } from 'expo-blur';
 import { useAppDispatch, useAppSelector } from '../features/hooks';
-import { selectUser, setSelectionModal, shouldShowModal } from '../features/auth/auth';
+import { selectUser, setAddress, setSelectionModal, shouldShowModal } from '../features/auth/auth';
 import { delayNavigation } from '../utils/useIntervalHook';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -33,14 +33,8 @@ const Address = () => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [btnActive, setBtnActive] = useState<boolean>(false);
     const dispatch = useAppDispatch();
-    const { selectionmodal } = useAppSelector(selectUser);
+    const { selectionmodal,  } = useAppSelector(selectUser);
 
-    useEffect(() => {
-      if(showModal){
-        dispatch(shouldShowModal(true));
-        delayNavigation('pepstatus');
-      }
-    }, [showModal])
     
     useEffect(() => {
       dispatch(shouldShowModal(false));
@@ -794,18 +788,17 @@ useEffect(() => {
       bottomModalLgaInputRef.current?.dismiss();
     }
 
-    const handleNext = () => {
+    const handleNext = async() => {
       if(btnActive){
         const address = {
-          house, street, selectedLga, selectedState
+          house, street, stateLga, selectedState
         };
-        
-        AsyncStorage.setItem('address', JSON.stringify(address));
-        setShowModal(true)
+        dispatch(setAddress(address));
+        dispatch(shouldShowModal(true));
+        delayNavigation('pepstatus');
       }
     }
       
-console.log(btnActive,  house, street, selectedLga, selectedState)
   return (
    <GestureHandlerRootView style={{ flex: 1}}>
             <View style={className`flex-1 p-4 ${getmode.backGroundColorTwo}`}>
@@ -874,19 +867,21 @@ console.log(btnActive,  house, street, selectedLga, selectedState)
           keyExtractor={(item, index) => index.toString()} // Use index as a key if items do not have unique IDs
           renderItem={({ item }) => (
             <View style={className` ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'}`}>
-              <View style={className`flex-row justify-between px-3`}>
-                <Text style={className`${getmode.textColorTwo} text-sm font-bold`}>{item}</Text>
-                <TouchableOpacity style={styles.container}>
-                  <View>
-                    <RadioButton.Android 
-                      value={item}
-                      status={selectedValue === item ? 'checked' : 'unchecked'} 
-                      onPress={() => handleRadioPress(item)} 
-                      color={selectedValue === item ? (currentMode === 'light' ? '#0663f0' : '#ffd75b') : 'gray'}
-                    />
+                  <TouchableOpacity onPress={() => handleRadioPress(item)}>
+                  <View style={className`flex-row items-center justify-between px-3`}>
+                    <Text style={className`${getmode.textColorTwo} text-sm font-bold`}>{item}</Text>
+                        <TouchableOpacity   style={styles.container}>
+                              <View>
+                                <RadioButton.Android 
+                                  value={item}
+                                  status={selectedValue === item ? 'checked' : 'unchecked'} 
+                                  
+                                  color={selectedValue === item ? (currentMode === 'light' ? '#0663f0' : '#ffd75b') : 'gray'}
+                                />
+                              </View>
+                        </TouchableOpacity>
                   </View>
-                </TouchableOpacity>
-              </View>
+                  </TouchableOpacity>
             </View>
           )}
         />
@@ -918,19 +913,21 @@ console.log(btnActive,  house, street, selectedLga, selectedState)
                         keyExtractor={(item, index) => index.toString()} // Use index as a key if items do not have unique IDs
                         renderItem={({ item }) => (
                             <View style={className` ${currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#162640]'}`}>
-                            <View style={className`flex-row justify-between px-3`}>
-                                <Text style={className`${getmode.textColorTwo} text-sm font-bold`}>{item}</Text>
-                                <TouchableOpacity style={styles.container}>
-                                <View>
-                                    <RadioButton.Android 
-                                    value={item}
-                                    status={selectedValue === item ? 'checked' : 'unchecked'} 
-                                    onPress={() => handleLgaRadioPress(item)} 
-                                    color={selectedValue === item ? (currentMode === 'light' ? '#0663f0' : '#ffd75b') : 'gray'}
-                                    />
-                                </View>
-                                </TouchableOpacity>
-                            </View>
+                                  <TouchableOpacity onPress={() => handleLgaRadioPress(item)} >
+                                  <View style={className`flex-row items-center justify-between px-3`}>
+                                      <Text style={className`${getmode.textColorTwo} text-sm font-bold`}>{item}</Text>
+                                      <TouchableOpacity style={styles.container}>
+                                            <View>
+                                                <RadioButton.Android 
+                                                value={item}
+                                                status={selectedValue === item ? 'checked' : 'unchecked'} 
+                                              
+                                                color={selectedValue === item ? (currentMode === 'light' ? '#0663f0' : '#ffd75b') : 'gray'}
+                                                />
+                                            </View>
+                                      </TouchableOpacity>
+                                  </View>
+                                  </TouchableOpacity>
                             </View>
                         )}
                         />
@@ -944,10 +941,6 @@ console.log(btnActive,  house, street, selectedLga, selectedState)
                 <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`  :   `${currentMode === 'light' ? 'bg-[#e5e5e5]' : 'bg-[#19222c]'}` } py-4 px-4 flex-row items-center justify-center`}  >
                   <Text style={className` ${currentMode === 'light' ? `${btnActive ? 'text-white' : 'text-[#999999]'  }` : `${btnActive ? 'text-black' : 'text-[#675e3d]'  }` } text-sm font-semibold`}>Next</Text>
                 </TouchableOpacity>
-
-                {/* <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${getmode.backGroundColor}  py-6 px-4 flex-row items-center justify-center`}  >
-                <Text style={className`${ getmode.textColor} text-sm font-semibold`}>Next</Text>
-                </TouchableOpacity> */}
             </View>
             
             

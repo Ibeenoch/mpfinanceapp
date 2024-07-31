@@ -29,7 +29,7 @@ const App = () => {
                 headerStyle: {
                     backgroundColor:  colorScheme === 'dark' ?  '#000e28' : '#f7f7f7',
                 }, 
-                headerTintColor: colorScheme === 'dark' ?  '#ffd75b' : '#0261ef', 
+                headerTintColor: colorScheme === 'dark' ?  '#fff' : '#0261ef', 
                 headerTitleStyle: {
                     fontSize: 15,
                 },
@@ -125,7 +125,7 @@ const App = () => {
                 headerStyle: {
                     backgroundColor:  colorScheme === 'dark' ? '#000e28' : '#f7f7f7',
                 }, 
-                headerTintColor: colorScheme === 'dark' ? '#ffd75b' : '#0261ef', 
+                headerTintColor: colorScheme === 'dark' ? '#fff' : '#0261ef', 
                 headerTitleStyle: {
                     fontSize: 15,
                 },

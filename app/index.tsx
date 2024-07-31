@@ -67,9 +67,9 @@ const Home = () => {
   return (
     <SafeAreaView style={className`flex-1 justify-center items-center  ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}`}>
 
-        <View style={className`flex-row gap-4 justify-center items-center text-center text-2xl font-bold -mt-48 pb-6`}>
+        <View style={className`flex-row gap-3 justify-center items-center text-center text-2xl font-bold -mt-48 pb-6`}>
           <MoniePoint width={100} height={100} />
-          <View style={className`flex-row -mt-1 justify-center items-center`}>
+          <View style={className`flex-row -mt-3 justify-center items-center`}>
             <Text style={[className`text-center text-2xl font-bold  ${currentMode === 'light' ? 'text-black' : 'text-white'}`]}>Monie</Text>
             <Text style={[className`text-center text-xl   ${currentMode === 'light' ? 'text-black' : 'text-white'}`]}>point</Text>
           </View>
@@ -118,10 +118,23 @@ const Home = () => {
               outputRange: [8, 16, 8],
               extrapolate: 'clamp',
             });
+            const backgroundColor = scrollX.interpolate({
+              inputRange: [
+                windowWidth * (imageIndex - 1),
+                windowWidth * imageIndex,
+                windowWidth * (imageIndex + 1),
+              ],
+              outputRange: [
+                `${currentMode === 'light' ? 'gray' : 'rgba(255, 255, 255, 0.5)'}`, // Inactive color
+                `${currentMode === 'light' ? '#0261ef' : '#ffd75b'}`, // Active color
+                `${currentMode === 'light' ? 'gray' : 'rgba(255, 255, 255, 0.5)'}`, // Inactive color
+              ],
+              extrapolate: 'clamp',
+            });
             return (
               <Animated.View
                 key={imageIndex}
-                style={[styles.normalDot, {width}]}
+                style={[styles.normalDot, {width, backgroundColor}]}
               />
             );
           })}

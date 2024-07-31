@@ -9,7 +9,7 @@ import { router, useNavigation } from 'expo-router';
 import { useAppDispatch, useAppSelector } from '../features/hooks';
 import useThemeStyles from '../utils/dynamic';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { shouldShowModal } from '../features/auth/auth';
+import { setPhoneNum, shouldShowModal, verifyPhoneNum } from '../features/auth/auth';
 import { delayNavigation } from '../utils/useIntervalHook';
 
 
@@ -43,12 +43,6 @@ const  Signup = () => {
     }, [btnActive])
 
 
-    useEffect(() => {
-      if(showModal){
-        dispatch(shouldShowModal(true));
-        delayNavigation('verifyphone')
-      }
-    }, [showModal])
   
 
    const handleFocus = () => {
@@ -98,7 +92,6 @@ const  Signup = () => {
 
 
    const handleBlur = () => {
-    console.log('blurred', phone?.length)
     setIsFocus(false);
     Keyboard.dismiss();
     if(phone?.length !== 12){
@@ -109,13 +102,23 @@ const  Signup = () => {
     }
  
 
-    const handleNext = () => {
-      if(!btnActive || isInputErr) return;
+    const handleNext = async() => {
+      if(!btnActive ) return;
       if(referral){
-        AsyncStorage.setItem('referral', JSON.stringify(referral))
+       await AsyncStorage.setItem('referral', JSON.stringify(referral))
       }
-      AsyncStorage.setItem('phone', JSON.stringify(phone))
+    //  await AsyncStorage.setItem('phone', JSON.stringify(phone))
+      phone && dispatch(setPhoneNum(phone));
+      phone && dispatch(verifyPhoneNum(phone)).then((res: any) => {
+        console.log(res)
+      })
       setShowModal(true);
+      dispatch(shouldShowModal(true));
+      setPhone('');
+      setreferral('');
+      setBtnActive(false);    
+      setIsInputErr(false);    
+      delayNavigation('verifyphone')
       // delayNavigation();
     }
 

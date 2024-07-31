@@ -3,7 +3,7 @@ import React from 'react'
 import { BlurView } from 'expo-blur';
 import className from 'twrnc';
 import MLetter from '../assets/monieLetterLogo.svg';
-import MLetterBlue from '../assets/monieLetterLogoblue.svg';
+import MLetterBlue from '../assets/monieLogoLetterWhite.svg';
 
 const SpinnerModal = () => {
     const currentMode = useColorScheme();
@@ -16,7 +16,6 @@ const SpinnerModal = () => {
         <View style={styles.tube} />
       </View>
       {/* ActivityIndicator  */}
-      {/* <Text style={className`text-3xl ${currentMode === 'light' ? 'text-[#0261ef]' : 'text-[#ffd75b]' } font-bold`}>M</Text> */}
       {
         currentMode === 'light' ? (
           <MLetterBlue width={75} height={75} style={className`mt-2`}  />
@@ -25,7 +24,7 @@ const SpinnerModal = () => {
         )
       }
       
-      <ActivityIndicator size={72}  color={currentMode === 'light' ? '#0261ef' : '#ffd75b'  } style={[styles.spinner, className``]} />
+      <ActivityIndicator size={72}  color={currentMode === 'light' ? '#ffffff' : '#ffd75b'  } style={[styles.spinner, className``]} />
     </View>
   </BlurView>
   )
@@ -52,7 +51,7 @@ const styles = StyleSheet.create({
       height: '60%',
       borderRadius: 50, // Make it circular
       borderWidth: 6, // Width of the tube
-      borderColor: 'white', // Light gray color for the tube
+      borderColor: '#7f7f7f', // Light gray color for the tube
       position: 'absolute',
     },
     spinner: {

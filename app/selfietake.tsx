@@ -5,7 +5,7 @@ import useThemeStyles from '../utils/dynamic';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { useAppSelector, useAppDispatch } from '../features/hooks';
-import { selectUser, setProcessPhoto } from '../features/auth/auth';
+import { selectUser, setImage, setProcessPhoto } from '../features/auth/auth';
 import * as ImagePicker from 'expo-image-picker'
 import { saveImageCaptured } from '../features/auth/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -31,6 +31,7 @@ const Selfietake = () => {
             console.log('results ',  result.assets[0].uri);
             let url =  result.assets[0].uri;
             setImg(url);
+            dispatch(setImage(url))
             dispatch(saveImageCaptured(url));
             
           }

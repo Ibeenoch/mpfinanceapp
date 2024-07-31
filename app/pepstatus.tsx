@@ -5,8 +5,9 @@ import useThemeStyles from '../utils/dynamic';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import Exclaimation from '../assets/exclamation-mark-sign-alert-warning-important-svgrepo-com.svg'
-import { shouldShowModal } from '../features/auth/auth';
+import { setPep, shouldShowModal } from '../features/auth/auth';
 import { useAppDispatch } from '../features/hooks';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const PepStatus = () => {
@@ -17,6 +18,16 @@ const PepStatus = () => {
     useLayoutEffect(() => {
       dispatch(shouldShowModal(false));
   }, [])
+
+  const handlePepStatus = async(str: string) => {
+    if(str === 'Yes, i am'){
+      dispatch(setPep(str));
+    }
+    if(str === "No I'm not"){
+      dispatch(setPep(str));
+    }
+   router.push('income')
+  }
 
   return (
     <View style={className`bg-black flex-1 py-6 `}>
@@ -46,11 +57,11 @@ const PepStatus = () => {
 
         
             <View style={className`flex-row absolute left-4 right-4 bottom-4 gap-2 px-4`}> 
-                <TouchableOpacity onPress={() => router.push('income')} style={className`rounded-xl w-1/2 px-8 py-4 ${currentMode === 'light' ? 'bg-[f7f7f7] border border-[#0261ef]' : 'bg-[#343631]'}`}>
+                <TouchableOpacity onPress={() => handlePepStatus("No I'm not")} style={className`rounded-xl w-1/2 px-8 py-4 ${currentMode === 'light' ? 'bg-[f7f7f7] border border-[#0261ef]' : 'bg-[#343631]'}`}>
                     <Text style={className`${currentMode === 'light' ? 'text-[#0261ef]' : 'text-[#ffd75b]'} text-center`}>No, I'm not</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => router.push('income')} style={className`rounded-xl w-1/2 px-8 py-4 ${getmode.backGroundColor}`}>
+                <TouchableOpacity onPress={() =>handlePepStatus('Yes, i am')} style={className`rounded-xl w-1/2 px-8 py-4 ${getmode.backGroundColor}`}>
                     <Text style={className`${getmode.textColorTwoInverse} text-center`}>Yes, i am</Text>
                 </TouchableOpacity>
             </View>

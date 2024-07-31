@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, useColorScheme, StyleSheet } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import className from 'twrnc'
 import useThemeStyles from '../utils/dynamic'
 import ArrowUp from '../assets/up-arrow-svgrepo-com.svg'
@@ -9,10 +9,35 @@ import { RadioButton } from 'react-native-paper'
 import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { BlurView } from 'expo-blur'
-import { useAppDispatch } from '../features/hooks'
-import { shouldShowModal } from '../features/auth/auth'
+import { useAppDispatch, useAppSelector } from '../features/hooks'
+import { selectUser, setIncome, shouldShowModal, } from '../features/auth/auth'
 import { delayNavigation } from '../utils/useIntervalHook'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
+interface Address {
+    house: string;
+    street: string;
+    stateLga: string;
+    selectedState: string;
+}
+
+interface Income {
+    selectedIncome: string;
+    selectedOccupation: string;
+    selectedValue: string;
+}
+
+interface Info {
+    email: string;
+    phone: string;
+    passcode: string;
+    nationality: string;
+    id: string;
+    address: any;
+    image: string;
+    pep: string;
+    income: any;
+  }
 
 const Income = () => {
     //custom hooks
@@ -23,6 +48,7 @@ const Income = () => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [occupationActive, setOccupationActive] = useState<boolean>(false);
     const [btnActive, setBtnActive] = useState<boolean>(false);
+    const [user, setUser] = useState<any>();
     const getmode = useThemeStyles();
     const currentMode = useColorScheme();
 
@@ -31,14 +57,9 @@ const Income = () => {
     const incomeModalRef = useRef<BottomSheetModal>(null);
     const occupationModalRef = useRef<BottomSheetModal>(null);
     const dispatch = useAppDispatch()
+    const { income } = useAppSelector(selectUser);
 
-    useEffect(() => {
-      if(showModal){
-        dispatch(shouldShowModal(true));
-        delayNavigation('attestation');
-      }
-    }, [showModal])
-    
+
     useEffect(() => {
         setBtnActive(false);
       dispatch(shouldShowModal(false));
@@ -60,6 +81,8 @@ const Income = () => {
     }, [selectedIncome, selectedOccupation, selectedValue])
     
     const snapPoints = [ '70%', '90%'];
+
+   
 
     const handleRadioPress = (item: string) => {
         setSelectedIncome(item);
@@ -176,10 +199,11 @@ const Income = () => {
     const handleNext = () => {
         if(btnActive){
             const income = {
-                selectedIncome, selectedOccupation
+                selectedIncome, selectedOccupation, selectedValue
             };
-            AsyncStorage.setItem('income', JSON.stringify(income))
-            setShowModal(true);
+            dispatch(setIncome(income))
+            dispatch(shouldShowModal(true));
+            delayNavigation('attestation');
         }
     }
   return (
@@ -197,7 +221,7 @@ const Income = () => {
         <Text style={className`text-gray-500 py-2 `}>What is your occupation</Text>
         <TouchableOpacity onPress={openOcupationModal}>
             <View style={className`${currentMode === 'light' ? "bg-[#f7f7f7]" : "bg-[#0e1a32]"} flex-row justify-between items-center rounded-lg py-2 px-4`}>
-            <Text style={className` ${ getmode.textColorTwo} py-2 px-1 `}>{selectedOccupation ? selectedOccupation : 'Select your occupation'}</Text>
+            <Text style={className` ${ getmode.textColorTwo} py-2 px-1 `}>{selectedOccupation ? selectedOccupation :  ` ${income && income.selectedOccupation ? income.selectedOccupation  :  'Select your occupation'  }` }</Text>
             <ArrowDown width={15} height={15} fill={getmode.fillColor} />  
             </View>
         </TouchableOpacity>
@@ -207,7 +231,7 @@ const Income = () => {
         <Text style={className`text-gray-500 py-2 `}>What is your annual income</Text>
         <TouchableOpacity onPress={openIncomeModal}>
         <View style={className`${currentMode === 'light' ? "bg-[#f7f7f7]" : "bg-[#0e1a32]"}  flex-row justify-between items-center rounded-lg py-2 px-4`}>
-        <Text style={className` ${ getmode.textColorTwo} py-2 px-1`}>{ selectedIncome ? selectedIncome : 'Select your annual income'}</Text>
+        <Text style={className` ${ getmode.textColorTwo} py-2 px-1`}>{ selectedIncome ? selectedIncome : ` ${income && income.selectedIncome ? income.selectedIncome  :  'Select your annual income'  }` }</Text>
           <ArrowDown width={15} height={15} fill={getmode.fillColor} />  
         </View>
         </TouchableOpacity>

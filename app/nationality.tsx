@@ -15,7 +15,7 @@ import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet
 import { RadioButton } from 'react-native-paper';
 import { BlurView } from 'expo-blur';
 import { useAppDispatch, } from '../features/hooks';
-import { setSelectionModal, shouldShowModal } from '../features/auth/auth';
+import { setNationality, setSelectionModal, shouldShowModal } from '../features/auth/auth';
 import HeaderStatus from '../components/HeaderStatus';
 import useThemeStyles from '../utils/dynamic';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -23,10 +23,9 @@ import { delayNavigation } from '../utils/useIntervalHook';
 
 
 const Nationality = () => {
-    const [selectedValue, setSelectedValue] = useState<string>('java');
+    const [selectedValue, setSelectedValue] = useState<string>('Nigeria');
     const [countryActive, setcountryActive] = useState<boolean>(false);
-    const [countryLists, setcountryLists] = useState<string[]>([]);
-    const [selectedState, setSelectedState] = useState<string>('');
+    const [selectedState, setSelectedState] = useState<string>('Nigeria');
     const [selectedflag, setSelectedFlag] = useState<string>('');
     const [showModal, setShowModal] = useState<boolean>(false);
     const countryModalRef = useRef<BottomSheetModal>(null);
@@ -34,14 +33,6 @@ const Nationality = () => {
     const currentMode = useColorScheme();
     const dispatch = useAppDispatch();
 
-    
-
-    useEffect(() => {
-      if(showModal){
-        dispatch(shouldShowModal(true));
-        delayNavigation('verification');
-      }
-    }, [showModal])
     
     useEffect(() => {
       dispatch(shouldShowModal(false));
@@ -857,9 +848,11 @@ const closeModal = () => {
     countryModalRef.current?.dismiss();
 }
 
-const handleNext = () => {
-    AsyncStorage.setItem('nationality', JSON.stringify(selectedValue));
-    setShowModal(true);
+const handleNext = async() => {
+    dispatch(setNationality(selectedState))
+    // setShowModal(true);
+    dispatch(shouldShowModal(true));
+    delayNavigation('verification');
 }
 
   const snapPoints = [ '60%', '80%']
