@@ -107,10 +107,15 @@ const  Signup = () => {
       if(referral){
        await AsyncStorage.setItem('referral', JSON.stringify(referral))
       }
-    //  await AsyncStorage.setItem('phone', JSON.stringify(phone))
-      phone && dispatch(setPhoneNum(phone));
+      if(phone){
+     
+      const formattedPhoneNumber = phone.replace(/\s+/g, '');
+      console.log(formattedPhoneNumber); // Output: 1234567890
+      phone && dispatch(setPhoneNum(formattedPhoneNumber));
       phone && dispatch(verifyPhoneNum(phone)).then((res: any) => {
         console.log(res)
+        if(res && res.payload !== undefined){
+        }
       })
       setShowModal(true);
       dispatch(shouldShowModal(true));
@@ -118,8 +123,9 @@ const  Signup = () => {
       setreferral('');
       setBtnActive(false);    
       setIsInputErr(false);    
-      delayNavigation('verifyphone')
-      // delayNavigation();
+      delayNavigation('verifyphone') 
+      
+    }
     }
 
 
