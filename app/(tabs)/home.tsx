@@ -64,7 +64,6 @@ const windowWidth = Dimensions.get('window').width;
 
     return () => {
       clearInterval(intervalId);
-      scrollX.removeAllListeners();
     }
   }, []);
 
@@ -133,13 +132,13 @@ const stopHomeSkeleton = () => {
                 </Skeleton>
             
 
-            <View style={className` px-4 flex-row items-center justify-between rounded-xl ${getmode.dasboardBackgroundButtonColor}`}>
+            <View style={className` pl-4 flex-row items-center justify-between rounded-xl ${getmode.dasboardBackgroundButtonColor}`}>
             <Skeleton  height={30} width={80} {...skeletonCommonProps} >
               <Text style={className`${getmode.textColorTwoInverse} font-bold text-xl`}>₦0.00</Text>
             </Skeleton>
             <Skeleton  height={35} width={100} {...skeletonCommonProps} >
-              <View style={className`flex-row items-center gap-1 p-4`}>
-                <Text  style={className`text-xs ${getmode.textColorTwoInverse}`}>History</Text>
+              <View style={className`flex-row items-center gap-1 ml-4 p-4`}>
+                <Text  style={className`text-xs font-semibold ${getmode.textColorTwoInverse}`}>History</Text>
                 <ArrowRight width={15} height={15} strokeWidth={3} stroke={getmode.fillColorInverse} />
               </View>
               </Skeleton>
@@ -227,7 +226,6 @@ const stopHomeSkeleton = () => {
           })}
           
         </View>
-          {/* </Skeleton> */}
 
           <Text style={className`py-3 text-left text-gray-500`}>Make Payment</Text>
           <Skeleton  height={70} width={300}
@@ -236,7 +234,7 @@ const stopHomeSkeleton = () => {
           <View style={className`flex-row gap-3 pb-4`}>
             
             <View style={className`flex-col rounded-xl p-2 ${getmode.dasboardBackgroundSecondLayerColor} `}>
-                <View style={className`flex justify-center items-center`}>
+                <View style={className`flex justify-center items-center  px-1 py-2 rounded-xl ${currentMode === 'light' ? 'bg-[#f2f7fe]' : 'bg-[#192434]'} `}>
                   {
                     currentMode === 'light' ? (
                       <TransferLight width={25} height={25}  fill={getmode.dasboardSvgButton} />
@@ -245,11 +243,11 @@ const stopHomeSkeleton = () => {
                     )
                   }
                 </View>
-                <Text style={className`text-gray-500 text-md`}>Transfer</Text>
+                <Text style={className`text-gray-500 text-xs font-bold`}>Transfer</Text>
             </View>
 
             <View style={className`flex-col rounded-xl p-2 ${getmode.dasboardBackgroundSecondLayerColor} `}>
-                <View style={className`flex justify-center items-center `}>
+                <View style={className`flex justify-center items-center p-2 rounded-xl ${currentMode === 'light' ? 'bg-[#f2f7fe]' : 'bg-[#192434]'} `}>
                   {
                     currentMode === 'light' ? (
                       <TopUpBlue width={25} height={25}  fill={getmode.dasboardSvgButton} stroke={getmode.dasboardSvgButton}  />
@@ -258,14 +256,14 @@ const stopHomeSkeleton = () => {
                     )
                   }
                 </View>
-                <Text style={className`text-gray-500 text-md`}>Top-Up</Text>
+                <Text style={className`text-gray-500 text-xs font-bold`}>Top-Up</Text>
             </View>
 
             <View style={className`flex-col rounded-xl p-2 ${getmode.dasboardBackgroundSecondLayerColor} `}>
-                <View style={className`flex justify-center items-center `}>
+                <View style={className`flex justify-center items-center  py-2 rounded-xl ${currentMode === 'light' ? 'bg-[#f2f7fe]' : 'bg-[#192434]'} `}>
                   <Bookmark width={25} height={25}  fill={getmode.dasboardSvgButton}  />
                 </View>
-                <Text style={className`text-gray-500 text-md`}>Pay Bills</Text>
+                <Text style={className`text-gray-500 text-xs font-bold`}>Pay Bills</Text>
             </View>
 
           </View>
@@ -281,7 +279,7 @@ const stopHomeSkeleton = () => {
                     <Text style={className`text-sm font-bold text-black`}>₦0.00</Text>
                 </View>
                 
-                    <View style={className`flex-row w-[327px] items-center justify-between -ml-4  p-4 rounded-lg bg-[#142f5c] `}>
+                    <View style={className`flex-row w-[330px] items-center justify-between -ml-4  p-4 rounded-lg bg-[#142f5c] `}>
                       <Text style={className`text-sm ${getmode.textColor}`}>No recent transaction</Text>
                       <View style={className`p-2 rounded-full bg-[#000]`}>
                         <ArrowRight width={13} height={13} strokeWidth={3} stroke={getmode.fillColor} />
@@ -380,7 +378,7 @@ const styles = StyleSheet.create({
     height: 110,
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 8
+    marginVertical: 7
   },
   card: {
     flex: 1,
@@ -403,17 +401,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   normalDot: {
-    height: 8,
-    width: 8,
+    height: 5,
+    width: 5,
     borderRadius: 4,
     backgroundColor: '#ffd75b',
-    marginHorizontal: 4,
+    marginHorizontal: 1,
   },
   indicatorContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 1,
   },
 });
 
