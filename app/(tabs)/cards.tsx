@@ -29,7 +29,7 @@ const Cards = () => {
 const stopCardSkeleton = () => {
   const stopSkeletonInterval = setTimeout(() => {
     dispatch(setSkeletonCard(false));
-  }, 3000)
+  }, 2000)
 
   return () => clearTimeout(stopSkeletonInterval)
 };

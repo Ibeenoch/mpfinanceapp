@@ -22,22 +22,20 @@ const SignUpEmail = () => {
       Keyboard.dismiss();
     }, [])
 
+   useEffect(() => {
+        dispatch(shouldShowModal(false));
+    }, [])
 
-    // useEffect(() => {
-    //   if(showModal){
-    //     dispatch(shouldShowModal(true));
-    //     delayNavigation('passcode');
-    //   }
-    // }, [showModal])
+    useEffect(() => {
+      if(email){
+        handleBlurEvent()
+      }
+    }, [email])
+
     const validateEmail = (email: string) => {
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       return emailRegex.test(email);
     };
-
-    useEffect(() => {
-        dispatch(shouldShowModal(false));
-    }, [])
-
 
 
     const handleNext = async() => {
@@ -49,6 +47,7 @@ const SignUpEmail = () => {
       dispatch(shouldShowModal(true));
       delayNavigation('passcode');
     }
+    
 
     const handleText = (e: string) => {
       setEmail(e);

@@ -221,7 +221,7 @@ const Income = () => {
         <Text style={className`text-gray-500 py-2 `}>What is your occupation</Text>
         <TouchableOpacity onPress={openOcupationModal}>
             <View style={className`${currentMode === 'light' ? "bg-[#f7f7f7]" : "bg-[#0e1a32]"} flex-row justify-between items-center rounded-lg py-2 px-4`}>
-            <Text style={className` ${ getmode.textColorTwo} py-2 px-1 `}>{selectedOccupation ? selectedOccupation :  ` ${income && income.selectedOccupation ? income.selectedOccupation  :  'Select your occupation'  }` }</Text>
+            <Text style={className` ${ getmode.textColorTwo} py-2 px-1 `}>{selectedOccupation ? selectedOccupation :    'Select your occupation'  }</Text>
             <ArrowDown width={15} height={15} fill={getmode.fillColor} />  
             </View>
         </TouchableOpacity>
@@ -231,7 +231,7 @@ const Income = () => {
         <Text style={className`text-gray-500 py-2 `}>What is your annual income</Text>
         <TouchableOpacity onPress={openIncomeModal}>
         <View style={className`${currentMode === 'light' ? "bg-[#f7f7f7]" : "bg-[#0e1a32]"}  flex-row justify-between items-center rounded-lg py-2 px-4`}>
-        <Text style={className` ${ getmode.textColorTwo} py-2 px-1`}>{ selectedIncome ? selectedIncome : ` ${income && income.selectedIncome ? income.selectedIncome  :  'Select your annual income'  }` }</Text>
+        <Text style={className` ${ getmode.textColorTwo} py-2 px-1`}>{ selectedIncome ? selectedIncome :   'Select your annual income' }</Text>
           <ArrowDown width={15} height={15} fill={getmode.fillColor} />  
         </View>
         </TouchableOpacity>

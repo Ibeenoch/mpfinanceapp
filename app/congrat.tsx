@@ -15,12 +15,6 @@ const Congrats = () => {
     const getmode = useThemeStyles();
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-      if(showModal){
-        dispatch(shouldShowModal(true));
-        delayNavigation('(tabs)/home');
-      }
-    }, [showModal])
     
     useLayoutEffect(() => {
       dispatch(shouldShowModal(false));
@@ -31,7 +25,8 @@ const Congrats = () => {
         dispatch(setSkeletonHome(true));
         dispatch(setSkeletonCard(true));
         dispatch(setSkeletonSaving(true));
-        setShowModal(true);
+        dispatch(shouldShowModal(true));
+        delayNavigation('(tabs)/home');
     }
 
   return (

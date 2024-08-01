@@ -48,19 +48,24 @@ const Home = () => {
 const {width: windowWidth} = useWindowDimensions();
 
 
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     if (scrollRef.current) {
-  //       // const currentOffset = scrollRef.current?.contentOffset.x;
-  //       const currentOffset = scrollRef.current?.scrollTo;
-  //       const nextOffset = currentOffset + windowWidth;
-  //       scrollRef.current.scrollTo({ x: nextOffset, animated: true });
-  //     }
-  //   }, 3000); // Adjust the interval time as needed
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+     scrollX.addListener(({value}) => {
+      const nextIndex = Math.ceil(value/windowWidth);
 
-  //   setIntervalId(intervalId);
-  //   return () => clearInterval(intervalId);
-  // }, [windowWidth]);
+      Animated.timing(scrollX, {
+        toValue: nextIndex * windowWidth,
+        duration: 200,
+        useNativeDriver: false,
+      }).start()
+     })
+    }, 3000); // 
+
+    return () => {
+      clearInterval(intervalId);
+      scrollX.removeAllListeners();
+    }
+  }, [windowWidth]);
 
 
 
@@ -74,7 +79,7 @@ const {width: windowWidth} = useWindowDimensions();
 const stopHomeSkeleton = () => {
   const stopSkeletonInterval = setTimeout(() => {
     dispatch(setSkeletonHome(false));
-  }, 3000)
+  }, 2000)
 
   return () => clearTimeout(stopSkeletonInterval)
 }

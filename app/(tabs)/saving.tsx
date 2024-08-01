@@ -21,7 +21,7 @@ const Saving = () => {
 const stopSavingSkeleton = () => {
   const stopSkeletonInterval = setTimeout(() => {
     dispatch(setSkeletonSaving(false));
-  }, 3000)
+  }, 2000)
 
   return () => clearTimeout(stopSkeletonInterval)
 }

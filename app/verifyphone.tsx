@@ -95,7 +95,6 @@ const Verifyphone = () => {
       setResend(true);
     }
 
-    console.log('resend ', resend)
     const closeModal = () => {
       setResend(false);
       resendModalRef.current?.dismiss();
@@ -158,7 +157,7 @@ const Verifyphone = () => {
             <View style={className`${ colorScheme === 'light' ? 'bg-[#e6edfd]' : 'bg-[#19212c]'} py-3 px-6 rounded-lg flex-row items-center justify-between`}>
                 <View style={className`flex-row items-center gap-2`}>
                     <View style={className` ${colorScheme === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]' }  rounded-full p-1`}>
-                    <Exclaimation width={11} height={11} strokeWidth={4}   fill={`${colorScheme === 'light' ?  'black' : 'black' }`} />
+                    <Exclaimation width={11} height={11} strokeWidth={4}    fill={`${colorScheme === 'light' ?  'white' : 'white' }`} />
                     </View>
                     <Text style={className`text-xs ${colorScheme === 'light' ? 'text-black' : 'text-white'} `}>Didn't get OTP?</Text>
                 </View>

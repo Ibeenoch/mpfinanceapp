@@ -122,28 +122,28 @@ const Passcode = () => {
         <View style={className`mx-4 my-6 p-4 rounded-xl ${currentMode === 'light' ? '' : ''}`}>
         <View style={className`flex-row flex-wrap w-full justify-between gap-2 mb-2`}>
           {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(num => (
-              <TouchableOpacity onPress={() => updateNum(num)} style={className`rounded-full p-6 w-[25%] ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#1a263e]'}`} >
+              <TouchableOpacity onPress={() => updateNum(num)} style={className`rounded-full p-6 w-[27%] ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#1a263e]'}`} >
                 <View key={num} >
                     <Text style={className`font-bold text-2xl text-center ${currentMode === 'light' ? 'text-black' : 'text-white bg-[#1a263e]'}`}>{num}</Text>
                 </View>
               </TouchableOpacity>
           ))}
 
-                <TouchableOpacity onPress={deleteLastNum}  style={className`rounded-full p-6 w-[25%]  ${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#1a263e]'}` } >
+                <TouchableOpacity onPress={deleteLastNum}  style={className`rounded-full p-6 w-[27%]  ${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#1a263e]'}` } >
                   <View >
                         <DeleteIcon width={30} height={30} fill={ `${ currentMode === 'light' ? 'gray' : '#b9c1ce'}`} stroke={'white'}  />
                   </View>
                 </TouchableOpacity>              
 
 
-                <TouchableOpacity onPress={() => updateNum('0')}  style={className`rounded-full p-6 w-[25%]  ${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#1a263e]'}` } >
+                <TouchableOpacity onPress={() => updateNum('0')}  style={className`rounded-full p-6 w-[27%]  ${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#1a263e]'}` } >
                <View >
                 <Text style={className`font-bold text-2xl text-center ${currentMode === 'light' ? 'text-black' : 'text-white bg-[#1a263e]'}`}>0</Text>
                </View>
                 </TouchableOpacity>              
 
-                <TouchableOpacity onPress={handleNext} style={className`rounded-full flex-row justify-center p-6 w-[25%]  ${ currentMode === 'light' ? `${passcodeReady ? 'bg-[#0261ef]' : 'bg-[#e6edfd]'   } ` : `${passcodeReady ? 'bg-[#ffd75b]' : 'bg-[#1a263e]'  }`  }` }>
-                          <ArrowForward  width={30} height={30} fill={currentMode === 'light' ? 'gray' : 'white' } stroke={currentMode === 'light' ? 'gray' : 'white' } />
+                <TouchableOpacity onPress={handleNext} style={className`rounded-full flex-row justify-center p-6 w-[27%]  ${ currentMode === 'light' ? `${passcodeReady ? 'bg-[#0261ef]' : 'bg-[#e6edfd]'   } ` : `${passcodeReady ? 'bg-[#ffd75b]' : 'bg-[#1a263e]'  }`  }` }>
+                          <ArrowForward  width={30} height={30} fill={currentMode === 'light' ? 'white' : 'white' } stroke={currentMode === 'light' ? 'gray' : 'white' } />
                 </TouchableOpacity> 
               
 

@@ -1,5 +1,5 @@
-import { View, Text, useColorScheme, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, useColorScheme, TouchableOpacity, Pressable } from 'react-native'
+import React, { useState } from 'react'
 import { router, Tabs } from 'expo-router'
 import HomeIcon from '../../assets/home-inactive.svg'
 import HomeIconOrange from '../../assets/home-orange.svg'
@@ -27,23 +27,25 @@ import ArrowForward from '../../assets/arrow-forward-simple-svgrepo-com.svg';
 import Signal from '../../assets/signal-02-svgrepo-com.svg'
 import { Image } from 'expo-image';
 import { useAppDispatch, useAppSelector } from '../../features/hooks'
-import { selectUser, setActiveTab, setMainModalActive } from '../../features/auth/auth'
+import { selectUser,   } from '../../features/auth/auth'
 import { BlurView } from 'expo-blur'
 import { Skeleton } from 'moti/skeleton'
 
 
 const  Tablayout = () => {
+  const [activeTabs, setActiveTab ] = useState<string>('')
+  const [mainModal, setMainModal ] = useState<boolean>(false)
   const getmode = useThemeStyles();
   const currentMode = useColorScheme();
   const dispatch = useAppDispatch();
-  const { activeTabs, mainModalActive, skeletonHome } = useAppSelector(selectUser);
+  const { skeletonHome } = useAppSelector(selectUser);
 
   const cancelMainModal = () => {
-    dispatch(setMainModalActive(false))
+    setMainModal(false)
   }
 
   const openMainModal = () => {
-    dispatch(setMainModalActive(true))
+    setMainModal(true)
   }
 
   const skeletonCommonProps = {
@@ -111,10 +113,10 @@ const  Tablayout = () => {
             },
 
             tabBarButton: (props) => (
-              <TouchableOpacity {...props} 
+              <Pressable {...props} 
               onPress={() => {
                 router.push('home')
-                dispatch(setActiveTab('home'))
+                setActiveTab('home')
               }}
               />
             ),
@@ -142,10 +144,10 @@ const  Tablayout = () => {
               color: currentMode === 'light' ? `${activeTabs === 'card' ? '#0261ef' : '#9eacc7'}` : `${activeTabs === 'card' ? '#ffd75b' : '#b9c1ce'}`,
             },
             tabBarButton: (props) => (
-              <TouchableOpacity {...props} 
+              <Pressable {...props} 
               onPress={() => {
                 router.push('cards');
-                dispatch(setActiveTab('card'));
+                setActiveTab('card')
               }}
               />
             ),
@@ -159,13 +161,20 @@ const  Tablayout = () => {
             }
         }}/>
         <Tabs.Screen name='main' options={{
-              title: '',           
+              title: '', 
+              tabBarButton: (props) => (
+                <Pressable {...props} 
+                onPress={() => {
+                  
+                }}
+                />
+              ),          
             tabBarIcon: ({ color, size}) => {
               return <View style={className`${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]' } mb-4 p-2 rounded-full`}>
                         {
-                          mainModalActive  ? (
-                            <View style={className` ${currentMode === 'light' ? 'bg-[#0261ef]' : `bg-[#ffd75b]`} p-8 flex-row justify-center items-center rounded-full`}>
-                            <TouchableOpacity style={className`flex-row justify-center items-center`} onPress={cancelMainModal}>
+                          mainModal  ? (
+                            <View style={className`${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]' } p-8 flex-row justify-center items-center rounded-full`}>
+                            <Pressable style={className`flex-row justify-center items-center`} onPress={cancelMainModal}>
                               {
                                 currentMode === 'light' ? (
                                   <Times width={25} height={25} strokeWidth={2} stroke={'#ffffff'} fill={'#ffffff'} />
@@ -174,11 +183,11 @@ const  Tablayout = () => {
                                   <Times width={25} height={25} strokeWidth={2} stroke={'#000000'} fill={'#000000'} />
                                 )
                               }
-                            </TouchableOpacity>
+                            </Pressable>
                             </View>
                           ) : (
-                            <View style={className`${currentMode === 'light' ? `bg-[#0261ef]` : `bg-[#ffd75b]`} p-8 flex-row justify-center items-center rounded-full`}>
-                            <TouchableOpacity style={className`flex-row justify-center  items-center`}  onPress={openMainModal}>
+                            <View style={className`${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'} p-8 flex-row justify-center items-center rounded-full`}>
+                            <Pressable style={className`flex-row justify-center  items-center`}  onPress={openMainModal}>
                             {
                                 currentMode === 'light' ? (
                                   <Plus width={25} height={25} strokeWidth={2} stroke={'#ffffff'} fill={'#ffffff'} />
@@ -186,7 +195,7 @@ const  Tablayout = () => {
                                   <Plus width={25} height={25} strokeWidth={2} stroke={'#000000'} fill={'#000000'} />
                                 )
                               }
-                            </TouchableOpacity>
+                            </Pressable>
                             </View>
                           )
                         }
@@ -210,10 +219,10 @@ const  Tablayout = () => {
               color: currentMode === 'light' ? `${activeTabs === 'saving' ? '#0261ef' : '#9eacc7'}` : `${activeTabs === 'saving' ? '#ffd75b' : '#b9c1ce'}`,            
             },
             tabBarButton: (props) => (
-              <TouchableOpacity {...props} 
+              <Pressable {...props} 
               onPress={() => {
                 router.push('saving')
-                dispatch(setActiveTab('saving'))
+                setActiveTab('saving')
               }}
               />
             ),
@@ -233,10 +242,10 @@ const  Tablayout = () => {
               fontWeight: 400,
               color: currentMode === 'light' ? `${activeTabs === 'salary' ? '#0261ef' : '#9eacc7'}` : `${activeTabs === 'salary' ? '#ffd75b' : '#b9c1ce'}`,            },
             tabBarButton: (props) => (
-              <TouchableOpacity {...props} 
+              <Pressable {...props} 
               onPress={() => {
                 router.push('salary')
-                dispatch(setActiveTab('salary'));
+                setActiveTab('salary')
               }}
               />
             ),
@@ -254,7 +263,7 @@ const  Tablayout = () => {
 
             {/* the main modal  */}
             {
-              mainModalActive &&    ( 
+              mainModal &&    ( 
                   <BlurView style={{ zIndex: 0, width: '90%', height: '100%', position: 'absolute', marginLeft: 18 }} experimentalBlurMethod='dimezisBlurView' tint='regular' intensity={10}>
                     
                     <View style={className`flex-1 absolute bottom-28 rounded-lg w-full z-4  left-0  p-4 ${currentMode === 'light' ? 'bg-[#ffffff]' : 'bg-[#000e28]'}`}>
