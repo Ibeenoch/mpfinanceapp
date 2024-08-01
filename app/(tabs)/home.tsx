@@ -312,7 +312,7 @@ const stopHomeSkeleton = () => {
           <View style={className`rounded-xl w-full px-4 pt-4 pb-8 ${getmode.dasboardBackgroundSecondLayerColor}`}>
             <View style={className`flex-row gap-1 mb-2 items-center ${currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#19212c]'}  max-w-[95px] p-2 rounded-lg`}>
               <Text style={className`${currentMode === 'light' ? 'text-[#0261ef]' :'text-[#ffd75b]'  } font-bold text-left text-xs `}>This Week </Text>
-              <ArrowDown width={8} height={8} strokeWidth={6} fill={`${currentMode === 'light' ? '#0261ef' : '#ffd75b'}`} />
+              <ArrowDown width={8} height={8} strokeWidth={3} fill={`${currentMode === 'light' ? '#0261ef' : '#ffd75b'}`} />
             </View>
 
             <View style={className`p-3 rounded-xl ${getmode.secondLayerBgColor}`}>
