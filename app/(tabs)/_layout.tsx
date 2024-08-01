@@ -7,7 +7,8 @@ import HomeIconBlue from '../../assets/home-blue.svg'
 import CardBlue from '../../assets/credit-card-01-blue.svg';
 import CardOrange from '../../assets/credit-card-01-orange.svg';
 import CardInactive from '../../assets/credit-card-inactive.svg';
-import Plus from '../../assets/up-arrow-svgrepo-com (1).svg';
+import Plus from '../../assets/up-arrow-svgr.svg';
+import PlusWhite from '../../assets/up-arrow-svgrwhite.svg';
 import Times from '../../assets/cross-svgrepo-com.svg';
 import SafeBoxBlue from '../../assets/safebox-blue.svg';
 import SafeBoxYellow from '../../assets/safebox-yellow.svg';
@@ -61,7 +62,7 @@ const  Tablayout = () => {
     <>
     <Tabs screenOptions={{
       headerRight: () => {
-        return <View style={className`flex-row gap-3 pr-4`}>
+        return <View style={className`flex-row gap-1 pr-4`}>
           <Skeleton show={skeletonHome} height={30} width={40} {...skeletonCommonProps} radius={'round'} >
             <Bell width={25}  height={25} fill={`${currentMode === 'light' ? `#9eacc7` : `#b9c1ce`}`}  />
             </Skeleton>
@@ -177,10 +178,10 @@ const  Tablayout = () => {
                             <Pressable style={className`flex-row justify-center items-center`} onPress={cancelMainModal}>
                               {
                                 currentMode === 'light' ? (
-                                  <Times width={25} height={25} strokeWidth={2} stroke={'#ffffff'} fill={'#ffffff'} />
+                                  <Times width={25} height={25} strokeWidth={0.1} stroke={'#ffffff'} fill={'#ffffff'} />
 
                                 ) : (
-                                  <Times width={25} height={25} strokeWidth={2} stroke={'#000000'} fill={'#000000'} />
+                                  <Times width={25} height={25} strokeWidth={0.1} stroke={'#000000'} fill={'#000000'} />
                                 )
                               }
                             </Pressable>
@@ -190,9 +191,9 @@ const  Tablayout = () => {
                             <Pressable style={className`flex-row justify-center  items-center`}  onPress={openMainModal}>
                             {
                                 currentMode === 'light' ? (
-                                  <Plus width={25} height={25} strokeWidth={2} stroke={'#ffffff'} fill={'#ffffff'} />
+                                  <PlusWhite width={25} height={25} strokeWidth={0.2}  stroke={'#ffffff'}  fill={'#ffffff'} />
                                 ) : (
-                                  <Plus width={25} height={25} strokeWidth={2} stroke={'#000000'} fill={'#000000'} />
+                                  <Plus width={25} height={25} strokeWidth={0.2} stroke={'#000'}  fill={'#000000'} />
                                 )
                               }
                             </Pressable>

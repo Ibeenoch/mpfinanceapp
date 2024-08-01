@@ -1,5 +1,5 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useLayoutEffect } from 'react'
 import className from 'twrnc';
 import useThemeStyles from '../utils/dynamic';
 import Bulb from '../assets/light_bulb_icon_152593.svg'
@@ -15,7 +15,7 @@ const Photocapture = () => {
     const getmode = useThemeStyles();
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
       dispatch(shouldShowModal(false));
   }, [])
 
@@ -25,7 +25,7 @@ const Photocapture = () => {
         exif: true,
         cameraType: ImagePicker.CameraType.front,
         allowsEditing: true,
-        aspect: [1, 1],
+        aspect: [4, 5],
       })
 
       if(!result.canceled){

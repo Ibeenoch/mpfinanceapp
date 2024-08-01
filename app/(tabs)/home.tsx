@@ -9,6 +9,7 @@ import {
   useWindowDimensions,
   Pressable,
   useColorScheme,
+  Dimensions,
 } from 'react-native';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import className from 'twrnc';
@@ -45,27 +46,27 @@ const Home = () => {
     dispatch(shouldShowModal(false));
 }, [])
 
-const {width: windowWidth} = useWindowDimensions();
+// const {width: windowWidth} = useWindowDimensions();
+const windowWidth = Dimensions.get('window').width;
 
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-     scrollX.addListener(({value}) => {
-      const nextIndex = Math.ceil(value/windowWidth);
-
-      Animated.timing(scrollX, {
-        toValue: nextIndex * windowWidth,
-        duration: 200,
-        useNativeDriver: false,
-      }).start()
-     })
+      setCurrentIndex((prevIndex) => {
+        const nextIndex = (prevIndex + 1) % images.length;
+        scrollRef.current?.scrollTo({
+          x: nextIndex * (windowWidth - 30),
+          animated: true,
+        });
+        return nextIndex;
+      });
     }, 3000); // 
 
     return () => {
       clearInterval(intervalId);
       scrollX.removeAllListeners();
     }
-  }, [windowWidth]);
+  }, []);
 
 
 
@@ -103,7 +104,7 @@ const stopHomeSkeleton = () => {
   return (
     <ScrollView >
       <Skeleton.Group show={skeletonHome} >
-      <View style={className`pl-4 pr-4 pt-4 pb-24 flex-1 ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}`}>
+      <View style={className`pl-4 pr-4 pt-4 pb-34 flex-1 ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}`}>
 
           <View style={className`rounded-xl ${getmode.dasboardBackgroundSecondLayerColor} p-4 `}>
             
@@ -162,12 +163,7 @@ const stopHomeSkeleton = () => {
             
           </View>
 
-          {/* <Skeleton show height={160} width={330} 
-                  {...skeletonCommonProps}
-                  > */}
-          {/* <View style={className`my-6 w-full`}>
-            <Image source={require('../../assets/s13.png')}   style={className`rounded-xl w-full h-30`} />
-          </View> */}
+         
 
           <View style={styles.scrollContainer}>
         <ScrollView
@@ -209,10 +205,23 @@ const stopHomeSkeleton = () => {
               outputRange: [4, 8, 4],
               extrapolate: 'clamp',
             });
+            const backgroundColor = scrollX.interpolate({
+              inputRange: [
+                windowWidth * (imageIndex - 1),
+                windowWidth * imageIndex,
+                windowWidth * (imageIndex + 1),
+              ],
+              outputRange: [
+                `${currentMode === 'light' ? 'gray' : 'rgba(255, 255, 255, 0.5)'}`, // Inactive color
+                `${currentMode === 'light' ? '#0261ef' : '#ffd75b'}`, // Active color
+                `${currentMode === 'light' ? 'gray' : 'rgba(255, 255, 255, 0.5)'}`, // Inactive color
+              ],
+              extrapolate: 'clamp',
+            });
             return (
               <Animated.View
                 key={imageIndex}
-                style={[styles.normalDot, {width}]}
+                style={[styles.normalDot, {width, backgroundColor}]}
               />
             );
           })}
@@ -304,8 +313,8 @@ const stopHomeSkeleton = () => {
           <Skeleton  height={250} width={330} {...skeletonCommonProps}  >
           <View style={className`rounded-xl w-full px-4 pt-4 pb-8 ${getmode.dasboardBackgroundSecondLayerColor}`}>
             <View style={className`flex-row gap-1 mb-2 items-center ${currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#19212c]'}  max-w-[95px] p-2 rounded-lg`}>
-              <Text style={className`${currentMode === 'light' ? 'text-[#5f9af6]' :'text-[#ffd75b]'  } text-left text-xs `}>This Week </Text>
-              <ArrowDown width={8} height={8} strokeWidth={6} fill={'#ffd75b'} />
+              <Text style={className`${currentMode === 'light' ? 'text-[#0261ef]' :'text-[#ffd75b]'  } font-bold text-left text-xs `}>This Week </Text>
+              <ArrowDown width={8} height={8} strokeWidth={6} fill={`${currentMode === 'light' ? '#0261ef' : '#ffd75b'}`} />
             </View>
 
             <View style={className`p-3 rounded-xl ${getmode.secondLayerBgColor}`}>
