@@ -89,15 +89,17 @@ const Verifyphone = () => {
         dispatch(shouldShowModal(true));
         const phone = await AsyncStorage.getItem('phone');
         const numData = { phone };
-        dispatch(verifyPhoneNum(numData)).then((res: any) => {
-          if(res && res.payload && res.payload.message  && res.payload.message === "user does not exist"){
-            const data = { otp: arrNum.join(''), phone };
-            dispatch(verifyPhoneNum(data))
-            delayNavigation('signupemail');
-          }else{
-            delayNavigation('userexist');
-          }
-        })
+        // dispatch(verifyPhoneNum(numData)).then((res: any) => {
+        //   if(res && res.payload && res.payload.message  && res.payload.message === "user does not exist"){
+        //     const data = { otp: arrNum.join(''), phone };
+        //     dispatch(verifyPhoneNum(data))
+        //     delayNavigation('signupemail');
+        //   }else{
+        //     delayNavigation('userexist');
+        //   }
+        // })
+
+        delayNavigation('signupemail');
         
     }
 

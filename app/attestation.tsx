@@ -73,11 +73,11 @@ const Attestation = () => {
            
             dispatch(shouldShowModal(true));
             delayNavigation('congrat');
-            const formData = { email, passcode, phone, pep, address, income, nationality, id, image };
-            console.log(formData);
-            dispatch(signUp(formData) as any).then((res: any) => {
-                console.log('res user signup ', res)
-            })
+            // const formData = { email, passcode, phone, pep, address, income, nationality, id, image };
+            // console.log(formData);
+            // dispatch(signUp(formData) as any).then((res: any) => {
+            //     console.log('res user signup ', res)
+            // })
         }
     }
 
