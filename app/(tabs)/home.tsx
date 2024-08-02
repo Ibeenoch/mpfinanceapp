@@ -40,7 +40,7 @@ const Home = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const scrollRef = useRef<ScrollView>(null);
   const dispatch = useAppDispatch();
-  const { skeletonHome } = useAppSelector(selectUser);
+  const { skeletonHome, } = useAppSelector(selectUser);
 
   useLayoutEffect(() => {
     dispatch(shouldShowModal(false));

@@ -39,7 +39,7 @@ const  Tablayout = () => {
   const getmode = useThemeStyles();
   const currentMode = useColorScheme();
   const dispatch = useAppDispatch();
-  const { skeletonHome } = useAppSelector(selectUser);
+  const { skeletonHome, imageUrl } = useAppSelector(selectUser);
 
   const cancelMainModal = () => {
     setMainModal(false)
@@ -75,7 +75,7 @@ const  Tablayout = () => {
        return     <Skeleton show={skeletonHome} height={50} width={140} {...skeletonCommonProps} radius={'round'} >
                     <View style={className`flex-row pl-4 gap-3 items-center`}>
                       <TouchableOpacity onPress={viewProfile}>
-                        <Image source={require('../../assets/s14.png')} style={className`w-9 h-9 px-2 rounded-xl`} />
+                        <Image source={imageUrl !== '' ? imageUrl : require('../../assets/s14.png')} style={className`w-9 h-9 px-2 rounded-xl`} />
                       </TouchableOpacity>
                         <Text style={className`text-sm font-semibold py-1 px-2 rounded-xl ${`${currentMode === 'light' ? `bg-[#fdf3e9] text-[#f3a352]` : `bg-[#312726] text-[#de8d3c]`}`} `}>Level 1</Text>
                     </View>

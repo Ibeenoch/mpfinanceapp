@@ -29,7 +29,7 @@ const Nationality = () => {
     const { isEditNationationality, nationality } = useAppSelector(selectUser)
     const [selectedState, setSelectedState] = useState<string>( isEditNationationality ? nationality : 'Nigeria');
     const [selectedflag, setSelectedFlag] = useState<string>('');
-    const [showModal, setShowModal] = useState<boolean>(false);
+    const [isSelectedflag, setIsSelectedflag] = useState<boolean>(false);
     const countryModalRef = useRef<BottomSheetModal>(null);
     const getmode = useThemeStyles();
     const currentMode = useColorScheme();
@@ -58,6 +58,7 @@ const Nationality = () => {
     setSelectedState(value);
     setSelectedFlag(f);
    dispatch(setNationalityFlag(f));
+   setIsSelectedflag(true);
   }
 
 
@@ -75,6 +76,9 @@ const closeModal = () => {
 }
 
 const handleNext = async() => {
+    if(!isSelectedflag){
+        dispatch(setNationalityFlag(''))
+    }
     dispatch(setNationality(selectedState))
     dispatch(shouldShowModal(true));
     dispatch(setEditNationality(false));

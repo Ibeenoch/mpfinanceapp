@@ -108,7 +108,7 @@ const Attestation = () => {
             <View style={className`w-full flex-col rounded-xl p-2  ${ getmode.secondLayerBgColorAsh}  `}>
                     <View style={className`flex-row rounded-tl-xl rounded-bl-xl items-center p-2 `}>
                         <Image source={nationalityFlag ? nationalityFlag : 
-                            require('../assets/flag.png')} style={className`w-8 h-8`} />
+                            require('../assets/flag.png')} style={className`w-8 h-8 rounded-full`} />
                         <Text style={className` px-1 ${getmode.textColorTwo}`}>{nationality}</Text>
                     </View>
 

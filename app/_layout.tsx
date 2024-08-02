@@ -16,7 +16,7 @@ import HeaderStatus from '../components/HeaderStatus'
 const App = () => {
     const [loading, setLoading] = useState<boolean>(false);
     let colorScheme = useColorScheme();
-    const { showmodal } = useAppSelector((state) => state.auth );
+    const { showmodal, } = useAppSelector((state) => state.auth );
 
     return (
         <>
