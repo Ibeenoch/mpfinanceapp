@@ -45,18 +45,24 @@ const DocumentVerification = () => {
     const handleBlur = () => {
         setIsFocus(false);
         Keyboard.dismiss();
-        if(number){
-          if(number?.length <= 9){
-            setIsInputErr(true)
-          }else{
-            setIsInputErr(false)
-          }
-        }
-        }
+    }
 
       const handleNoInput = () => {
-        setIsInputErr(true);
         Keyboard.dismiss();
+        if(number){
+          console.log(number.length)
+          if(number?.length < 11){
+            setIsInputErr(true);
+            return;
+          }else{
+            setIsInputErr(false)
+            return;
+          }
+
+        }else{
+          setIsInputErr(true)
+          return;
+        }
       }
 
 const  handleNext = async() => {
@@ -116,7 +122,6 @@ const  handleNext = async() => {
 
       <View style={className`p-4 absolute bottom-5 w-full left-2 right-2`}>    
       <View style={className`w-full flex-row items-center justify-center`}>
-        {/* <TouchableOpacity onPress={() => router.push('photocapture')}  style={className`rounded-xl w-full ${currentMode === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black'}  py-6 px-4 flex-row items-center justify-center`}  > */}
         <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`  :   `${currentMode === 'light' ? 'bg-[#e5e5e5]' : 'bg-[#19222c]'}` } py-4 px-4 flex-row items-center justify-center`}  >
           <Text style={className`${ currentMode === 'dark' ? 'text-white' : 'text-white'} text-sm font-semibold`}>Proceed</Text>
         </TouchableOpacity>

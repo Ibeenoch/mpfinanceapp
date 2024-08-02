@@ -45,18 +45,24 @@ const DocumentVerification = () => {
         console.log('blurred')
         setIsFocus(false);
         Keyboard.dismiss();
-        if(number){
-          if(number?.length <= 9){
-            setIsInputErr(true)
-          }else{
-            setIsInputErr(false)
-          }
-        }
+
         }
 
       const handleNoInput = () => {
-        setIsInputErr(true);
         Keyboard.dismiss();
+        if(number){
+          console.log(number.length)
+          if(number?.length <= 10){
+            setIsInputErr(true)
+            return;
+          }else{
+            setIsInputErr(false);
+            return;
+          }
+        }else{
+          setIsInputErr(true);
+          return;
+        }
       }
 
 const  handleNext = async() => {

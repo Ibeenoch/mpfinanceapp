@@ -22,6 +22,7 @@ const useThemeStyles = () => {
     firstLayerBgColor: currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#0e1a32]',
     secondLayerBgColor: currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#1a263e]',
     secondLayerBgColorblue: currentMode === 'light' ? 'bg-[#e6edfd]' : 'bg-[#1a263e]',
+    secondLayerBgColorAsh: currentMode === 'light' ? 'bg-[#fff]' : 'bg-[#1a263e]',
     thirdLayerBgColor: currentMode === 'light' ? 'bg-[#f4f5f9]' : 'bg-[#36454f]',
     buttonBgColor: currentMode === 'light' ? 'bg-[#0261ef] text-white' : 'bg-[#ffd75b] text-black',
 

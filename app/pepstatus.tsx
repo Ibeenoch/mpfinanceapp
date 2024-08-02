@@ -57,7 +57,7 @@ const PepStatus = () => {
 
         
             <View style={className`flex-row absolute left-4 right-4 bottom-4 gap-2 px-4`}> 
-                <TouchableOpacity onPress={() => handlePepStatus("No I'm not")} style={className`rounded-xl w-1/2 px-8 py-4 ${currentMode === 'light' ? 'bg-[f7f7f7] border border-[#0261ef]' : 'bg-[#343631]'}`}>
+                <TouchableOpacity onPress={() => handlePepStatus("No I'm not")} style={className`rounded-xl w-1/2 px-8 py-4 ${currentMode === 'light' ? 'bg-[#f7f7f7] border border-[#0261ef]' : 'bg-[#343631]'}`}>
                     <Text style={className`${currentMode === 'light' ? 'text-[#0261ef]' : 'text-[#ffd75b]'} text-center`}>No, I'm not</Text>
                 </TouchableOpacity>
 

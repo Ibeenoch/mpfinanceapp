@@ -94,7 +94,7 @@ const Passcode = () => {
         </View>
 
         <View style={className`mx-6 p-4 rounded-xl ${ currentMode === 'light' ? 'bg-[#fff]' : 'bg-[#0e1a32]'}`}>
-             <View style={className`flex flex-row w-full justify-center gap-1 mb-4`}>
+             <View style={className`flex flex-row w-full justify-center gap-1 `}>
         {arrNum.map((num, index) => (
           <TextInput
             key={index}
@@ -143,7 +143,7 @@ const Passcode = () => {
                 </TouchableOpacity>              
 
                 <TouchableOpacity onPress={handleNext} style={className`rounded-full flex-row justify-center p-6 w-[27%]  ${ currentMode === 'light' ? `${passcodeReady ? 'bg-[#0261ef]' : 'bg-[#e6edfd]'   } ` : `${passcodeReady ? 'bg-[#ffd75b]' : 'bg-[#1a263e]'  }`  }` }>
-                          <ArrowForward  width={30} height={30} fill={currentMode === 'light' ? 'white' : 'white' } stroke={currentMode === 'light' ? 'gray' : 'white' } />
+                          <ArrowForward  width={30} height={30} fill={currentMode === 'light' ? 'white' : 'white' } stroke={currentMode === 'light' ? 'white' : 'white' } />
                 </TouchableOpacity> 
               
 

@@ -15,8 +15,7 @@ import {
   useColorScheme,
 } from 'react-native';
 import image from '../assets/img.js';
-import ArrowLeft from '../assets/arrow-back-svgrepo-com.svg'
-import ArrowRight from '../assets/arrow-forward-svgrepo-com.svg'
+import MoniePoint from '../assets/monieLogo.svg'
 import { router } from 'expo-router';
 
 let s1 = image.s8;
@@ -52,8 +51,12 @@ const CbnLast = () => {
   return (
     <SafeAreaView style={className`flex-1 justify-center items-center  ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'}`}>
 
-        <View style={className`text-center text-2xl font-bold -mt-38 pb-6`}>
-          <Text style={className`text-center text-2xl font-bold  ${currentMode === 'light' ? 'text-black' : 'text-white'}`}>MoniePoint</Text>
+<View style={className`flex-row gap-3 justify-center items-center text-center text-2xl font-bold -mt-38 `}>
+          <MoniePoint width={100} height={100} />
+          <View style={className`flex-row -mt-3 justify-center items-center`}>
+            <Text style={[className`text-center text-2xl font-bold  ${currentMode === 'light' ? 'text-black' : 'text-white'}`]}>Monie</Text>
+            <Text style={[className`text-center text-xl   ${currentMode === 'light' ? 'text-black' : 'text-white'}`]}>point</Text>
+          </View>
         </View>
     
       <View style={styles.scrollContainer}>

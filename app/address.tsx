@@ -12,20 +12,22 @@ import { ScrollView, FlatList } from 'react-native-gesture-handler';
 import HeaderStatus from '../components/HeaderStatus';
 import { BlurView } from 'expo-blur';
 import { useAppDispatch, useAppSelector } from '../features/hooks';
-import { selectUser, setAddress, setSelectionModal, shouldShowModal } from '../features/auth/auth';
+import { selectUser, setAddress, setEditAddress, setSelectionModal, shouldShowModal } from '../features/auth/auth';
 import { delayNavigation } from '../utils/useIntervalHook';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LGAEachState, states } from '../utils/countries';
 
 
 const Address = () => {
+  const { selectionmodal, isEditAddress, address  } = useAppSelector(selectUser);
   const [stateActive, setStateActive] = useState<boolean>(false);
   const [lgaActive, setLgaActive] = useState<boolean>(false);
   const [selectedState, setSelectedState] = useState<string>('');
-  const [house, setHouse] = useState<string>('');
-  const [street, setStreet] = useState<string>('');
+  const [house, setHouse] = useState<string>(isEditAddress ? address?.house : '');
+  const [street, setStreet] = useState<string>(isEditAddress ? address?.street :'');
   const [selectedLga, setSelectedLga] = useState<string[]>([]);
-  const [stateLga, setStateLga] = useState<string>('');
-  const [selectedValue, setSelectedValue] = useState(''); 
+  const [stateLga, setStateLga] = useState<string>(isEditAddress ? address && address.stateLga :  '');
+  const [selectedValue, setSelectedValue] = useState(isEditAddress ? address && address.selectedState : ''); 
     const getmode = useThemeStyles();
     const currentMode = useColorScheme()
     const bottomModalInputRef = useRef<BottomSheetModal>(null);
@@ -33,11 +35,13 @@ const Address = () => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [btnActive, setBtnActive] = useState<boolean>(false);
     const dispatch = useAppDispatch();
-    const { selectionmodal,  } = useAppSelector(selectUser);
 
     
     useEffect(() => {
       dispatch(shouldShowModal(false));
+      if(isEditAddress){
+        setBtnActive(true);
+      }
   }, [])
 
   useEffect(() => {
@@ -99,683 +103,6 @@ useEffect(() => {
         dispatch(setSelectionModal(true))
     };
 
-    const states = [
-        'Abia',
-        'Adamawa',
-        'Akwa Ibom',
-        'Anambra',
-        'Bauchi',
-        'Bayelsa',
-        'Benue',
-        'Borno',
-        'Cross River',
-        'Delta',
-        'Ebonyi',
-        'Edo',
-        'Ekiti',
-        'Enugu',
-        'Gombe',
-        'Imo',
-        'Jigawa',
-        'Kaduna',
-        'Kano',
-        'Katsina',
-        'Kebbi',
-        'Kogi',
-        'Kwara',
-        'Lagos',
-        'Nasarawa',
-        'Niger',
-        'Ogun',
-        'Ondo',
-        'Osun',
-        'Oyo',
-        'Plateau',
-        'Rivers',
-        'Sokoto',
-        'Taraba',
-        'Yobe',
-        'Zamfara',
-        'Abuja'
-    ];
-
-
-
-    const LGAEachState: any = {
-        "Nigeria": {
-          "Abia": [
-            "Aba North",
-            "Aba South",
-            "Arochukwu",
-            "Bende",
-            "Ikwuano",
-            "Isiala Ngwa North",
-            "Isiala Ngwa South",
-            "Isuikwuato",
-            "Obingwa",
-            "Ohafia",
-            "Osisioma",
-            "Ugwunagbo",
-            "Ukwa East",
-            "Ukwa West",
-            "Umuneochi"
-          ],
-          "Adamawa": [
-            "Demsa",
-            "Fufore",
-            "Ganye",
-            "Girei",
-            "Gombi",
-            "Guyuk",
-            "Hong",
-            "Jada",
-            "Larmurde",
-            "Madagali",
-            "Maiha",
-            "Mayo-Belwa",
-            "Mubi North",
-            "Mubi South",
-            "Numan",
-            "Shelleng",
-            "Song",
-            "Toungo",
-            "Yola North",
-            "Yola South"
-          ],
-          "Akwa Ibom": [
-            "Abak",
-            "Ekett",
-            "Essien Udim",
-            "Etim Ekpo",
-            "Etinan",
-            "Ibeno",
-            "Ibesikpo Asutan",
-            "Ibiono Ibom",
-            "Ikono",
-            "Ikot Abasi",
-            "Ikot Ekpene",
-            "Ini",
-            "Itu",
-            "Mkpat Enin",
-            "Nsit Atai",
-            "Nsit Ibom",
-            "Obot Akara",
-            "Okobo",
-            "Onna",
-            "Oron",
-            "Ukanafun",
-            "Uruan",
-            "Urue Offong Oruko",
-            "Victor Attah International Airport"
-          ],
-          "Anambra": [
-            "Aguata",
-            "Awka North",
-            "Awka South",
-            "Dunukofia",
-            "Ekwusigo",
-            "Idemili North",
-            "Idemili South",
-            "Ihiala",
-            "Njikoka",
-            "Nnewi North",
-            "Nnewi South",
-            "Ogbaru",
-            "Onitsha North",
-            "Onitsha South",
-            "Orumba North",
-            "Orumba South",
-            "Oyi"
-          ],
-          "Bauchi": [
-            "Alkaleri",
-            "Bauchi",
-            "Bogoro",
-            "Darazo",
-            "Dass",
-            "Ganjuwa",
-            "Giant",
-            "Ningi",
-            "Shira",
-            "Tafawa Balewa",
-            "Toro",
-            "Warji",
-            "Zaki"
-          ],
-          "Bayelsa": [
-            "Brass",
-            "Ekeremor",
-            "Kolokuma/Opokuma",
-            "Nembe",
-            "Ogbia",
-            "Sagbama",
-            "Salga",
-            "Southern Ijaw",
-            "Yenagoa"
-          ],
-          "Benue": [
-            "Ado",
-            "Agatu",
-            "Apa",
-            "Buruku",
-            "Gboko",
-            "Guma",
-            "Gwer East",
-            "Gwer West",
-            "Katsina Ala",
-            "Konshisha",
-            "Obi",
-            "Ogbadibo",
-            "Ohimini",
-            "Otukpo",
-            "Tarka",
-            "Ukum",
-            "Vandeikya"
-          ],
-          "Borno": [
-            "Abadam",
-            "Askira/Uba",
-            "Bama",
-            "Bayo",
-            "Chibok",
-            "Damboa",
-            "Dikwa",
-            "Gubio",
-            "Guzamala",
-            "Hawul",
-            "Jere",
-            "Kaga",
-            "Konduga",
-            "Mafa",
-            "Magumeri",
-            "Maiduguri",
-            "Ngala",
-            "Nganzai",
-            "Shani"
-          ],
-          "Cross River": [
-            "Akamkpa",
-            "Akpabuyo",
-            "Bakassi",
-            "Calabar Municipal",
-            "Calabar South",
-            "Etung",
-            "Ikom",
-            "Obubra",
-            "Obudu",
-            "Odukpani",
-            "Ogba/Ebonyi",
-            "Yakuur",
-            "Yala"
-          ],
-          "Delta": [
-            "Aniocha North",
-            "Aniocha South",
-            "Bomadi",
-            "Burutu",
-            "Ethiope East",
-            "Ethiope West",
-            "Ika North East",
-            "Ika South",
-            "Isoko North",
-            "Isoko South",
-            "Ndokwa East",
-            "Ndokwa West",
-            "Okpe",
-            "Oshimili North",
-            "Oshimili South",
-            "Patani",
-            "Sapele",
-            "Udu",
-            "Ughelli North",
-            "Ughelli South",
-            "Warri North",
-            "Warri South",
-            "Warri South West"
-          ],
-          "Ebonyi": [
-            "Abakaliki",
-            "Afikpo North",
-            "Afikpo South",
-            "Ebonyi",
-            "Ishielu",
-            "Ivo",
-            "Ohaozara",
-            "Ohaukwu",
-            "Onicha"
-          ],
-          "Edo": [
-            "Akoko-Edo",
-            "Esan Central",
-            "Esan North-East",
-            "Esan South-East",
-            "Esan West",
-            "Egor",
-            "Igueben",
-            "Ikpoba Okha",
-            "Oredo",
-            "Orhionmwon",
-            "Ovia North-East",
-            "Ovia South-West",
-            "Uhunmwonde"
-          ],
-          "Ekiti": [
-            "Ado Ekiti",
-            "Ekiti East",
-            "Ekiti South-West",
-            "Ekiti West",
-            "Emure",
-            "Ilejemeje",
-            "Ikere",
-            "Irepodun/Ifelodun",
-            "Ise/Orun",
-            "Moba",
-            "Oye"
-          ],
-          "Enugu": [
-            "Awgu",
-            "Enugu East",
-            "Enugu North",
-            "Enugu South",
-            "Ezeagu",
-            "Igbo-Etiti",
-            "Igbo Eze North",
-            "Igbo Eze South",
-            "Nkanu East",
-            "Nkanu West",
-            "Nsukka",
-            "Oji River",
-            "Udenu",
-            "Udi"
-          ],
-          "Gombe": [
-            "Akko",
-            "Balanga",
-            "Billiri",
-            "Dukku",
-            "Gombe",
-            "Kaltungo",
-            "Kwami",
-            "Nafada",
-            "Shongom",
-            "Yamaltu/Deba"
-          ],
-          "Imo": [
-            "Aboh Mbaise",
-            "Ahiazu Mbaise",
-            "Ikeduru",
-            "Isiala Mbano",
-            "Isu",
-            "Mbaitoli",
-            "Ngor Okpala",
-            "Njaba",
-            "Nkwerre",
-            "Obowo",
-            "Oguta",
-            "Ohaji/Egbema",
-            "Okigwe",
-            "Orlu",
-            "Owerri Municipal",
-            "Owerri North",
-            "Owerri West"
-          ],
-          "Jigawa": [
-            "Auyo",
-            "Babura",
-            "Birniwa",
-            "Buji",
-            "Dutse",
-            "Gagarawa",
-            "Garki",
-            "Gumel",
-            "Hadejia",
-            "Jahun",
-            "Kafin Hausa",
-            "Kazaure",
-            "Kirikasamma",
-            "Maigatari",
-            "Miga",
-            "Ringim",
-            "Yankwashi"
-          ],
-          "Kaduna": [
-            "Birnin Gwari",
-            "Chikun",
-            "Giwa",
-            "Jaba",
-            "Jema'a",
-            "Kachia",
-            "Kaduna North",
-            "Kaduna South",
-            "Kaura",
-            "Kauru",
-            "Lere",
-            "Makarfi",
-            "Sabon Gari",
-            "Sanga",
-            "Zaria"
-          ],
-          "Kano": [
-            "Albasu",
-            "Bagwai",
-            "Bebeji",
-            "Bichi",
-            "Dala",
-            "Dawakin Kudu",
-            "Dawakin Tofa",
-            "Doguwa",
-            "Fagge",
-            "Gaya",
-            "Gwarzo",
-            "Kano Municipal",
-            "Karaye",
-            "Kibiya",
-            "Kiru",
-            "Kumbotso",
-            "Makoda",
-            "Minjibir",
-            "Nasarawa",
-            "Rogo",
-            "Shanono",
-            "Tarauni",
-            "Tofa",
-            "Tsanyawa",
-            "Warawa",
-            "Wudil"
-          ],
-          "Katsina": [
-            "Charanchi",
-            "Dandume",
-            "Danja",
-            "Daura",
-            "Dutsi",
-            "Funtua",
-            "Jibia",
-            "Kafur",
-            "Kankara",
-            "Katsina",
-            "Kurfi",
-            "Mai'adua",
-            "Malumfashi",
-            "Mani",
-            "Mashi",
-            "Matazu",
-            "Musawa",
-            "Rimi",
-            "Sabuwa",
-            "Sandamu",
-            "Zango"
-          ],
-          "Kogi": [
-            "Adavi",
-            "Ajaokuta",
-            "Ankpa",
-            "Bassa",
-            "Dekina",
-            "Ibaji",
-            "Igalamela-Odolu",
-            "Ijumu",
-            "Kabba/Bunu",
-            "Kogi",
-            "Mopa-Muro",
-            "Ofu",
-            "Ogori/Magongo",
-            "Okehi",
-            "Okene",
-            "Olamaboro",
-            "Omala",
-            "Yagba East",
-            "Yagba West"
-          ],
-          "Kwara": [
-            "Asa",
-            "Baruten",
-            "Ekiti",
-            "Ifelodun",
-            "Ilorin East",
-            "Ilorin South",
-            "Ilorin West",
-            "Irepodun",
-            "Isin",
-            "Kaiama",
-            "Offa",
-            "Oke Ero",
-            "Oyun",
-            "Patigi"
-          ],
-          "Lagos": [
-            "Agege",
-            "Alimosho",
-            "Amuwo-Odofin",
-            "Apapa",
-            "Badagry",
-            "Epe",
-            "Eti Osa",
-            "Ibeju Lekki",
-            "Ifako Ijaiye",
-            "Ikeja",
-            "Ikorodu",
-            "Kosofe",
-            "Lagos Island",
-            "Lagos Mainland",
-            "Mushin",
-            "Oshodi-Isolo",
-            "Somolu",
-            "Surulere"
-          ],
-          "Nasarawa": [
-            "Akwanga",
-            "Doma",
-            "Karu",
-            "Keana",
-            "Keffi",
-            "Nasarawa",
-            "Nasarawa Eggon",
-            "Obi",
-            "Toto",
-            "Wamba"
-          ],
-          "Niger": [
-            "Agwara",
-            "Bida",
-            "Borgu",
-            "Bosso",
-            "Chanchaga",
-            "Edati",
-            "Gbako",
-            "Gurara",
-            "Katcha",
-            "K Niger",
-            "Lapai",
-            "Lavun",
-            "Magama",
-            "Mokwa",
-            "Paikoro",
-            "Rafi",
-            "Shiroro",
-            "Suleja",
-            "Tafa",
-            "Wushishi"
-          ],
-          "Ogun": [
-            "Abeokuta North",
-            "Abeokuta South",
-            "Ado-Odo/Ota",
-            "Ewekoro",
-            "Ifo",
-            "Ijebu East",
-            "Ijebu North",
-            "Ijebu North East",
-            "Ijebu Ode",
-            "Obafemi Owode",
-            "Odeda",
-            "Odogbolu",
-            "Remo North",
-            "Sagamu",
-            "Yewa North",
-            "Yewa South"
-          ],
-          "Ondo": [
-            "Akoko North East",
-            "Akoko North West",
-            "Akoko South East",
-            "Akoko South West",
-            "Akure North",
-            "Akure South",
-            "Ese Odo",
-            "Idanre",
-            "Ifedore",
-            "Ilaje",
-            "Odigbo",
-            "Okitipupa",
-            "Ondo East",
-            "Ondo West",
-            "Ose",
-            "Owerri North",
-            "Owerri West",
-            "Owerri East"
-          ],
-          "Osun": [
-            "Aiyedade",
-            "Aiyedire",
-            "Atakunmosa East",
-            "Atakunmosa West",
-            "Boluwaduro",
-            "Boripe",
-            "Ife Central",
-            "Ife East",
-            "Ife North",
-            "Ife South",
-            "Ilesa East",
-            "Ilesa West",
-            "Isokan",
-            "Obokun",
-            "Odo Otin",
-            "Oluyole",
-            "Oriade",
-            "Oshogbo"
-          ],
-          "Oyo": [
-            "Afijio",
-            "Akinyele",
-            "Atiba",
-            "Egbeda",
-            "Ibadan North",
-            "Ibadan North East",
-            "Ibadan North West",
-            "Ibadan South East",
-            "Ibadan South West",
-            "Ibarapa Central",
-            "Ibarapa East",
-            "Ibarapa North",
-            "Ido",
-            "Iseyin",
-            "Itefun",
-            "Ogbomosho North",
-            "Ogbomosho South",
-            "Oyo East",
-            "Oyo West",
-            "Saki East",
-            "Saki West",
-            "Surulere"
-          ],
-          "Plateau": [
-            "Bokkos",
-            "Jos East",
-            "Jos North",
-            "Jos South",
-            "Kanke",
-            "Langtang North",
-            "Langtang South",
-            "Mangu",
-            "Pankshin",
-            "Qua'an Pan",
-            "Riyom",
-            "Shendam",
-            "Wase"
-          ],
-          "Rivers": [
-            "Abua/Odual",
-            "Ahoada East",
-            "Ahoada West",
-            "Akuku-Toru",
-            "Andoni",
-            "Asari-Toru",
-            "Bonny",
-            "Degema",
-            "Emohua",
-            "Etche",
-            "Gokana",
-            "Ikwerre",
-            "Obio-Akpor",
-            "Port Harcourt",
-            "Tai"
-          ],
-          "Sokoto": [
-            "Binji",
-            "Bodinga",
-            "Dange/Shuni",
-            "Gada",
-            "Goronyo",
-            "Gudu",
-            "Illela",
-            "Kebbe",
-            "Kware",
-            "Rabah",
-            "Sokoto North",
-            "Sokoto South",
-            "Tambuwal",
-            "Tangaza",
-            "Wamakko",
-            "Wurno",
-            "Yabo"
-          ],
-          "Taraba": [
-            "Ardo-Kola",
-            "Bali",
-            "Donga",
-            "Gashaka",
-            "Gassol",
-            "Jalingo",
-            "Karim Lamido",
-            "Karin-Lamido",
-            "Sunkani",
-            "Takum",
-            "Ussa",
-            "Wukari",
-            "Yorro"
-          ],
-          "Yobe": [
-            "Bade",
-            "Bursari",
-            "Damaturu",
-            "Fika",
-            "Fune",
-            "Geidam",
-            "Gujba",
-            "Gashua",
-            "Nguru",
-            "Potiskum",
-            "Tarmuwa",
-            "Yunusari",
-            "Jakusko"
-          ],
-          "Zamfara": [
-            "Anka",
-            "Bakura",
-            "Bakau",
-            "Bukkuyum",
-            "Chafe",
-            "Gummi",
-            "Gusau",
-            "Maradun",
-            "Shinkafi",
-            "Talata Mafara",
-            "Tsafe",
-            "Zurmi"
-          ]
-        }
-      }
     
     const closeStateModal = () => {
       setStateActive(false);
@@ -795,13 +122,14 @@ useEffect(() => {
         };
         dispatch(setAddress(address));
         dispatch(shouldShowModal(true));
+        dispatch(setEditAddress(false));
         delayNavigation('pepstatus');
       }
     }
       
   return (
    <GestureHandlerRootView style={{ flex: 1}}>
-            <View style={className`flex-1 p-4 ${getmode.backGroundColorTwo}`}>
+            <View style={className`flex-1 p-4 ${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#000e28]'}`}>
              <BottomSheetModalProvider>
         <ScrollView>
 
@@ -817,20 +145,20 @@ useEffect(() => {
                 <Text style={className` ${ getmode.textColorTwo} text-xs text-left pb-2`}>Provide details of where you live</Text>
             </View>
 
-            <View style={className`${getmode.firstLayerBgColor} rounded-xl mb-3 p-4`}>
+            <View style={className`${currentMode === 'light' ? 'bg-[#fff]' : 'bg-[#0e1a32]'} rounded-xl mb-3 p-4`}>
                 
                 <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
-                    <TextInput  cursorColor={currentMode === 'light' ? '#0261ef' : '#ffd75b'} keyboardType='number-pad' style={className`${getmode.textColorTwo} `} onChangeText={(e) => setHouse(e)} placeholder='House Number'  placeholderTextColor={currentMode === 'light' ? 'black' : 'white'} />
+                    <TextInput value={house} cursorColor={currentMode === 'light' ? '#0261ef' : '#ffd75b'} keyboardType='number-pad' style={className`${getmode.textColorTwo} `} onChangeText={(e) => setHouse(e)} placeholder='House Number'  placeholderTextColor={currentMode === 'light' ? 'black' : 'white'} />
                 </View>
 
                 <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
-                    <TextInput  cursorColor={currentMode === 'light' ? '#0261ef' : '#ffd75b'} style={className`${getmode.textColorTwo} `}  onChangeText={(e) => setStreet(e)} placeholder='Street Name'  placeholderTextColor={currentMode === 'light' ? 'black' : 'white'} />
+                    <TextInput value={street}  cursorColor={currentMode === 'light' ? '#0261ef' : '#ffd75b'} style={className`${getmode.textColorTwo} `}  onChangeText={(e) => setStreet(e)} placeholder='Street Name'  placeholderTextColor={currentMode === 'light' ? 'black' : 'white'} />
                 </View>
 
                 <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
                     <TouchableOpacity onPress={handlePresentModal}>
                         <View style={className`${getmode.secondLayerBgColor} flex-row items-center justify-between px-2`}>
-                            <Text style={className`${getmode.textColorTwo} `}>{selectedValue ? selectedValue : 'State'}</Text>
+                            <Text style={className`${getmode.textColorTwo} `}>{ selectedValue ? selectedValue : 'State'}</Text>
                             <ArrowDown width={12} height={12}  fill={`${getmode.fillColor}`} />
                         </View>
                     </TouchableOpacity>
@@ -839,7 +167,7 @@ useEffect(() => {
                 <View style={className`${getmode.secondLayerBgColor} rounded-lg mb-3 p-4`}>
                     <TouchableOpacity onPress={handleLgaModal}>
                     <View style={className`${getmode.secondLayerBgColor} flex-row items-center justify-between px-2`}> 
-                        <Text style={className`${getmode.textColorTwo} `}>{stateLga ? stateLga : 'LGA'}</Text>
+                        <Text style={className`${getmode.textColorTwo} `}>{ stateLga ? stateLga : 'LGA'}</Text>
                         <ArrowDown width={12} height={12} fill={`${getmode.fillColor}`} />
                     </View>
                     </TouchableOpacity>

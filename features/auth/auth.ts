@@ -34,6 +34,7 @@ interface authState {
   selectionmodal: boolean;
   processPhoto: boolean;
   imageUrl: string;
+  user: any;
   activeTabs: 'home' | 'card' | 'saving' | 'salary' | 'main',
   status: 'idle' | 'loading' | 'success' | 'error',
   mainModalActive: boolean;
@@ -44,11 +45,15 @@ interface authState {
   phone: string;
   passcode: string;
   nationality: string;
+  nationalityFlag: string;
   id: string;
   address: any;
   image: string;
   pep: string;
   income: any;
+  isEditNationationality: boolean;
+  isEditAddress: boolean;
+  isEditIncome: boolean;
 }
 
 const initialState: authState = {
@@ -56,6 +61,7 @@ const initialState: authState = {
   showmodal: false,
   selectionmodal: false,
   imageUrl: '',
+  user: {},
   activeTabs: 'home',
   status: 'idle',
   processPhoto: false,
@@ -67,16 +73,47 @@ const initialState: authState = {
   phone: '',
   passcode: '',
   nationality: '',
+  nationalityFlag: '',
   id: '',
   address: {},
   image: '',
   pep: '',
-  income: {}
+  income: {},
+  isEditNationationality: false,
+  isEditAddress: false,
+  isEditIncome: false,
 };
+
+export const login = createAsyncThunk('/user/signin', async(phone: any) => {
+  try {
+    const res = await api.login(phone);
+    return res;
+} catch (error) {
+    console.log(error)
+}
+})
+
+export const signUp = createAsyncThunk('/user/signup', async(phone: any) => {
+  try {
+    const res = await api.signUp(phone);
+    return res;
+} catch (error) {
+    console.log(error)
+}
+})
+
+export const sendPhoneSms = createAsyncThunk('/user/sendsmsphone', async(phone: any) => {
+  try {
+    const res = await api.sendPhoneVerification(phone);
+    return res;
+} catch (error) {
+    console.log(error)
+}
+})
 
 export const verifyPhoneNum = createAsyncThunk('/user/verifyphone', async(phone: any) => {
   try {
-    const res = await api.sendPhoneVerification(phone);
+    const res = await api.SmsVerification(phone);
     return res;
 } catch (error) {
     console.log(error)
@@ -110,6 +147,9 @@ const authSlice = createSlice({
     },
     saveImageCaptured: (state, action: PayloadAction<string>) => {
       state.imageUrl = action.payload;
+    },
+    setNationalityFlag: (state, action: PayloadAction<string>) => {
+      state.nationalityFlag = action.payload;
     },
     setProcessPhoto: (state, action: PayloadAction<boolean>) => {
       state.processPhoto = action.payload;
@@ -150,6 +190,15 @@ const authSlice = createSlice({
     setIncome: (state, action: PayloadAction<any>) => {
       state.income = action.payload;
     },
+    setEditNationality: (state, action: PayloadAction<boolean>) => {
+      state.isEditNationationality = action.payload;
+    },
+    setEditAddress: (state, action: PayloadAction<boolean>) => {
+      state.isEditAddress = action.payload;
+    },
+    setEditIncome: (state, action: PayloadAction<boolean>) => {
+      state.isEditIncome = action.payload;
+    },
   
   },
 
@@ -165,11 +214,42 @@ const authSlice = createSlice({
       .addCase(verifyPhoneNum.rejected, (state, action) => {
         state.status = "error";
       })
+      .addCase(sendPhoneSms.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(sendPhoneSms.fulfilled, (state, action) => {
+        state.status = "success";
+        console.log(action.payload)
+      })
+      .addCase(sendPhoneSms.rejected, (state, action) => {
+        state.status = "error";
+      })
+      .addCase(signUp.pending, (state, action) => {
+        state.status = "loading";
+        state.user = action.payload;
+      })
+      .addCase(signUp.fulfilled, (state, action) => {
+        state.status = "success";
+        console.log(action.payload)
+      })
+      .addCase(signUp.rejected, (state, action) => {
+        state.status = "error";
+      })
+      .addCase(login.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.status = "success";
+        state.user = action.payload;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.status = "error";
+      })
   }
   
 });
 
 export const selectUser = (state: RootState) => state.auth;
 
-export const { increment, decrement, setValue, shouldShowModal, setEmailAddress, setPasscode, setPep, setPhoneNum, setNationality, setId, setIncome, setAddress, setImage, saveImageCaptured, setMainModalActive, setSkeletonCard, setSkeletonHome, setSkeletonSaving, setProcessPhoto, setSelectionModal, setActiveTab } = authSlice.actions;
+export const { increment, decrement, setValue, shouldShowModal, setNationalityFlag, setEditAddress, setEditIncome, setEditNationality, setEmailAddress, setPasscode, setPep, setPhoneNum, setNationality, setId, setIncome, setAddress, setImage, saveImageCaptured, setMainModalActive, setSkeletonCard, setSkeletonHome, setSkeletonSaving, setProcessPhoto, setSelectionModal, setActiveTab } = authSlice.actions;
 export default authSlice.reducer;

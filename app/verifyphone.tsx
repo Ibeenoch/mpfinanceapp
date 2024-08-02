@@ -2,7 +2,7 @@ import { View, Text, useColorScheme, TextInput, Keyboard } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import className from 'twrnc'
 import { GestureHandlerRootView, TouchableOpacity } from 'react-native-gesture-handler';
-import { shouldShowModal } from '../features/auth/auth';
+import { shouldShowModal, verifyPhoneNum } from '../features/auth/auth';
 import { useAppDispatch, useAppSelector } from '../features/hooks';
 import Exclaimation from '../assets/info-svgrepo-com.svg';
 import Message from '../assets/letter-svgrepo-com.svg';
@@ -14,6 +14,7 @@ import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet
 import { BlurView } from 'expo-blur';
 import useThemeStyles from '../utils/dynamic';
 import { delayNavigation } from '../utils/useIntervalHook';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Verifyphone = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -84,10 +85,20 @@ const Verifyphone = () => {
         inputRefs.current[lastIndex === 0 ? lastIndex : lastIndex - 1].focus();
       }
     };
-    const handleNext = () => {
-        // setShowModal(true)
+    const handleNext = async() => {
         dispatch(shouldShowModal(true));
-        delayNavigation('signupemail');
+        const phone = await AsyncStorage.getItem('phone');
+        const numData = { phone };
+        dispatch(verifyPhoneNum(numData)).then((res: any) => {
+          if(res && res.payload && res.payload.message  && res.payload.message === "user does not exist"){
+            const data = { otp: arrNum.join(''), phone };
+            dispatch(verifyPhoneNum(data))
+            delayNavigation('signupemail');
+          }else{
+            delayNavigation('userexist');
+          }
+        })
+        
     }
 
     const handleResendModal = () => {

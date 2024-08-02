@@ -64,9 +64,12 @@ const stopCardSkeleton = () => {
               </Skeleton>
 
               <Skeleton  height={60} width={280} {...skeletonCommonProps}  >  
-              <View style={className`flex-row items-center gap-2 p-2 ${getmode.backGroundlightYellowColor}`}>
-                <View style={className`flex-row justify-center items-center rounded-lg`}>
-                  <Shield width={20} height={20} fill={`${getmode.fillColor}`} />
+              <View style={className`flex-row gap-2`}>
+                <View style={className`flex-col justify-between items-center`}>
+                  <View style={className`flex-row justify-center items-center rounded-xl p-2 ${getmode.backGroundlightYellowColor}`}>
+                    <Shield width={20} height={20} fill={`${getmode.fillColor}`} />
+                  </View>
+                  <View><Text style={className`p-1`}></Text></View>
                 </View>
 
                 <View style={className`pr-3`}>
@@ -77,8 +80,9 @@ const stopCardSkeleton = () => {
               </Skeleton>
 
               <Skeleton  height={80} width={280} {...skeletonCommonProps}  >
-              <View style={className`flex-row items-center gap-2 p-2 ${getmode.backGroundlightYellowColor}`}>
-                <View style={className`flex-row justify-center items-center rounded-lg`}>
+              <View style={className`flex-row gap-2`}>
+              <View style={className`flex-col justify-between items-center`}>
+                  <View style={className` rounded-xl p-2 ${getmode.backGroundlightYellowColor}`}>
                   {
                     currentMode === 'light' ? (
                       <CustomerService width={20} height={20}  />
@@ -86,9 +90,10 @@ const stopCardSkeleton = () => {
                       <CustomerServiceOrange width={20} height={20}  />
                     )
                   }
-                  
+                  </View>
+                  <View><Text style={className`p-1`}></Text></View>
                 </View>
-
+               
                 <View style={className`pr-3`}>
                   <Text style={className`text-sm font-bold ${getmode.textColorTwo}`}>Fast Dispute Resolution</Text>
                   <Text style={className`text-xs text-gray-500 pb-4 text-justify pr-2 w-[40%]`}>Say goodbye to unreversed debits. Log disputes within your app, and monitior them till you get a full refund.</Text>
@@ -97,9 +102,13 @@ const stopCardSkeleton = () => {
               </Skeleton>
 
             <Skeleton  height={80} width={280} {...skeletonCommonProps}  > 
-              <View style={className`flex-row items-center gap-2 p-2 ${getmode.backGroundlightYellowColor}`}>
-                <View style={className`flex-row justify-center items-center rounded-lg`}>
-                  <Delivery width={20} height={20} fill={`${getmode.fillColor}`} />
+              <View style={className`flex-row gap-2 `}>
+
+              <View style={className`flex-col justify-between items-center`}>
+                  <View style={className`flex-row justify-center items-center rounded-xl p-2 ${getmode.backGroundlightYellowColor}`}>
+                   <Delivery width={20} height={20} fill={`${getmode.fillColor}`} />
+                  </View>
+                  <View><Text style={className`p-1`}></Text></View>
                 </View>
 
                 <View style={className`pr-3`}>
@@ -110,8 +119,10 @@ const stopCardSkeleton = () => {
               </Skeleton>
 
               <Skeleton  height={60} width={280} {...skeletonCommonProps}  >
-              <View style={className`flex-row items-center gap-2 p-2 ${getmode.backGroundlightYellowColor}`}>
-                <View style={className`flex-row justify-center items-center rounded-lg `}>
+              <View style={className`flex-row  gap-2 `}>
+
+              <View style={className`flex-col justify-between items-center`}>
+                  <View style={className`flex-row justify-center items-center rounded-xl p-2 ${getmode.backGroundlightYellowColor}`}>
                   {
                     currentMode === 'light' ? (
                       <GlobeBlue width={20} height={20} strokeWidth={3} />
@@ -119,7 +130,8 @@ const stopCardSkeleton = () => {
                       <Globe width={20} height={20} strokeWidth={3} />
                     )
                   }
-                  
+                  </View>
+                  <View><Text style={className`p-1`}></Text></View>
                 </View>
 
                 <View style={className`pr-3`}>
@@ -164,7 +176,7 @@ const stopCardSkeleton = () => {
         <View style={className`p-4  w-full`}>
           <View style={className`max-w-sm`}>
             <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${getmode.buttonBgColor}  py-6 px-4 flex-row items-center justify-center`}  >
-              <Text style={className`${ getmode.textColorTwo} text-sm font-bold`}>Order A Card</Text>
+              <Text style={className`${ getmode.textColor} text-sm font-bold`}>Order A Card</Text>
             </TouchableOpacity>
           </View>
         </View>

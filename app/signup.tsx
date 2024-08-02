@@ -9,7 +9,7 @@ import { router, useNavigation } from 'expo-router';
 import { useAppDispatch, useAppSelector } from '../features/hooks';
 import useThemeStyles from '../utils/dynamic';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { setPhoneNum, shouldShowModal, verifyPhoneNum } from '../features/auth/auth';
+import { sendPhoneSms, setPhoneNum, shouldShowModal, verifyPhoneNum } from '../features/auth/auth';
 import { delayNavigation } from '../utils/useIntervalHook';
 
 
@@ -112,11 +112,14 @@ const  Signup = () => {
       const formattedPhoneNumber = phone.replace(/\s+/g, '');
       console.log(formattedPhoneNumber); // Output: 1234567890
       phone && dispatch(setPhoneNum(formattedPhoneNumber));
-      phone && dispatch(verifyPhoneNum(phone)).then((res: any) => {
+      const data = { formattedPhoneNumber };
+      phone && dispatch(sendPhoneSms(data)).then((res: any) => {
         console.log(res)
-        if(res && res.payload !== undefined){
-        }
       })
+      await AsyncStorage.setItem(
+        'phone',
+        `${formattedPhoneNumber}`,
+      );
       setShowModal(true);
       dispatch(shouldShowModal(true));
       setPhone('');

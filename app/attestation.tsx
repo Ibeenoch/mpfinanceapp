@@ -7,9 +7,10 @@ import EditLogo from '../assets/edit-box-svgrepo-com.svg'
 import { router } from 'expo-router';
 import { RadioButton } from 'react-native-paper'; 
 import { useAppDispatch, useAppSelector } from '../features/hooks';
-import { selectUser, shouldShowModal } from '../features/auth/auth';
+import { selectUser, setEditAddress, setEditIncome, setEditNationality, shouldShowModal } from '../features/auth/auth';
 import { delayNavigation } from '../utils/useIntervalHook';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { signUp } from '../features/auth/authService';
 
 interface Address {
     house: string;
@@ -50,8 +51,8 @@ const Attestation = () => {
     const getmode = useThemeStyles();
     const currentMode = useColorScheme();
     const dispatch = useAppDispatch();
-    const { email, passcode, pep, address, phone, id, nationality, income, image  } = useAppSelector(selectUser)
-    console.log(address, nationality)
+    const { email, passcode, pep, address, phone, id, nationality, nationalityFlag, income, image  } = useAppSelector(selectUser)
+
     useEffect(() => {
       dispatch(shouldShowModal(false));
   }, [])
@@ -63,19 +64,35 @@ const Attestation = () => {
   }, [selectedValue])
 
  
-
-  
-
-
- 
     const handleRadioPress = (value: string) => {
       setSelectedValue(value);
     }
 
-    const handleNext = () => {
-        if(selectedValue.length === 6){
+    const handleNext = async() => {
+        if(selectedValue !== ''){
+           
             dispatch(shouldShowModal(true));
             delayNavigation('congrat');
+            const formData = { email, passcode, phone, pep, address, income, nationality, id, image };
+            console.log(formData);
+            dispatch(signUp(formData) as any).then((res: any) => {
+                console.log('res user signup ', res)
+            })
+        }
+    }
+
+    const handleEditButton = (str: string) => {
+        if(str === 'nationality'){
+            dispatch(setEditNationality(true));
+            router.push('nationality')
+        }else if(str === 'address'){
+            dispatch(setEditAddress(true));
+            router.push('address')
+        }else if(str === 'income'){
+            dispatch(setEditIncome(true));
+            router.push('income')
+        }else{
+
         }
     }
   return (
@@ -88,27 +105,28 @@ const Attestation = () => {
             </View>
 
             <Text style={className`text-gray-500 text-xs text-left`}>Nationality</Text>
-            <View style={className`w-full flex-col rounded-xl p-2  ${ getmode.secondLayerBgColorblue}  `}>
+            <View style={className`w-full flex-col rounded-xl p-2  ${ getmode.secondLayerBgColorAsh}  `}>
                     <View style={className`flex-row rounded-tl-xl rounded-bl-xl items-center p-2 `}>
-                        <Image source={require('../assets/flag.png')} style={className`w-8 h-8`} />
+                        <Image source={nationalityFlag ? nationalityFlag : 
+                            require('../assets/flag.png')} style={className`w-8 h-8`} />
                         <Text style={className` px-1 ${getmode.textColorTwo}`}>{nationality}</Text>
                     </View>
 
                     <View style={className`flex-row justify-center items-center`}>
-                        <TouchableOpacity onPress={() => router.push('nationality')} style={className`flex-row justify-center items-center`}>
+                        <TouchableOpacity onPress={() =>handleEditButton('nationality')} style={className`flex-row justify-center items-center`}>
                             <EditLogo width={14} height={14} fill={`${getmode.fillColor}`} />
                             <Text style={className` px-1 ${getmode.textColorTwo}`}>Edit</Text>
                         </TouchableOpacity>
                     </View>
             </View>
 
-            <View style={className`w-full flex-row justify-between px-6 my-4 py-4 rounded-xl   ${ getmode.secondLayerBgColorblue}  `}>
+            <View style={className`w-full flex-row justify-between px-6 my-4 py-4 rounded-xl   ${ getmode.secondLayerBgColorAsh}  `}>
                 <Text style={className`${ getmode.textColorTwo} text-sm`}>Face Verification</Text>
                 <Text style={className`text-[#1fb02f] py-1 px-2 ${currentMode === 'light' ? 'bg-[#dcedc8]' : 'bg-[#062f27]'}  rounded-xl text-sm`}>Successful</Text>
             </View>
 
             <Text style={className`text-gray-500 text-xs mt-4 text-left`}>Residential Address</Text>
-            <View style={className`w-full rounded-xl p-2  ${ getmode.secondLayerBgColorblue}  `}>
+            <View style={className`w-full rounded-xl p-2  ${ getmode.secondLayerBgColorAsh}  `}>
                     
                     <View style={className`p-2 `}>
                         <Text style={className` px-1 text-left text-[11px] font-bold text-gray-500`}>Address</Text>
@@ -132,7 +150,7 @@ const Attestation = () => {
 
                     
                     <View style={className`flex-row justify-center`}>
-                        <TouchableOpacity onPress={() => router.push('address')}  style={className`flex-row gap-1 justify-center items-center`}>
+                        <TouchableOpacity onPress={() => handleEditButton('address')}  style={className`flex-row gap-1 justify-center items-center`}>
                             <EditLogo width={14} height={14} fill={`${getmode.fillColor}`} />
                             <Text style={className`${getmode.textColorTwo} font-bold`}>Edit</Text>
                         </TouchableOpacity>
@@ -141,7 +159,7 @@ const Attestation = () => {
             </View>
 
             <Text style={className`text-gray-500 pt-4 text-xs  pb-1 font-bold text-left`}>Pep Status</Text>
-            <View style={className`w-full flex-col rounded-xl p-2  ${ getmode.secondLayerBgColorblue}  `}>
+            <View style={className`w-full flex-col rounded-xl p-2  ${ getmode.secondLayerBgColorAsh}  `}>
                     <View style={className`p-2 `}>
                         <Text style={className` px-1 font-bold text-left text-xs max-w-xs text-gray-500`}>Are you a politically exposed person or are you related to one</Text>
                         <Text style={className` px-1 py-1 font-bold py-1 text-left text-xs ${getmode.textColorTwo}`}>{pep}</Text>
@@ -156,7 +174,7 @@ const Attestation = () => {
             </View>
 
             <Text style={className`text-gray-500 text-xs pt-4  pb-1 font-bold text-left`}>Source of income</Text>
-            <View style={className`w-full rounded-xl p-2  ${ getmode.secondLayerBgColorblue}  `}>
+            <View style={className`w-full rounded-xl p-2  ${ getmode.secondLayerBgColorAsh}  `}>
                     <View style={className`p-2 `}>
                     <Text style={className` px-1 text-left font-bold text-[11px] max-w-xs text-gray-500`}>What is your occupation?</Text>
                         <Text style={className` px-1 text-left py-1 font-bold text-[12px] ${getmode.textColorTwo}`}>{income && income.selectedOccupation}</Text>
@@ -173,14 +191,14 @@ const Attestation = () => {
                     </View>
 
                     <View style={className`flex-row  justify-center items-center`}>
-                        <TouchableOpacity onPress={() => router.push('income')}  style={className`flex-row gap-1 justify-center items-center`}>
+                        <TouchableOpacity onPress={() => handleEditButton('income')}  style={className`flex-row gap-1 justify-center items-center`}>
                             <EditLogo width={14} height={14} fill={`${getmode.fillColor}`} />
                             <Text style={className`${getmode.textColorTwo}  font-bold`}>Edit</Text>
                         </TouchableOpacity>
                     </View>
             </View>
 
-            <View style={className`my-4 flex-row gap-2 items-center`}>
+            <View style={className`my-4 flex-row gap-1 items-center`}>
             <TouchableOpacity style={styles.container} >
               <View > 
                 {

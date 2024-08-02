@@ -21,7 +21,7 @@ const Biometrics = () => {
         router.push('cbninfo')
     }
   return (
-    <View style={className`${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} h-screen flex-1 `}>
+    <View style={className`${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#0e1a32]'} flex-1 `}>
 
       <View style={className`flex-1 flex-row justify-center items-center`}>
         <View style={className`flex-col justify-center items-center`}>

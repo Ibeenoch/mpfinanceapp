@@ -6,8 +6,8 @@ import ArrowForward from '../assets/arrow-forward-svgrepo-com.svg';
 import DeleteIcon from '../assets/backspace-svgrepo-com.svg';
 import useThemeStyles from '../utils/dynamic';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useAppDispatch } from '../features/hooks';
-import { shouldShowModal } from '../features/auth/auth';
+import { useAppDispatch, useAppSelector } from '../features/hooks';
+import { login, selectUser, shouldShowModal } from '../features/auth/auth';
 import { delayNavigation } from '../utils/useIntervalHook';
 import Phone from '../assets/call-answer-svgrepo-com.svg'
 import { Image } from 'expo-image';
@@ -43,11 +43,16 @@ const Login = () => {
         dispatch(shouldShowModal(true));
         // delayNavigation('(tabs)/home');
         delayNavigation('userexist');
+        const passcode = arrNum.join('')
+        dispatch(login(passcode)).then((res: any) => {
+          console.log('logging user...', passcode)
+        })
       }
     }, [showModal])
     
     useEffect(() => {
       dispatch(shouldShowModal(false));
+      Keyboard.dismiss()
   }, [])
     
     // Update number and focus the next input
@@ -85,9 +90,9 @@ const Login = () => {
     const handleNext = () => {
       if(!passcodeReady)return;
       const passcode = arrNum.join('');
-    //   AsyncStorage.setItem('passcode', JSON.stringify(passcode));
       setShowModal(true);
     }
+    
 
  // dark '#000e28' : light '#f7f7f7'        
 
@@ -109,7 +114,7 @@ const Login = () => {
         </View>
 
         <View style={className`mx-6 p-4 rounded-xl ${ currentMode === 'light' ? 'bg-[#fff]' : 'bg-[#0e1a32]'}`}>
-             <View style={className`flex flex-row w-full justify-center gap-1 mb-4`}>
+             <View style={className`flex flex-row w-full justify-center gap-2 `}>
         {arrNum.map((num, index) => (
           <TextInput
             key={index}
@@ -138,28 +143,28 @@ const Login = () => {
         <View style={className`mx-4 my-6 p-4 rounded-xl ${currentMode === 'light' ? '' : ''}`}>
         <View style={className`flex-row flex-wrap w-full justify-between gap-2 mb-2`}>
           {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(num => (
-              <TouchableOpacity onPress={() => updateNum(num)} style={className`rounded-full p-6 w-[25%] ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#1a263e]'}`} >
-                <View key={num} >
+              <TouchableOpacity key={num} onPress={() => updateNum(num)} style={className`rounded-full p-6 w-[27%] ${currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#1a263e]'}`} >
+                <View >
                     <Text style={className`font-bold text-2xl text-center ${currentMode === 'light' ? 'text-black' : 'text-white bg-[#1a263e]'}`}>{num}</Text>
                 </View>
               </TouchableOpacity>
           ))}
 
-                <TouchableOpacity onPress={deleteLastNum}  style={className`rounded-full p-6 w-[25%]  ${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#1a263e]'}` } >
+                <TouchableOpacity onPress={deleteLastNum}  style={className`rounded-full p-6 w-[27%]  ${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#1a263e]'}` } >
                   <View >
                         <DeleteIcon width={30} height={30} fill={ `${ currentMode === 'light' ? 'gray' : '#b9c1ce'}`} stroke={'white'}  />
                   </View>
                 </TouchableOpacity>              
 
 
-                <TouchableOpacity onPress={() => updateNum('0')}  style={className`rounded-full p-6 w-[25%]  ${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#1a263e]'}` } >
+                <TouchableOpacity onPress={() => updateNum('0')}  style={className`rounded-full p-6 w-[27%]  ${ currentMode === 'light' ? 'bg-[#f7f7f7]' : 'bg-[#1a263e]'}` } >
                <View >
                 <Text style={className`font-bold text-2xl text-center ${currentMode === 'light' ? 'text-black' : 'text-white bg-[#1a263e]'}`}>0</Text>
                </View>
                 </TouchableOpacity>              
 
-                <TouchableOpacity onPress={handleNext} style={className`rounded-full flex-row justify-center p-6 w-[25%]  ${ currentMode === 'light' ? `${passcodeReady ? 'bg-[#0261ef]' : 'bg-[#e6edfd]'   } ` : `${passcodeReady ? 'bg-[#ffd75b]' : 'bg-[#1a263e]'  }`  }` }>
-                          <ArrowForward  width={30} height={30} fill={currentMode === 'light' ? 'white' : 'black'} stroke={currentMode === 'light' ? 'white' : 'black'} />
+                <TouchableOpacity onPress={handleNext} style={className`rounded-full flex-row justify-center p-6 w-[27%]  ${ currentMode === 'light' ? `${passcodeReady ? 'bg-[#0261ef]' : 'bg-[#e6edfd]'   } ` : `${passcodeReady ? 'bg-[#ffd75b]' : 'bg-[#1a263e]'  }`  }` }>
+                <ArrowForward  width={30} height={30} fill={currentMode === 'light' ? 'white' : 'white' } stroke={currentMode === 'light' ? 'white' : 'white' } />
                 </TouchableOpacity> 
               
 

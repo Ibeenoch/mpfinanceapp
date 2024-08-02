@@ -10,9 +10,10 @@ import { FlatList, GestureHandlerRootView } from 'react-native-gesture-handler'
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { BlurView } from 'expo-blur'
 import { useAppDispatch, useAppSelector } from '../features/hooks'
-import { selectUser, setIncome, shouldShowModal, } from '../features/auth/auth'
+import { selectUser, setEditIncome, setIncome, shouldShowModal, } from '../features/auth/auth'
 import { delayNavigation } from '../utils/useIntervalHook'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { occupations, salaryRanges } from '../utils/countries'
 
 interface Address {
     house: string;
@@ -42,10 +43,10 @@ interface Info {
 const Income = () => {
     //custom hooks
     const [selectedValue, setSelectedValue] = useState<string>(''); 
-    const [selectedIncome, setSelectedIncome] = useState<string>(''); 
-    const [selectedOccupation, setSelectedOccupation] = useState<string>(''); 
+    const { income, isEditIncome } = useAppSelector(selectUser);
+    const [selectedIncome, setSelectedIncome] = useState<string>(isEditIncome? income?.selectedIncome : ''); 
+    const [selectedOccupation, setSelectedOccupation] = useState<string>(isEditIncome? income?.selectedOccupation : ''); 
     const [incomeActive, setIncomeActive] = useState<boolean>(false);
-    const [showModal, setShowModal] = useState<boolean>(false);
     const [occupationActive, setOccupationActive] = useState<boolean>(false);
     const [btnActive, setBtnActive] = useState<boolean>(false);
     const [user, setUser] = useState<any>();
@@ -57,11 +58,14 @@ const Income = () => {
     const incomeModalRef = useRef<BottomSheetModal>(null);
     const occupationModalRef = useRef<BottomSheetModal>(null);
     const dispatch = useAppDispatch()
-    const { income } = useAppSelector(selectUser);
 
 
     useEffect(() => {
-        setBtnActive(false);
+        if(isEditIncome){
+            setBtnActive(true);
+        }else{
+            setBtnActive(false);
+        }
       dispatch(shouldShowModal(false));
   }, [])
 
@@ -108,84 +112,7 @@ const Income = () => {
 
 
 
-    const occupations = [
-        "Accountant",
-        "Actor",
-        "Architect",
-        "Artist",
-        "Athlete",
-        "Baker",
-        "Barber",
-        "Chef",
-        "Cleaner",
-        "Construction Worker",
-        "Consultant",
-        "Dentist",
-        "Designer",
-        "Doctor",
-        "Driver",
-        "Educator",
-        "Engineer",
-        "Farmer",
-        "Firefighter",
-        "Flight Attendant",
-        "Graphic Designer",
-        "Hairdresser",
-        "Historian",
-        "Insurance Agent",
-        "Journalist",
-        "Lawyer",
-        "Librarian",
-        "Mechanic",
-        "Nurse",
-        "Pharmacist",
-        "Photographer",
-        "Pilot",
-        "Plumber",
-        "Police Officer",
-        "Programmer",
-        "Real Estate Agent",
-        "Research Scientist",
-        "Salesperson",
-        "Secretary",
-        "Social Worker",
-        "Software Developer",
-        "Teacher",
-        "Therapist",
-        "Translator",
-        "Veterinarian",
-        "Waiter/Waitress",
-        "Web Developer",
-        "Writer"
-    ]
-
-
-   const salaryRanges = [
-            {
-                "range": "₦100,000 - ₦500,000"
-            },
-            {
-                "range": "₦500,001 - ₦1,000,000"
-            },
-            {
-                "range": "₦1,000,001 - ₦2,000,000"
-            },
-            {
-                "range": "₦2,000,001 - ₦5,000,000"
-            },
-            {
-                "range": "₦5,000,001 - ₦10,000,000"
-            },
-            {
-                "range": "₦10,000,001 - ₦20,000,000"
-            },
-            {
-                "range": "₦20,000,001 - ₦50,000,000"
-            },
-            {
-                "range": "₦50,000,001 and above"
-            }
-        ]
+   
     
     const closeIncomeModal = () => {
         setIncomeActive(false);
@@ -203,6 +130,7 @@ const Income = () => {
             };
             dispatch(setIncome(income))
             dispatch(shouldShowModal(true));
+            dispatch(setEditIncome(false));
             delayNavigation('attestation');
         }
     }
@@ -302,10 +230,6 @@ const Income = () => {
             <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${ btnActive ? `${currentMode === 'light' ? 'bg-[#0261ef]' : 'bg-[#ffd75b]'}`  :   `${currentMode === 'light' ? 'bg-[#e5e5e5]' : 'bg-[#19222c]'}` } py-4 px-4 flex-row items-center justify-center`}  >
                 <Text style={className` ${currentMode === 'light' ? `${btnActive ? 'text-white' : 'text-[#999999]'  }` : `${btnActive ? 'text-black' : 'text-[#675e3d]'  }` } text-sm font-semibold`}>Next</Text>
             </TouchableOpacity>
-
-        {/* <TouchableOpacity onPress={handleNext}  style={className`rounded-xl w-full ${getmode.backGroundColor}  py-6 px-4 flex-row items-center justify-center`}  >
-          <Text style={className`${ getmode.textColor} text-sm font-semibold`}>Next</Text>
-        </TouchableOpacity> */}
       </View>
 
       
